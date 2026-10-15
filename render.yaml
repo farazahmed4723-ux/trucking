@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: spn-trucking-preview
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 22.14.0
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_DEFAULT_USER
+        value: admin
+      - key: ADMIN_DEFAULT_PASS
+        value: SpnTrucking2026!Calgary#
