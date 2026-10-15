@@ -8,49 +8,23 @@ let DatabaseSync;
 try {
   ({ DatabaseSync } = require('node:sqlite'));
 } catch (e) {
-  console.warn('[DB_WARN] Native node:sqlite not available on this Node runtime:', e.message);
+  throw new Error('[DB_FATAL] Native node:sqlite is required. Please ensure Node.js is set to v22.x in your Vercel Project Settings.');
 }
 
-// In Vercel serverless functions, only /tmp is writable.
+// In Vercel serverless functions, only /tmp is writable. In local/container environments, use data/ directory.
 const DB_DIR = isVercel ? '/tmp' : (process.env.DB_DIR || path.join(__dirname, '..', 'data'));
 if (!fs.existsSync(DB_DIR)) {
-  try {
-    fs.mkdirSync(DB_DIR, { recursive: true });
-  } catch (err) {
-    console.warn('[DB_WARN] Could not create DB_DIR, falling back to /tmp:', err.message);
-  }
+  fs.mkdirSync(DB_DIR, { recursive: true });
 }
 
 const DB_FILE = isVercel ? path.join('/tmp', 'spn_trucking.db') : (process.env.DB_PATH || path.join(DB_DIR, 'spn_trucking.db'));
+const db = new DatabaseSync(DB_FILE);
 
-let db;
-if (DatabaseSync) {
-  db = new DatabaseSync(DB_FILE);
-  try {
-    db.exec('PRAGMA journal_mode = WAL;');
-    db.exec('PRAGMA foreign_keys = ON;');
-  } catch (e) {
-    // WAL mode pragma fallback for memory/restricted filesystems
-  }
-} else {
-  // Resilient memory mock if running on older node without native sqlite
-  const memoryStore = {
-    settings: new Map(),
-    services: [],
-    fleet: [],
-    promos: [],
-    quotes: [],
-    reviews: [],
-    admin: null
-  };
-  db = {
-    exec: (sql) => {},
-    prepare: (sql) => ({
-      get: (...args) => null,
-      all: (...args) => [],
-      run: (...args) => ({ changes: 1, lastInsertRowid: Date.now() })
-    })
-  };
+try {
+  db.exec('PRAGMA journal_mode = WAL;');
+  db.exec('PRAGMA foreign_keys = ON;');
+} catch (e) {
+  // WAL mode fallback for environments that disallow WAL on /tmp
 }
 
 // Initialize schema
