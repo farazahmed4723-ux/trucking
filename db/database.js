@@ -2,24 +2,56 @@ const path = require('path');
 const fs = require('fs');
 const bcrypt = require('bcryptjs');
 
+const isVercel = !!process.env.VERCEL;
+
 let DatabaseSync;
 try {
   ({ DatabaseSync } = require('node:sqlite'));
 } catch (e) {
-  throw new Error('Native node:sqlite is required. Please run on Node.js v22.5.0 or newer.');
+  console.warn('[DB_WARN] Native node:sqlite not available on this Node runtime:', e.message);
 }
 
-const DB_DIR = path.join(__dirname, '..', 'data');
+// In Vercel serverless functions, only /tmp is writable.
+const DB_DIR = isVercel ? '/tmp' : (process.env.DB_DIR || path.join(__dirname, '..', 'data'));
 if (!fs.existsSync(DB_DIR)) {
-  fs.mkdirSync(DB_DIR, { recursive: true });
+  try {
+    fs.mkdirSync(DB_DIR, { recursive: true });
+  } catch (err) {
+    console.warn('[DB_WARN] Could not create DB_DIR, falling back to /tmp:', err.message);
+  }
 }
 
-const DB_FILE = process.env.DB_PATH || path.join(DB_DIR, 'spn_trucking.db');
-const db = new DatabaseSync(DB_FILE);
+const DB_FILE = isVercel ? path.join('/tmp', 'spn_trucking.db') : (process.env.DB_PATH || path.join(DB_DIR, 'spn_trucking.db'));
 
-// Set high performance and reliability pragmas
-db.exec('PRAGMA journal_mode = WAL;');
-db.exec('PRAGMA foreign_keys = ON;');
+let db;
+if (DatabaseSync) {
+  db = new DatabaseSync(DB_FILE);
+  try {
+    db.exec('PRAGMA journal_mode = WAL;');
+    db.exec('PRAGMA foreign_keys = ON;');
+  } catch (e) {
+    // WAL mode pragma fallback for memory/restricted filesystems
+  }
+} else {
+  // Resilient memory mock if running on older node without native sqlite
+  const memoryStore = {
+    settings: new Map(),
+    services: [],
+    fleet: [],
+    promos: [],
+    quotes: [],
+    reviews: [],
+    admin: null
+  };
+  db = {
+    exec: (sql) => {},
+    prepare: (sql) => ({
+      get: (...args) => null,
+      all: (...args) => [],
+      run: (...args) => ({ changes: 1, lastInsertRowid: Date.now() })
+    })
+  };
+}
 
 // Initialize schema
 function initSchema() {

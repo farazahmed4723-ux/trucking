@@ -15,10 +15,15 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || 'spn-trucking-secret-key-2026-production';
 
-// Ensure uploads directory exists
-const UPLOADS_DIR = path.join(__dirname, 'uploads');
+// Ensure uploads directory exists (use /tmp in Vercel serverless environment)
+const isVercel = !!process.env.VERCEL;
+const UPLOADS_DIR = isVercel ? path.join('/tmp', 'uploads') : path.join(__dirname, 'uploads');
 if (!fs.existsSync(UPLOADS_DIR)) {
-  fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+  try {
+    fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+  } catch (err) {
+    console.warn('[UPLOAD_WARN] Could not create uploads dir:', err.message);
+  }
 }
 
 // Multer storage for secure file uploads
