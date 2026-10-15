@@ -1,0 +1,18 @@
+services:
+  spn-trucking:
+    build: .
+    container_name: spn_trucking_app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+      - APP_DOMAIN=https://spntrucking.ca
+      - JWT_SECRET=change-this-jwt-secret-key-32-chars-minimum
+      - ADMIN_DEFAULT_PASS=SPNAdmin2026!
+      - NOTIFICATION_EMAIL=stntruckingltd@gmail.com
+      - NOTIFICATION_PHONE=778-302-8803
+    volumes:
+      - ./data:/app/data
+      - ./uploads:/app/uploads

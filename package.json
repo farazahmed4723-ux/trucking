@@ -1,0 +1,27 @@
+{
+  "name": "spn-trucking-ltd",
+  "version": "1.0.0",
+  "description": "SPN Trucking Ltd. - Premium transportation, hauling and moving platform for Calgary, Alberta",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/api.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.8",
+    "express": "^5.3.0",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.4.0",
+    "nodemailer": "^10.1.1"
+  },
+  "devDependencies": {
+    "supertest": "^7.3.1"
+  }
+}

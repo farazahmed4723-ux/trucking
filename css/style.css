@@ -1,0 +1,2331 @@
+/* ===================================================================
+   INZMAM INC. — ELITE LUXURY CARBON & METALLIC GOLD DESIGN SYSTEM
+   Inspired by Elite Class Limousine (eliteclasslimo.ca)
+   Palette: Carbon Obsidian (#08080A), Luxe Gold (#F5A623 / #D4AF37),
+   Dark-950 (#050507), Dark-900 (#0D0E12), Dark-800 (#16171E), Pure White (#FFF)
+   =================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Carbon & Obsidian Dark Palette */
+  --bg-carbon:    #08080A;
+  --dark-950:     #050507;
+  --dark-900:     #0D0E12;
+  --dark-850:     #121318;
+  --dark-800:     #16171E;
+  --dark-750:     #1C1E26;
+  --dark-700:     #22242F;
+  --dark-600:     #2D303E;
+  --dark-500:     #3F4356;
+  --dark-border:  rgba(255, 255, 255, 0.08);
+  --dark-border-subtle: rgba(255, 255, 255, 0.05);
+
+  /* Elite Metallic Gold & Amber Accents */
+  --gold:         #F5A623;
+  --gold-light:   #F8BD5C;
+  --gold-dark:    #C68A1B;
+  --gold-metallic:#D4AF37;
+  --gold-10:      rgba(245, 166, 35, 0.10);
+  --gold-15:      rgba(245, 166, 35, 0.15);
+  --gold-20:      rgba(245, 166, 35, 0.20);
+  --gold-25:      rgba(245, 166, 35, 0.25);
+  --gold-40:      rgba(245, 166, 35, 0.40);
+  --gold-glow:    0 0 25px rgba(245, 166, 35, 0.25);
+  --gold-glow-lg: 0 0 40px rgba(245, 166, 35, 0.45);
+
+  /* Typography Colors */
+  --white:        #FFFFFF;
+  --text-primary: #FFFFFF;
+  --text-muted:   rgba(255, 255, 255, 0.72);
+  --text-subtle:  rgba(255, 255, 255, 0.48);
+  --text-faint:   rgba(255, 255, 255, 0.32);
+
+  /* Status Colors */
+  --green-500:    #10B981;
+  --green-bg:     rgba(16, 185, 129, 0.12);
+  --amber-500:    #F59E0B;
+  --amber-bg:     rgba(245, 158, 11, 0.12);
+
+  /* Typography Stack */
+  --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Shadows */
+  --shadow-sm:    0 2px 4px rgba(0, 0, 0, 0.4);
+  --shadow-md:    0 8px 16px -2px rgba(0, 0, 0, 0.6);
+  --shadow-lg:    0 16px 28px -4px rgba(0, 0, 0, 0.75);
+  --shadow-xl:    0 24px 48px -8px rgba(0, 0, 0, 0.85);
+  --shadow-gold:  0 8px 24px -4px rgba(245, 166, 35, 0.35);
+  --shadow-card:  0 10px 30px -5px rgba(0, 0, 0, 0.8), 0 0 1px 1px rgba(255, 255, 255, 0.05);
+
+  /* Radius */
+  --radius-sm:    6px;
+  --radius-md:    10px;
+  --radius-lg:    16px;
+  --radius-xl:    24px;
+  --radius-pill:  9999px;
+
+  /* Transitions */
+  --transition-fast:   0.15s ease;
+  --transition-normal: 0.25s ease;
+  --transition-slow:   0.4s ease;
+
+  /* Layout */
+  --container-max: 1240px;
+}
+
+/* ===================================================================
+   BASE & RESET
+   =================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-muted);
+  background-color: var(--bg-carbon);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  padding-bottom: 72px; /* Space for mobile sticky action bar */
+  position: relative;
+  min-height: 100vh;
+}
+
+/* FIXED CALGARY SKYLINE FULL-PAGE BACKDROP (ANCHORED UNDERNEATH WHILE SCROLLING) */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('../assets/calgary-skyline-luxury.jpg');
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  opacity: 0.44;
+  filter: contrast(1.22) brightness(0.95);
+  pointer-events: none;
+  z-index: 0;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* FIXED LUXURY GOLDEN AMBIENT & CARBON OBSIDIAN OVERLAY */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: 
+    radial-gradient(circle at 75% 20%, rgba(245, 166, 35, 0.12) 0%, transparent 55%),
+    radial-gradient(circle at 20% 70%, rgba(245, 166, 35, 0.08) 0%, transparent 50%),
+    linear-gradient(180deg, 
+      rgba(8, 8, 10, 0.86) 0%, 
+      rgba(8, 8, 10, 0.64) 30%, 
+      rgba(8, 8, 10, 0.70) 65%, 
+      rgba(5, 5, 7, 0.92) 100%
+    );
+  pointer-events: none;
+  z-index: 1;
+}
+
+#site-header,
+#main-content,
+#site-footer,
+#promo-banner-container,
+.mobile-bottom-bar,
+.hero-section,
+.custom-modal-backdrop,
+.custom-modal-card {
+  position: relative;
+  z-index: 2;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-bottom: 0;
+  }
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Accessibility Focus States */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* Skip Navigation Link */
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: 20px;
+  background: var(--gold);
+  color: var(--dark-950);
+  padding: 12px 20px;
+  z-index: 99999;
+  font-weight: 800;
+  border-radius: var(--radius-sm);
+  transition: top var(--transition-fast);
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: 15px;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Typography Utilities */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+h1 { font-size: clamp(2.3rem, 5.2vw, 3.6rem); }
+h2 { font-size: clamp(1.85rem, 3.8vw, 2.6rem); }
+h3 { font-size: clamp(1.35rem, 2.5vw, 1.75rem); }
+h4 { font-size: 1.2rem; }
+
+p {
+  margin-bottom: 1rem;
+}
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.text-gold {
+  color: var(--gold) !important;
+}
+
+.accent {
+  color: var(--gold);
+  text-shadow: 0 0 20px rgba(245, 166, 35, 0.3);
+}
+
+/* ===================================================================
+   SLIM PROMOTIONAL BANNER
+   =================================================================== */
+#promo-banner-container {
+  width: 100%;
+  position: relative;
+  z-index: 1001;
+}
+
+.promo-banner {
+  background: var(--dark-950);
+  color: var(--white);
+  padding: 0.65rem 0;
+  border-bottom: 1px solid rgba(245, 166, 35, 0.25);
+  font-size: 0.875rem;
+}
+
+.promo-banner--holiday {
+  background: linear-gradient(90deg, #050507 0%, #101117 50%, #050507 100%);
+  border-bottom: 1px solid var(--gold);
+  box-shadow: 0 2px 12px rgba(245, 166, 35, 0.15);
+}
+
+.promo-banner--student {
+  background: #08080A;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.4);
+}
+
+.promo-banner-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.promo-left {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.promo-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--gold-15);
+  color: var(--gold);
+  border: 1px solid var(--gold-40);
+  padding: 0.2rem 0.7rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.promo-banner--student .promo-pill {
+  background: rgba(56, 189, 248, 0.15);
+  color: #7DD3FC;
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.promo-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.7); }
+}
+
+.promo-message {
+  color: var(--white);
+  font-size: 0.88rem;
+}
+
+.promo-subnote {
+  color: var(--text-subtle);
+  font-size: 0.8rem;
+}
+
+.promo-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+
+.promo-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--gold);
+  color: var(--dark-950);
+  padding: 0.35rem 0.95rem;
+  border-radius: var(--radius-pill);
+  font-weight: 800;
+  font-size: 0.8rem;
+  box-shadow: 0 2px 10px rgba(245, 166, 35, 0.3);
+  transition: all var(--transition-fast);
+}
+
+.promo-cta-btn:hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+  box-shadow: var(--gold-glow);
+}
+
+.promo-toggle-sim {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.promo-toggle-sim:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--white);
+  border-color: var(--gold-40);
+}
+
+/* ===================================================================
+   STICKY HEADER & NAVIGATION (ELITE OBSIDIAN & GOLD)
+   =================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(8, 8, 10, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background-color var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.site-header.scrolled {
+  background: rgba(5, 5, 7, 0.96);
+  border-bottom: 1px solid rgba(245, 166, 35, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 78px;
+  gap: 1.5rem;
+}
+
+/* Brand Logo */
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+}
+
+.brand-symbol {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--dark-850);
+  border: 1px solid var(--gold-40);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  box-shadow: 0 0 15px rgba(245, 166, 35, 0.2);
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.brand-link:hover .brand-symbol {
+  box-shadow: var(--gold-glow);
+  border-color: var(--gold);
+  transform: scale(1.03);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.brand-title span {
+  color: var(--gold);
+}
+
+.brand-sub {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-subtle);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Desktop Navigation */
+.desktop-nav {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 0.25rem;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.6rem 0.95rem;
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 600;
+  font-size: 0.92rem;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.nav-link.active {
+  color: var(--gold);
+  background: var(--gold-10);
+  border: 1px solid var(--gold-20);
+}
+
+/* Dropdown Menu */
+.nav-item-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 290px;
+  background: var(--dark-900);
+  border: 1px solid rgba(245, 166, 35, 0.25);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(245, 166, 35, 0.15);
+  padding: 0.5rem;
+  display: none;
+  list-style: none;
+  z-index: 100;
+  margin-top: 0.4rem;
+  backdrop-filter: blur(25px);
+}
+
+.nav-item-dropdown:hover .nav-dropdown-menu,
+.nav-item-dropdown:focus-within .nav-dropdown-menu {
+  display: block;
+  animation: fadeInMenu 0.2s ease;
+}
+
+@keyframes fadeInMenu {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.nav-dropdown-item a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-md);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.nav-dropdown-item a:hover {
+  background: var(--gold-15);
+  color: var(--white);
+  padding-left: 1.15rem;
+}
+
+.nav-dropdown-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  background: var(--dark-800);
+  border: 1px solid var(--dark-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+/* Header CTAs */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.header-phone-btn {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--white);
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+@media (min-width: 768px) {
+  .header-phone-btn {
+    display: inline-flex;
+  }
+}
+
+.header-phone-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--gold-40);
+  color: var(--gold);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  border: 1px solid transparent;
+  min-height: 48px;
+}
+
+.btn-sm {
+  padding: 0.5rem 1.15rem;
+  font-size: 0.875rem;
+  min-height: 40px;
+}
+
+.btn-lg {
+  padding: 1rem 2.2rem;
+  font-size: 1.05rem;
+  min-height: 56px;
+}
+
+/* Primary Button: Elite Metallic Gold */
+.btn-primary {
+  background: var(--gold);
+  color: var(--dark-950);
+  box-shadow: var(--shadow-gold);
+}
+.btn-primary:hover {
+  background: var(--gold-light);
+  box-shadow: var(--gold-glow-lg);
+  transform: translateY(-2px);
+}
+
+/* Secondary Button: Carbon Luxury Glass */
+.btn-secondary {
+  background: var(--dark-850);
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+.btn-secondary:hover {
+  background: var(--dark-800);
+  border-color: var(--gold-40);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.btn-outline-white {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+}
+.btn-outline-white:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: var(--white);
+}
+
+/* Mobile Nav Toggle */
+.mobile-nav-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--dark-850);
+  border: 1px solid var(--dark-border);
+  border-radius: var(--radius-md);
+  color: var(--white);
+  cursor: pointer;
+}
+
+@media (min-width: 1024px) {
+  .mobile-nav-toggle {
+    display: none;
+  }
+}
+
+/* Mobile Drawer */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  max-width: 340px;
+  height: 100vh;
+  background: var(--dark-900);
+  border-left: 1px solid var(--dark-border);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+  z-index: 10000;
+  transition: right var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.mobile-drawer.open {
+  right: 0;
+}
+
+.mobile-drawer-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 5, 7, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-normal), visibility var(--transition-normal);
+}
+
+.mobile-drawer-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--dark-border);
+}
+
+.mobile-drawer-close {
+  background: transparent;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-nav-list {
+  list-style: none;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mobile-nav-list a {
+  display: block;
+  padding: 0.75rem 0.5rem;
+  font-weight: 600;
+  color: var(--white);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 1.05rem;
+}
+
+.mobile-drawer-footer {
+  margin-top: auto;
+  padding: 1.25rem;
+  border-top: 1px solid var(--dark-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* ===================================================================
+   STICKY MOBILE BOTTOM BAR (ELITE CARBON BAR)
+   =================================================================== */
+.mobile-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(8, 8, 10, 0.95);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.8);
+  border-top: 1px solid rgba(245, 166, 35, 0.25);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 999;
+}
+
+@media (min-width: 992px) {
+  .mobile-bottom-bar {
+    display: none;
+  }
+}
+
+.mobile-bottom-bar .btn {
+  flex: 1;
+  min-height: 48px;
+  font-size: 0.9rem;
+  padding: 0.6rem 0.5rem;
+}
+
+/* ===================================================================
+   HERO SECTION (LUXURY CARBON OVERLAY WITH GOLD HIGHLIGHTS)
+   =================================================================== */
+.hero-section {
+  position: relative;
+  background-color: transparent;
+  color: var(--white);
+  padding: clamp(3.5rem, 7vw, 6.5rem) 0 clamp(4rem, 8vw, 7rem);
+  overflow: hidden;
+}
+
+.hero-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 75% 25%, rgba(245, 166, 35, 0.08) 0%, transparent 60%),
+              linear-gradient(135deg, rgba(8, 8, 10, 0.5) 0%, rgba(13, 14, 18, 0.3) 50%, rgba(8, 8, 10, 0.55) 100%);
+  z-index: 1;
+}
+
+/* Top and Bottom Gold Hairline Dividers */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245, 166, 35, 0.4), transparent);
+  z-index: 3;
+}
+
+.hero-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245, 166, 35, 0.4), transparent);
+  z-index: 3;
+}
+
+.hero-bg-image {
+  display: none; /* Fixed full-page Calgary backdrop is active across all views */
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 992px) {
+  .hero-content {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+.hero-text {
+  max-width: 680px;
+}
+
+.hero-pill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--gold-10);
+  border: 1px solid var(--gold-25);
+  color: var(--gold);
+  padding: 0.35rem 0.95rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 800;
+  margin-bottom: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.hero-pill-tag span.flag {
+  color: var(--white);
+}
+
+.hero-title {
+  color: var(--white);
+  margin-bottom: 1.25rem;
+}
+
+.hero-title span.accent {
+  color: var(--gold);
+}
+
+.hero-subtitle {
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.hero-trust-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.hero-trust-icon {
+  color: var(--gold);
+}
+
+/* Hero Media / Floating Obsidian Glass Card */
+.hero-media-wrapper {
+  position: relative;
+}
+
+.hero-card-featured {
+  background: rgba(18, 19, 24, 0.85);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  color: var(--white);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9), 0 0 20px rgba(245, 166, 35, 0.15);
+  border: 1px solid rgba(245, 166, 35, 0.25);
+}
+
+.hero-card-img {
+  border-radius: var(--radius-lg);
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  margin-bottom: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-card-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.hero-card-badge {
+  background: var(--gold-15);
+  color: var(--gold);
+  border: 1px solid var(--gold-40);
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-pill);
+}
+
+.hero-card-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ===================================================================
+   SECTION COMMONS (LUXURY DARK THEME)
+   =================================================================== */
+.section {
+  padding: clamp(4rem, 6.5vw, 6rem) 0;
+  position: relative;
+  background-color: transparent;
+}
+
+.section-bg-slate {
+  background-color: rgba(13, 14, 18, 0.70);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.section-bg-navy {
+  background-color: rgba(5, 5, 7, 0.76);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: var(--white);
+  border-top: 1px solid rgba(245, 166, 35, 0.2);
+  border-bottom: 1px solid rgba(245, 166, 35, 0.2);
+}
+
+.section-bg-navy h2, 
+.section-bg-navy h3 {
+  color: var(--white);
+}
+
+.section-bg-navy p {
+  color: var(--text-muted);
+}
+
+.section-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 3.5rem;
+}
+
+.section-tag {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  margin-bottom: 1rem;
+  color: var(--white);
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+}
+
+/* ===================================================================
+   SERVICE CARDS (OBSIDIAN GLASS WITH GOLD BORDER GLOW)
+   =================================================================== */
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+}
+
+@media (min-width: 640px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.service-card {
+  background: rgba(18, 19, 24, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal), background var(--transition-normal);
+  position: relative;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(245, 166, 35, 0.2);
+  border-color: rgba(245, 166, 35, 0.45);
+}
+
+.service-card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-lg);
+  background: var(--dark-800);
+  border: 1px solid rgba(245, 166, 35, 0.25);
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.6rem;
+  transition: all var(--transition-fast);
+}
+
+.service-card:hover .service-card-icon {
+  background: var(--gold);
+  color: var(--dark-950);
+  box-shadow: var(--gold-glow);
+  transform: scale(1.05);
+}
+
+.service-card-title {
+  font-size: 1.35rem;
+  margin-bottom: 0.75rem;
+  color: var(--white);
+}
+
+.service-card-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.service-card-features {
+  list-style: none;
+  margin-bottom: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.service-card-features li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.service-card-features svg {
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.service-card-footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.service-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--gold);
+}
+
+.service-card:hover .service-card-link {
+  color: var(--gold-light);
+  transform: translateX(3px);
+}
+
+/* ===================================================================
+   FLEET CARDS (LUXURY CARBON WITH GOLD SPEC LABELS)
+   =================================================================== */
+.fleet-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .fleet-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .fleet-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.fleet-card {
+  background: rgba(18, 19, 24, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-normal);
+}
+
+.fleet-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(245, 166, 35, 0.2);
+  border-color: rgba(245, 166, 35, 0.45);
+}
+
+.fleet-img-wrap {
+  position: relative;
+  height: 220px;
+  background: var(--dark-900);
+  overflow: hidden;
+}
+
+.fleet-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.fleet-card:hover .fleet-img {
+  transform: scale(1.04);
+}
+
+.fleet-badge-range {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(8, 8, 10, 0.9);
+  backdrop-filter: blur(8px);
+  color: var(--gold);
+  border: 1px solid var(--gold-40);
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.fleet-body {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.fleet-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: var(--white);
+}
+
+.fleet-spec-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  margin-bottom: 1.25rem;
+  background: var(--dark-800);
+  padding: 0.9rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--dark-border);
+}
+
+.fleet-spec-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.fleet-spec-label {
+  color: var(--text-subtle);
+  font-weight: 500;
+}
+
+.fleet-spec-val {
+  color: var(--white);
+  font-weight: 700;
+  text-align: right;
+}
+
+.fleet-suitable {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+/* ===================================================================
+   WHY CHOOSE INZMAM INC.
+   =================================================================== */
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .why-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.why-card {
+  background: rgba(18, 19, 24, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 2.25rem 1.75rem;
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: left;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+  transition: all var(--transition-normal);
+}
+
+.why-card:hover {
+  border-color: rgba(245, 166, 35, 0.35);
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+}
+
+.why-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-lg);
+  background: var(--gold-10);
+  color: var(--gold);
+  border: 1px solid var(--gold-25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.why-card-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: var(--white);
+}
+
+.why-card-text {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ===================================================================
+   THREE-STEP PROCESS
+   =================================================================== */
+.process-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .process-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.process-step {
+  background: rgba(18, 19, 24, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2.25rem 2rem;
+  position: relative;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+}
+
+.process-step-num {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+  background: var(--gold);
+  color: var(--dark-950);
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--gold-glow);
+}
+
+.process-step-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: var(--white);
+}
+
+.process-step-desc {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ===================================================================
+   STUDENT DISCOUNT FEATURE CARD
+   =================================================================== */
+.student-feature-card {
+  background: linear-gradient(135deg, #101117 0%, #161822 50%, #0D0E14 100%);
+  color: var(--white);
+  border-radius: var(--radius-xl);
+  padding: clamp(2rem, 5vw, 3.5rem);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(245, 166, 35, 0.15);
+  border: 1px solid rgba(245, 166, 35, 0.3);
+}
+
+@media (min-width: 992px) {
+  .student-feature-card {
+    grid-template-columns: 1.2fr 0.8fr;
+  }
+}
+
+.student-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(56, 189, 248, 0.15);
+  color: #7DD3FC;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.student-title {
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+
+.student-desc {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.student-terms-box {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.student-terms-box strong {
+  color: var(--white);
+}
+
+/* ===================================================================
+   SERVICE AREA PREVIEW
+   =================================================================== */
+.areas-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .areas-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .areas-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.area-card {
+  background: rgba(18, 19, 24, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.75rem;
+  transition: all var(--transition-fast);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
+}
+
+.area-card:hover {
+  border-color: rgba(245, 166, 35, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
+}
+
+.area-card-title {
+  font-size: 1.15rem;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.area-badge {
+  font-size: 0.72rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+  background: var(--gold-15);
+  color: var(--gold);
+  border: 1px solid var(--gold-40);
+  font-weight: 800;
+  display: inline-block;
+  margin-bottom: 0.75rem;
+}
+
+.area-cities {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ===================================================================
+   QUOTE REQUEST FORM (LUXURY OBSIDIAN & GOLD)
+   =================================================================== */
+.quote-card {
+  background: rgba(18, 19, 24, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(245, 166, 35, 0.18);
+  border: 1px solid rgba(245, 166, 35, 0.32);
+  padding: clamp(1.75rem, 4vw, 3rem);
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.quote-intro {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--white);
+  margin-bottom: 0.4rem;
+}
+
+.form-label .req {
+  color: var(--gold);
+}
+
+.form-control, .form-select, .form-textarea {
+  width: 100%;
+  padding: 0.8rem 1.15rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--white);
+  background: var(--dark-800);
+  min-height: 48px;
+  color-scheme: dark;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-select option {
+  background: var(--dark-900);
+  color: var(--white);
+}
+
+.form-textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.form-control:focus, .form-select:focus, .form-textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.25);
+  background: var(--dark-750);
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .form-grid-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.conditional-panel {
+  display: none;
+  background: var(--dark-800);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.conditional-panel.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.panel-heading {
+  font-size: 1rem;
+  color: var(--gold);
+  font-weight: 800;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.photo-upload-zone {
+  border: 2px dashed rgba(245, 166, 35, 0.4);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.photo-upload-zone:hover {
+  border-color: var(--gold);
+  background: var(--gold-10);
+}
+
+.form-notice-box {
+  background: var(--dark-800);
+  border-left: 3px solid var(--gold);
+  padding: 0.85rem 1.15rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.form-feedback {
+  display: none;
+  padding: 1.25rem;
+  border-radius: var(--radius-md);
+  margin-top: 1.5rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.form-feedback.success {
+  display: block;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid #10B981;
+  color: #6EE7B7;
+}
+
+.form-feedback.demo-mode {
+  display: block;
+  background: rgba(245, 166, 35, 0.12);
+  border: 1px solid var(--gold);
+  color: var(--gold-light);
+}
+
+/* ===================================================================
+   OWNER VERIFICATION & UNCONFIRMED DETAIL FLAGS
+   =================================================================== */
+.owner-verify-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(245, 166, 35, 0.15);
+  color: var(--gold);
+  border: 1px solid var(--gold-40);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.owner-verify-box {
+  background: var(--dark-800);
+  border: 1px solid rgba(245, 166, 35, 0.3);
+  border-left: 4px solid var(--gold);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.owner-verify-box strong {
+  color: var(--white);
+}
+
+/* ===================================================================
+   FAQ ACCORDION (DARK GLASS & GOLD CHEVRONS)
+   =================================================================== */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  background: var(--dark-850);
+  overflow: hidden;
+  transition: all var(--transition-fast);
+}
+
+.faq-item:hover {
+  border-color: rgba(245, 166, 35, 0.35);
+}
+
+.faq-question {
+  width: 100%;
+  text-align: left;
+  padding: 1.25rem 1.5rem;
+  background: transparent;
+  border: none;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  gap: 1rem;
+}
+
+.faq-arrow {
+  transition: transform var(--transition-fast);
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.faq-item.active .faq-arrow {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-normal);
+  padding: 0 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 400px;
+  padding-bottom: 1.25rem;
+}
+
+/* ===================================================================
+   FOOTER (ELITE OBSIDIAN WITH GOLD TOP ACCENT)
+   =================================================================== */
+.site-footer {
+  background: rgba(5, 5, 7, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: var(--text-muted);
+  padding: clamp(3.5rem, 6vw, 5rem) 0 2rem;
+  border-top: 1px solid rgba(245, 166, 35, 0.25);
+  font-size: 0.9rem;
+  position: relative;
+}
+
+.site-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245, 166, 35, 0.5), transparent);
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  margin-bottom: 3.5rem;
+}
+
+@media (min-width: 768px) {
+  .footer-top {
+    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+  }
+}
+
+.footer-brand-title {
+  color: var(--white);
+  font-size: 1.35rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer-brand-title span {
+  color: var(--gold);
+}
+
+.footer-col-title {
+  color: var(--white);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+  margin-bottom: 1.25rem;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-links a:hover {
+  color: var(--gold);
+  padding-left: 4px;
+}
+
+.footer-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-muted);
+}
+
+.footer-bottom {
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-subtle);
+}
+
+@media (min-width: 768px) {
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.footer-legal-links {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.footer-checklist-btn {
+  background: var(--gold-15);
+  color: var(--gold);
+  border: 1px solid var(--gold-40);
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.footer-checklist-btn:hover {
+  background: var(--gold);
+  color: var(--dark-950);
+  box-shadow: var(--gold-glow);
+}
+
+/* ===================================================================
+   MODALS (HANDOVER CHECKLIST & SIMULATOR)
+   =================================================================== */
+.custom-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-normal), visibility var(--transition-normal);
+}
+
+.custom-modal.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.custom-modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 5, 7, 0.85);
+  backdrop-filter: blur(10px);
+}
+
+.custom-modal-card {
+  position: relative;
+  background: var(--dark-900);
+  border: 1px solid rgba(245, 166, 35, 0.3);
+  border-radius: var(--radius-xl);
+  max-width: 640px;
+  width: 100%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(245, 166, 35, 0.2);
+  z-index: 2;
+  overflow: hidden;
+}
+
+.custom-modal-header {
+  padding: 1.25rem 1.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.custom-modal-body {
+  padding: 1.5rem 1.75rem;
+  overflow-y: auto;
+  color: var(--text-muted);
+}
+
+.custom-modal-footer {
+  padding: 1rem 1.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--dark-950);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.6rem;
+  color: var(--text-subtle);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-close-btn:hover {
+  color: var(--white);
+}
+
+.sim-button-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+
+.sim-option-btn {
+  background: var(--dark-800);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.75rem 0.95rem;
+  border-radius: var(--radius-md);
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-fast);
+}
+
+.sim-option-btn:hover {
+  background: var(--gold-15);
+  border-color: var(--gold);
+}
+
+.sim-option-reset {
+  grid-column: span 2;
+  background: rgba(245, 166, 35, 0.15);
+  border-color: var(--gold-40);
+}
+
+.sim-opt-name {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--white);
+}
+
+.sim-opt-date {
+  font-size: 0.75rem;
+  color: var(--text-subtle);
+}
+
+/* ===================================================================
+   LOGISTICS SPOTLIGHT BANNER (HIGHWAY TRUCK IN MOTION)
+   =================================================================== */
+.logistics-spotlight-banner {
+  position: relative;
+  padding: clamp(5rem, 8vw, 7.5rem) 0;
+  overflow: hidden;
+  background-color: var(--dark-950);
+  border-top: 1px solid rgba(245, 166, 35, 0.25);
+  border-bottom: 1px solid rgba(245, 166, 35, 0.25);
+}
+
+.logistics-spotlight-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 30% 50%, rgba(245, 166, 35, 0.1) 0%, transparent 60%),
+              linear-gradient(90deg, rgba(8, 8, 10, 0.95) 0%, rgba(13, 14, 18, 0.82) 50%, rgba(8, 8, 10, 0.92) 100%);
+  z-index: 1;
+}
+
+.logistics-spotlight-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 60%;
+  z-index: 0;
+  opacity: 0.44;
+  filter: contrast(1.22) brightness(0.92);
+}
+
+.logistics-spotlight-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 840px;
+  margin: 0 auto;
+}
+
+.logistics-spotlight-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--gold-15);
+  border: 1px solid var(--gold-40);
+  color: var(--gold);
+  padding: 0.35rem 1.15rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.25rem;
+}
+
+.logistics-spotlight-title {
+  font-size: clamp(2rem, 4vw, 2.9rem);
+  color: var(--white);
+  font-weight: 900;
+  margin-bottom: 1.25rem;
+  line-height: 1.2;
+}
+
+.logistics-spotlight-desc {
+  font-size: 1.12rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 2.25rem;
+}
+
+.logistics-spotlight-stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(1.5rem, 5vw, 4rem);
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.spotlight-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.spotlight-stat-val {
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1.1;
+  text-shadow: 0 0 20px rgba(245, 166, 35, 0.35);
+}
+
+.spotlight-stat-lbl {
+  font-size: 0.78rem;
+  color: var(--text-subtle);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 0.35rem;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===================================================================
+   EXPERIENCE SECTION & OWNER VERIFICATION STYLES
+   =================================================================== */
+.experience-section {
+  background: radial-gradient(circle at 50% 0%, #111827 0%, #070A10 70%);
+  border-top: 1px solid rgba(212, 175, 55, 0.15);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+  padding: 5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .experience-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.experience-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: #D4AF37;
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+
+.experience-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+}
+
+.experience-title span {
+  background: linear-gradient(135deg, #FFF 20%, #D4AF37 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.experience-body {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1.5rem;
+}
+
+.experience-stats-card {
+  background: rgba(11, 17, 30, 0.8);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 16px;
+  padding: 2.25rem;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.experience-highlight-num {
+  font-family: var(--font-heading);
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #D4AF37;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 30px rgba(212, 175, 55, 0.35);
+}
+
+.experience-highlight-label {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 0.5rem;
+}
+
+.experience-notice-pill {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 1rem;
+}
+
+/* ===================================================================
+   TESTIMONIALS & REVIEWS SECTION
+   =================================================================== */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.testimonial-card {
+  background: #0B111E;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(212, 175, 55, 0.35);
+}
+
+/* Review Modal */
+.review-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.review-modal.open {
+  display: flex;
+}
+
+.review-modal-card {
+  background: #0B111E;
+  border: 1px solid #D4AF37;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 520px;
+  padding: 2rem;
+  position: relative;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
+}
+
+.review-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.75rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.review-modal-close:hover {
+  color: #FFF;
+}
+
