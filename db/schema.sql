@@ -1,5 +1,5 @@
--- SPN Trucking Ltd. Database Schema
--- Calgary, Alberta, Canada
+-- STN Trucking Ltd. Database Schema
+-- Surrey & Vancouver, British Columbia, Canada
 -- Built for SQLite with WAL mode and strict type adherence
 
 CREATE TABLE IF NOT EXISTS admin_users (
@@ -83,6 +83,9 @@ CREATE TABLE IF NOT EXISTS services (
     category TEXT NOT NULL, -- Moving, Trucking, Hauling, Property
     short_desc TEXT NOT NULL,
     icon TEXT,
+    image_url TEXT,
+    service_area TEXT,
+    confirmation_note TEXT,
     is_active INTEGER DEFAULT 1,
     display_order INTEGER DEFAULT 0,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -98,6 +101,18 @@ CREATE TABLE IF NOT EXISTS truck_fleet (
     description TEXT NOT NULL,
     image_url TEXT,
     is_active INTEGER DEFAULT 1,
+    display_order INTEGER DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS gallery_images (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    category TEXT NOT NULL, -- flatbed, small-trucks, long-haul, moving, junk-removal, garbage-removal, yard-cleanup, tools
+    image_url TEXT NOT NULL,
+    image_type TEXT NOT NULL DEFAULT 'verified_fleet', -- 'verified_fleet' or 'illustrative'
+    caption TEXT,
+    is_hero INTEGER DEFAULT 0,
     display_order INTEGER DEFAULT 0,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );

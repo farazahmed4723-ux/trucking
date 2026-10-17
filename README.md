@@ -1,69 +1,99 @@
-# SPN Trucking Ltd. — Production Web & Dispatch Platform
-### Calgary, Alberta, Canada
+# STN TRUCKING LTD. — Premium Transportation Platform
+### Surrey, Vancouver & Lower Mainland, British Columbia, Canada
 
 [![CI Suite](https://github.com/spn-trucking/website/actions/workflows/ci.yml/badge.svg)](https://github.com/spn-trucking/website/actions)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-gold.svg)](LICENSE)
 [![Node.js Version](https://img.shields.io/badge/Node.js-22%2B%20%7C%2024%2B-blue.svg)](https://nodejs.org)
 
-Official full-stack web and dispatch booking platform for **SPN Trucking Ltd.**, serving the Greater Calgary Region and Western Canadian transport corridors. Built with a high-end luxury dark aesthetic, responsive mobile-first layouts, parameter-protected SQLite storage, spam prevention, email/SMS dispatch routing, and a backoffice administrative control portal.
+Official full-stack web and dispatch booking platform for **STN TRUCKING LTD.**, serving Surrey, Vancouver, the Lower Mainland, and connecting British Columbia highway corridors. Built with a cinematic dark navy and gold aesthetic, responsive mobile-first layouts, parameter-protected SQLite storage, spam prevention, email/SMS dispatch routing, dynamic filterable vehicle galleries, and a secure backoffice administrative control portal.
 
 ---
 
 ## 1. Verified Business Details
 
-| Property | Verified Value | Policy & Notes |
+| Property | Verified Value | Policy & Operational Notes |
 | :--- | :--- | :--- |
-| **Legal Company Name** | **SPN Trucking Ltd.** | Registered in Alberta, Canada |
-| **Key Executive** | **Abbas**, Managing Director | Direct oversight of all dispatch operations |
-| **Dispatch Line** | **778-302-8803** | Clickable `tel:7783028803` integrated across site |
-| **Business Email** | **stntruckingltd@gmail.com** | Primary customer correspondence & quote routing |
-| **Primary Core Market** | **Calgary, Alberta, Canada** | NW, SW, NE, SE, Airdrie, Cochrane, Okotoks, Chestermere |
-| **Secondary Corridor** | **Lower Mainland & BC Corridor** | Scheduled linehaul & inter-provincial runs (by inquiry) |
-| **Industry Leadership** | **5+ Years Experience** | Attributed to Managing Director Abbas |
-| **Production Domain** | Configurable via `APP_DOMAIN` | Target domain pending final business registration |
+| **Legal Company Name** | **STN TRUCKING LTD.** | Operating in British Columbia, Canada |
+| **Key Executive** | **Abbas**, Managing Director | Direct oversight of dispatch, pricing, and client care |
+| **Direct Dispatch Line** | **778-302-8803** | Clickable `tel:7783028803` integrated across site |
+| **Official Email** | **stntruckingltd@gmail.com** | Primary correspondence, load manifests, and quote routing |
+| **Primary Core Market** | **Surrey, Vancouver, Lower Mainland, BC** | Surrey, Vancouver, Burnaby, Richmond, Delta, Langley, Coquitlam, Abbotsford |
+| **Secondary BC Corridors** | **British Columbia Highway Corridors** | Scheduled linehaul (Hwy 1, Hwy 5, Hwy 97) only upon dispatch confirmation |
+| **Industry Leadership** | **5+ Years Experience** | Attributed to verified industry experience of Abbas, Managing Director |
+| **Production Domain** | Configurable via `APP_DOMAIN` | Default target `https://spntrucking.ca` (configurable until selected) |
+
+> **Transparency Commitment:** No fabricated street addresses, fleet counts, insurance coverage amounts, awards, or fake testimonials are created. All customer reviews are authentic and subject to dispatch verification.
 
 ---
 
-## 2. Core Features & Capabilities
+## 2. Core Features & Architecture
 
-- **Luxury Dark Aesthetic:** Deep navy `#0B111E` & charcoal backgrounds, metallic gold accents (`#D4AF37`), Google Fonts (`Plus Jakarta Sans` & `Inter`), and high-resolution Calgary and highway imagery.
-- **Hero Directives:**
-  - **Exact Headline:** *“Your Load. Your Destination. We Deliver.”*
-  - **Exact Supporting Copy:** *“From Small Loads to Long Hauls, We Handle Your Moving, Hauling and Transportation Needs Across Calgary and Beyond.”*
+### Branding & Visual Identity
+- **Palette:** Deep navy (`#0B111E`), charcoal (`#161F30`), metallic gold (`#D4AF37`), slate accents, and crisp white.
+- **Typography:** Google Fonts (`Plus Jakarta Sans` & `Inter`) with responsive scaling and high-contrast accessibility.
+- **Cinematic Hero:** Features high-resolution Surrey/Vancouver bridge and skyline imagery (`assets/surrey-vancouver-skyline-hero.jpg`).
+  - **Headline:** *“Your Load. Your Destination. We Deliver.”*
+  - **Description:** *“From Small Loads to Long Hauls, We Handle Your Moving, Hauling and Transportation Needs Across Surrey, Vancouver, the Lower Mainland and Beyond.”*
   - **Hero Actions:** *Get a Free Quote*, *Call Us Now (778-302-8803)*, *Explore Our Services*.
-- **Comprehensive Service Divisions:**
-  1. Residential Moving (`services-residential-moving.html`)
-  2. Commercial Moving (`services-commercial-moving.html`)
-  3. Industrial Moving (`services-industrial-moving.html`)
-  4. Small Load Transportation (`services-small-load-transportation.html`)
-  5. Long-Haul Trucking up to 53 ft (`services-trucking.html`)
-  6. Flatbed Trucking (`services-flatbed-trucking.html`)
-  7. Refrigerated & Beverage Transportation (`services-refrigerated-trucking.html`)
-  8. Junk Removal (`services-junk-removal.html`)
-  9. Garbage Removal (`services-garbage-removal.html`)
-  10. Gardening & Yard Cleanup (`services-gardening.html`)
-  11. Tools & Equipment Supply (`services-tool-services.html`)
-- **Promotional Engines:**
-  - **10% Calgary Student Discount:** Year-round discount for students at U of C, MRU, SAIT, and Bow Valley College.
-  - **10% Statutory Holiday Discount:** Automatic detection engine for Canadian & Alberta holidays (Family Day, Victoria Day, Canada Day, Heritage Day, Labour Day, Thanksgiving, etc.).
-- **Full-Stack Quote & Booking Engine:**
-  - Unique sequential reference generation (`SPN-2026-XXXX`).
-  - Secure photo uploads (JPEG, PNG, WEBP, PDF up to 5MB).
-  - Honeypot spam defense + IP-based rate limiting (max 6 requests per 10 mins).
-  - Duplicate detection preventing repeated clicks.
-  - Status management: `PENDING`, `HOLD` (with expiration countdown), `APPROVED`, `REJECTED`, `RELEASED`.
-  - Comprehensive audit trail recording every state change.
-- **Authentic Customer Reviews System:**
-  - Strict authenticity policy: zero fake review generation or fabricated counts.
-  - Public submission modal that queues feedback into the admin moderation panel.
-  - Public display renders approved reviews only.
-- **Complete Admin Portal (`/admin`):**
-  - Protected by Bcrypt password verification and JWT token authorization.
-  - Real-time KPI counters (Total Quotes, Pending, Active Holds, Approved Bookings).
-  - Quote viewer with customer details, photos, status change buttons, and internal notes.
-  - Review moderation (Approve, Hide, Delete, Add Verified).
-  - Site Settings and SEO metadata editor.
-  - Notification delivery logs and system audit trail.
+
+### Filterable Vehicle & Service Image Gallery
+- Sliced from high-resolution fleet reference cards (`assets/fleet/`):
+  1. `fleet_10ft_truck.jpg` — 10 ft Small Truck
+  2. `fleet_15ft_truck.jpg` — 15 ft Medium Truck
+  3. `fleet_20_26ft_truck.jpg` — 20–26 ft Heavy Box Truck
+  4. `fleet_53ft_long_haul.jpg` — 53 ft Long-Haul Tractor-Trailer
+  5. `fleet_flatbed_truck.jpg` — Flatbed Truck
+  6. `fleet_refrigerated_truck.jpg` — Refrigerated Truck
+  7. `fleet_insulated_truck.jpg` — Insulated Cargo Truck
+  8. `fleet_beverage_transport.jpg` — Beverage Transportation
+  9. `fleet_junk_removal_truck.jpg` — Junk Removal Dump Truck
+  10. `fleet_garbage_removal.jpg` — Garbage Removal Vehicle
+  11. `fleet_residential_moving.jpg` — Residential Moving Truck
+  12. `fleet_commercial_moving.jpg` — Commercial Moving Truck
+  13. `fleet_industrial_moving.jpg` — Industrial Moving Truck
+  14. `fleet_gardening_yard_cleanup.jpg` — Gardening & Yard Cleanup
+  15. `fleet_tools_equipment.jpg` — Tools & Equipment Supply
+- **8 Gallery Category Filters:** All Services, Flatbed Trucks, Small Trucks, Long-Haul Trucks, Moving, Junk Removal, Garbage Removal, Yard Cleanup.
+- **Interactive Lightbox:** Full-screen zoom modal with image captions and distinction between verified fleet references and illustrative category assets.
+
+### Comprehensive Service Divisions
+1. **Flatbed Trucking** (`services-flatbed-trucking.html`): Medium & heavy-duty flatbeds, construction lumber, steel, pipe.
+2. **Small Load Transportation** (`services-small-load-transportation.html`): 10'–15' trucks, furniture, appliances, pallet courier.
+3. **Long-Haul Transportation** (`services-trucking.html`): Highway tractor-trailers up to 53 ft connecting BC corridors.
+4. **Insulated & Refrigerated Transportation** (`services-refrigerated-trucking.html`): Temperature-controlled freight (*subject to confirmed unit availability*).
+5. **Beverage Transportation** (`services-beverage-transportation.html`): Palletized beverage freight (*advertised upon business confirmation*).
+6. **Junk Removal** (`services-junk-removal.html`): Pickup and dump-body trucks, household junk, mattresses, estate cleanouts.
+7. **Garbage Removal** (`services-garbage-removal.html`): Commercial & residential waste carting to authorized transfer stations.
+8. **Residential Moving** (`services-residential-moving.html`): House, apartment, and condo relocations with blankets, dollies, and floor protection.
+9. **Commercial & Industrial Moving** (`services-commercial-moving.html`, `services-industrial-moving.html`): Office relocations and light machinery (*on confirmation*).
+10. **Gardening & Yard Cleanup** (`services-gardening.html`): Green waste, storm branches, leaf bagging, composting carting.
+11. **Tools & Equipment Supply** (`services-tool-services.html`): Dollies, ramps, straps (*rentals subject to confirmation*).
+
+### Full-Stack Quote & Booking Engine
+- **Unique Reference Numbers:** Automatically generated format `STN-2026-XXXX`.
+- **Database Backed:** Saved into SQLite database under `PENDING` review status (quotes are never automatically confirmed).
+- **Validation & Spam Defense:**
+  - Client and server-side validation.
+  - Hidden honeypot field (`website_hp`) silently trapping automated bots.
+  - IP-based rate limiting (max 6 quote requests per 10 minutes).
+  - Secure file uploads (JPEG, PNG, WEBP, PDF up to 10MB) stored in `/uploads`.
+  - Duplicate submission lockout preventing double-clicks.
+
+### Promotions Engine
+- **10% Student Discount:** Valid for BC post-secondary students (UBC, SFU, BCIT, KPU, Langara, Douglas College) upon presentation of student ID.
+- **10% Statutory Holiday Discount:** Dynamic Pacific Time (`America/Vancouver`) calculation for BC statutory holidays (Family Day, Victoria Day, Canada Day, BC Day, Labour Day, National Day for Truth & Reconciliation, Thanksgiving, Remembrance Day, Christmas).
+
+### Admin Backoffice Portal (`/admin`)
+- **Protected by:** Bcrypt hashing, secure HTTP-only cookies/JWT bearer tokens, audit logging.
+- **8 Dedicated Modules:**
+  1. **Quotes & Bookings:** Filter by status (`ALL`, `PENDING`, `HOLD`, `APPROVED`, `REJECTED`, `RELEASED`), search by customer or reference, apply 48-hour temporary holds, add internal dispatch notes.
+  2. **Services Management:** Real-time editing of service titles, descriptions, icons, image URLs, service area designations, and confirmation notes.
+  3. **Fleet Specifications:** Update truck dimensions, payload capacities, and display order.
+  4. **Gallery & Hero Management:** Upload and manage gallery imagery, toggle hero status, flag verified fleet vs illustrative imagery.
+  5. **Promotions:** Configure discount percentages, active terms, and promotional banners.
+  6. **Settings & Local SEO:** Edit core contact info, company description, and target search phrases.
+  7. **Customer Reviews Moderation:** Approve, feature, or remove submitted reviews.
+  8. **Audit Trail & Notifications:** Inspect chronological logs of every admin status transition and dispatch notification.
 
 ---
 
@@ -71,22 +101,22 @@ Official full-stack web and dispatch booking platform for **SPN Trucking Ltd.**,
 
 - **Runtime:** Node.js v22+ or v24+
 - **Backend Framework:** Express.js 5
-- **Database:** SQLite via Node.js native `DatabaseSync` (zero compilation, WAL mode, ACID compliant)
+- **Database Engine:** SQLite via Node.js built-in `node:sqlite` (`DatabaseSync` - zero compilation, WAL mode, parameter-bound queries)
 - **Security:** Helmet, CORS, Multer, Bcrypt.js, JsonWebToken
 - **Notifications:** Nodemailer (SMTP) & Twilio REST API
-- **Testing:** Node.js native test runner (`node --test`) & Supertest
+- **Testing:** Node.js native test runner (`node --test test/api.test.js`) & Supertest
 
 ---
 
-## 4. Quick Start & Local Setup
+## 4. Local Setup & Development
 
 ### Prerequisites
 - Node.js v22.5.0+ or v24+
 - npm v10+
 
-### Installation Steps
+### Steps
 
-1. **Clone the repository:**
+1. **Clone repository:**
    ```bash
    git clone https://github.com/spn-trucking/website.git
    cd website
@@ -101,92 +131,97 @@ Official full-stack web and dispatch booking platform for **SPN Trucking Ltd.**,
    ```bash
    cp .env.example .env
    ```
-   *Edit `.env` to configure your admin password, JWT secret, and notification credentials.*
-
-4. **Run automated test suite:**
-   ```bash
-   npm test
+   Edit `.env` to provide secure secrets:
+   ```env
+   PORT=3000
+   NODE_ENV=development
+   APP_DOMAIN=http://localhost:3000
+   JWT_SECRET=super-secret-jwt-key-min-32-chars-long
+   ADMIN_DEFAULT_USER=admin
+   ADMIN_DEFAULT_PASS=SPNAdmin2026!
    ```
-   *Verifies health endpoint, quote validation, duplicate detection, honeypot, authentication, and status workflow.*
 
-5. **Start development/production server:**
+4. **Run database migrations (automatic on server start):**
+   ```bash
+   node -e "require('./db/database')"
+   ```
+
+5. **Start development server:**
    ```bash
    npm start
    ```
-   The site will be live at:
-   - **Public Site:** [http://localhost:3000](http://localhost:3000)
-   - **Admin Backoffice:** [http://localhost:3000/admin](http://localhost:3000/admin)
-   - **Default Admin Username:** `admin`
-   - **Default Admin Password:** Value of `ADMIN_DEFAULT_PASS` in `.env` (default: `SPNAdmin2026!`)
+   Navigate to `http://localhost:3000` (Public site) or `http://localhost:3000/admin` (Admin dashboard).
 
 ---
 
-## 5. Environment Variables Guide
+## 5. Automated Testing
 
-| Variable | Description | Example Value |
-| :--- | :--- | :--- |
-| `PORT` | Listening server port | `3000` |
-| `NODE_ENV` | Application environment mode | `production` |
-| `APP_DOMAIN` | Production base URL for canonical tags & sitemap | `https://spntrucking.ca` |
-| `JWT_SECRET` | 32+ character key for signing admin session tokens | `your-secure-random-jwt-key` |
-| `ADMIN_DEFAULT_USER` | Initial admin username (seeded on first run) | `admin` |
-| `ADMIN_DEFAULT_PASS` | Initial admin password (seeded on first run) | `YourSecurePassword2026!` |
-| `DB_PATH` | Path to persistent SQLite database | `./data/spn_trucking.db` |
-| `NOTIFICATION_EMAIL` | Destination email for new quote alerts | `stntruckingltd@gmail.com` |
-| `NOTIFICATION_PHONE` | Destination SMS line for urgent alerts | `778-302-8803` |
-| `SMTP_HOST` | Outgoing SMTP mail server | `smtp.gmail.com` |
-| `SMTP_PORT` | SMTP port | `587` |
-| `SMTP_USER` | SMTP username | `stntruckingltd@gmail.com` |
-| `SMTP_PASS` | SMTP App Password (from Google Account) | `xxxx-xxxx-xxxx-xxxx` |
-| `TWILIO_ACCOUNT_SID` | Optional: Twilio Account SID for SMS | `ACxxxxxxxxxxxxxxxxxxxxxxxxxxxx` |
-| `TWILIO_AUTH_TOKEN` | Optional: Twilio Auth Token | `xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx` |
-| `TWILIO_PHONE_NUMBER`| Optional: Twilio originating number | `+17783028803` |
+Run the automated test suite covering health checks, quote validation, honeypot mitigation, review moderation, admin authentication, CRUD endpoints, and dynamic SEO sitemaps:
 
-*Note on Notifications: If SMTP or Twilio credentials are not set, the platform will continue running normally. New quote requests will be logged in `notifications_log` with status `PENDING_CONFIGURATION` without crashing or falsely claiming external delivery.*
+```bash
+npm test
+```
+*or directly:*
+```bash
+node --test test/api.test.js
+```
 
 ---
 
-## 6. Production Deployment Instructions
+## 6. Local SEO & Optimization
 
-### Option A: Turnkey Docker Deployment
-1. Build and run via Docker Compose:
-   ```bash
-   docker compose up -d --build
-   ```
-2. Your persistent data will be saved in `./data` and uploaded media in `./uploads`.
+Optimized for target BC search phrases:
+- *moving company Surrey*
+- *residential movers Vancouver*
+- *commercial moving BC*
+- *small load delivery Surrey*
+- *flatbed trucking BC*
+- *long haul trucking British Columbia*
+- *junk removal Surrey*
+- *junk removal Vancouver*
+- *garbage removal Lower Mainland*
+- *yard cleanup Surrey*
 
-### Option B: Cloud Hosting (Render, Railway, DigitalOcean App Platform)
-1. Link your GitHub repository to Render or Railway.
-2. Select **Node** environment.
-3. Set **Build Command:** `npm install`
-4. Set **Start Command:** `node server.js`
-5. Attach a persistent disk mapped to `/app/data` and `/app/uploads` so quotes and uploaded images survive re-deploys.
-6. Configure the Environment Variables from your `.env` file in the hosting dashboard.
-
-### Option C: Connecting Custom Domain & SSL
-1. In your domain registrar (e.g., Cloudflare, GoDaddy, Namecheap):
-   - Add a `CNAME` record pointing `www` to your cloud service domain (e.g. `spn-trucking.onrender.com`).
-   - Add an `A` record pointing root `@` to the provided IP address.
-2. In your hosting platform settings, add `spntrucking.ca` and enable automatic Let's Encrypt SSL.
-3. Update `APP_DOMAIN=https://spntrucking.ca` in your environment variables.
+Dynamic & static endpoints:
+- Sitemap: `/sitemap.xml` (includes all 17 public pages)
+- Robots: `/robots.txt` (allows search crawlers, protects `/admin` and `/api/`)
+- Structured Data: `LocalBusiness` / `AutomotiveBusiness` schema with verified contact info.
 
 ---
 
-## 7. Google Search Console & SEO Checklist
+## 7. Deployment Instructions
 
-1. **Verify Site in Google Search Console:**
-   - Log into [Google Search Console](https://search.google.com/search-console).
-   - Add property `https://spntrucking.ca`.
-   - Choose DNS TXT record verification or HTML meta tag verification.
-2. **Submit Sitemap:**
-   - Go to **Sitemaps** in Google Search Console.
-   - Enter `sitemap.xml` and submit (dynamically served at `https://spntrucking.ca/sitemap.xml`).
-3. **Structured Data Validation:**
-   - Test `index.html` via the [Google Rich Results Test](https://search.google.com/test/rich-results) to verify `MovingCompany` schema.
+### Option A: Render.com (Recommended Full-Stack)
+1. Link your GitHub repository in the Render dashboard.
+2. Select **Web Service**, Node runtime.
+3. Configure settings via `render.yaml` or manually:
+   - Build Command: `npm install`
+   - Start Command: `npm start`
+4. Set Environment Variables:
+   - `NODE_ENV`: `production`
+   - `JWT_SECRET`: (generated random 32+ char key)
+   - `ADMIN_DEFAULT_PASS`: (strong password)
+   - `APP_DOMAIN`: `https://your-custom-domain.ca`
+   - `SMTP_USER`, `SMTP_PASS`, `NOTIFICATION_EMAIL`
+
+### Option B: Docker / Container
+Build and run the containerized application:
+```bash
+docker build -t spn-trucking .
+docker run -d -p 3000:3000 -v $(pwd)/data:/app/data --name spn-trucking-app spn-trucking
+```
 
 ---
 
-## 8. License & Confidentiality
+## 8. Credentials & Admin Access
 
-© 2026 SPN Trucking Ltd. All rights reserved. Registered in Alberta, Canada.  
-Proprietary software developed exclusively for SPN Trucking Ltd.
+- **Admin Portal URL:** `/admin`
+- **Default Username:** `admin` (or `ADMIN_DEFAULT_USER` in `.env`)
+- **Default Password:** Set via `ADMIN_DEFAULT_PASS` (default fallback `SPNAdmin2026!`)
+
+---
+
+## 9. License & Integrity
+
+© 2026 STN TRUCKING LTD. All rights reserved.
+Operating in British Columbia, Canada.

@@ -4,7 +4,7 @@ const request = require('supertest');
 const app = require('../server');
 const { db } = require('../db/database');
 
-test('SPN Trucking API Suite', async (t) => {
+test('STN Trucking API Suite', async (t) => {
   let adminToken = '';
   let createdQuoteId = null;
   let createdRefId = '';
@@ -13,15 +13,15 @@ test('SPN Trucking API Suite', async (t) => {
     const res = await request(app).get('/api/health');
     assert.equal(res.status, 200);
     assert.equal(res.body.status, 'UP');
-    assert.equal(res.body.company, 'SPN Trucking Ltd.');
-    assert.equal(res.body.market, 'Calgary, AB');
+    assert.equal(res.body.company, 'STN Trucking Ltd.');
+    assert.equal(res.body.market, 'Surrey & Vancouver, BC');
   });
 
   await t.test('2. Public Site Configuration', async () => {
     const res = await request(app).get('/api/config');
     assert.equal(res.status, 200);
     assert.equal(res.body.success, true);
-    assert.equal(res.body.settings.company_name, 'SPN Trucking Ltd.');
+    assert.equal(res.body.settings.company_name, 'STN Trucking Ltd.');
     assert.equal(res.body.settings.contact_phone, '778-302-8803');
     assert.equal(res.body.settings.contact_email, 'stntruckingltd@gmail.com');
     assert.ok(Array.isArray(res.body.services));
@@ -29,7 +29,17 @@ test('SPN Trucking API Suite', async (t) => {
     assert.ok(Array.isArray(res.body.fleet));
   });
 
-  await t.test('3. Quote Validation - Missing Required Fields', async () => {
+  await t.test('3. Public Gallery Endpoint', async () => {
+    const res = await request(app).get('/api/gallery');
+    assert.equal(res.status, 200);
+    assert.equal(res.body.success, true);
+    assert.ok(Array.isArray(res.body.images));
+    assert.ok(res.body.images.length >= 10);
+    const flatbeds = res.body.images.filter(img => img.category === 'flatbed');
+    assert.ok(flatbeds.length >= 1);
+  });
+
+  await t.test('4. Quote Validation - Missing Required Fields', async () => {
     const res = await request(app)
       .post('/api/quotes')
       .send({
@@ -40,33 +50,33 @@ test('SPN Trucking API Suite', async (t) => {
     assert.match(res.body.error, /fill in all required fields/i);
   });
 
-  await t.test('4. Quote Validation - Invalid Email', async () => {
+  await t.test('5. Quote Validation - Invalid Email', async () => {
     const res = await request(app)
       .post('/api/quotes')
       .send({
         fullName: 'Test User',
-        phone: '403-555-0199',
+        phone: '778-555-0199',
         email: 'invalid-email-string',
         serviceCategory: 'residential-moving',
-        loadDescription: '3-bedroom townhouse moving to SW Calgary'
+        loadDescription: '3-bedroom townhouse moving to Surrey, BC'
       });
     assert.equal(res.status, 400);
     assert.equal(res.body.success, false);
     assert.match(res.body.error, /valid email address/i);
   });
 
-  await t.test('5. Quote Submission - Successful Registration', async () => {
+  await t.test('6. Quote Submission - Successful Registration', async () => {
     const uniqueEmail = `test.client.${Date.now()}@example.com`;
     const res = await request(app)
       .post('/api/quotes')
       .send({
         fullName: 'Alexander Smith',
-        phone: '403-555-1234',
+        phone: '778-302-8803',
         email: uniqueEmail,
         serviceCategory: 'residential-moving',
         jobType: 'residential',
-        pickupLocation: 'Downtown Calgary, 4th Ave SW',
-        dropoffLocation: 'Killarney, Calgary',
+        pickupLocation: 'Surrey Central, 104 Ave',
+        dropoffLocation: 'Downtown Vancouver, Robson St',
         serviceDate: '2026-11-01',
         serviceTime: '09:00',
         truckSize: '16-24ft',
@@ -77,14 +87,14 @@ test('SPN Trucking API Suite', async (t) => {
 
     assert.equal(res.status, 201);
     assert.equal(res.body.success, true);
-    assert.match(res.body.ref_id, /^SPN-\d{4}-\d{4}$/);
+    assert.match(res.body.ref_id, /^STN-\d{4}-\d{4}$/);
     assert.equal(res.body.quote.status, 'PENDING');
 
     createdQuoteId = res.body.quote.id;
     createdRefId = res.body.ref_id;
   });
 
-  await t.test('6. Spam Protection - Honeypot Check', async () => {
+  await t.test('7. Spam Protection - Honeypot Check', async () => {
     const res = await request(app)
       .post('/api/quotes')
       .send({
@@ -97,31 +107,28 @@ test('SPN Trucking API Suite', async (t) => {
       });
 
     assert.equal(res.status, 200);
-    // Silent mitigation returns fake ref
-    assert.match(res.body.ref_id, /SPN-\d{4}-0000/);
+    assert.match(res.body.ref_id, /STN-\d{4}-0000/);
   });
 
-  await t.test('7. Customer Review Submission & Public Filtering', async () => {
-    // Submit a review
+  await t.test('8. Customer Review Submission & Public Filtering', async () => {
     const resSubmit = await request(app)
       .post('/api/reviews')
       .send({
         customerName: 'Marcus Tremblay',
         serviceName: 'Residential Moving',
         rating: 5,
-        reviewText: 'Abbas and his crew arrived promptly in Calgary and handled our fragile furniture with utmost care!'
+        reviewText: 'Abbas and his crew arrived promptly in Surrey and handled our fragile furniture with utmost care!'
       });
     assert.equal(resSubmit.status, 200);
     assert.equal(resSubmit.body.success, true);
 
-    // Verify unapproved reviews are NOT displayed publicly
     const resPublic = await request(app).get('/api/reviews');
     assert.equal(resPublic.status, 200);
     const unapproved = resPublic.body.reviews.find(r => r.customer_name === 'Marcus Tremblay');
     assert.equal(unapproved, undefined, 'Unapproved review should not appear publicly');
   });
 
-  await t.test('8. Admin Authentication - Invalid Password', async () => {
+  await t.test('9. Admin Authentication - Invalid Password', async () => {
     const res = await request(app)
       .post('/api/admin/login')
       .send({
@@ -132,12 +139,12 @@ test('SPN Trucking API Suite', async (t) => {
     assert.equal(res.body.success, false);
   });
 
-  await t.test('9. Admin Authentication - Valid Login', async () => {
+  await t.test('10. Admin Authentication - Valid Login', async () => {
     const res = await request(app)
       .post('/api/admin/login')
       .send({
         username: 'admin',
-        password: process.env.ADMIN_DEFAULT_PASS || 'SPNAdmin2026!'
+        password: process.env.ADMIN_DEFAULT_PASS || 'STNAdmin2026!'
       });
     assert.equal(res.status, 200);
     assert.equal(res.body.success, true);
@@ -145,7 +152,7 @@ test('SPN Trucking API Suite', async (t) => {
     adminToken = res.body.token;
   });
 
-  await t.test('10. Admin Metrics & Quotes List Access', async () => {
+  await t.test('11. Admin Metrics & Quotes List Access', async () => {
     const resMetrics = await request(app)
       .get('/api/admin/metrics')
       .set('Authorization', `Bearer ${adminToken}`);
@@ -159,10 +166,9 @@ test('SPN Trucking API Suite', async (t) => {
     assert.ok(Array.isArray(resQuotes.body.quotes));
   });
 
-  await t.test('11. Admin Quote Status Workflow - Temporary Hold & Approval', async () => {
+  await t.test('12. Admin Quote Status Workflow - Temporary Hold & Approval', async () => {
     assert.ok(createdQuoteId, 'createdQuoteId must exist');
 
-    // 1. Place temporary hold for 48 hours
     const resHold = await request(app)
       .patch(`/api/admin/quotes/${createdQuoteId}/status`)
       .set('Authorization', `Bearer ${adminToken}`)
@@ -175,7 +181,6 @@ test('SPN Trucking API Suite', async (t) => {
     assert.equal(resHold.body.status, 'HOLD');
     assert.ok(resHold.body.holdExpiresAt);
 
-    // 2. Approve quote
     const resApprove = await request(app)
       .patch(`/api/admin/quotes/${createdQuoteId}/status`)
       .set('Authorization', `Bearer ${adminToken}`)
@@ -186,7 +191,6 @@ test('SPN Trucking API Suite', async (t) => {
     assert.equal(resApprove.status, 200);
     assert.equal(resApprove.body.status, 'APPROVED');
 
-    // 3. Inspect audit trail for quote
     const resDetails = await request(app)
       .get(`/api/admin/quotes/${createdQuoteId}`)
       .set('Authorization', `Bearer ${adminToken}`);
@@ -195,11 +199,64 @@ test('SPN Trucking API Suite', async (t) => {
     assert.ok(resDetails.body.auditTrail.length >= 3);
   });
 
-  await t.test('12. SEO Dynamic Endpoints', async () => {
+  await t.test('13. Admin Services Management Endpoint', async () => {
+    const resList = await request(app)
+      .get('/api/admin/services')
+      .set('Authorization', `Bearer ${adminToken}`);
+    assert.equal(resList.status, 200);
+    assert.equal(resList.body.success, true);
+    assert.ok(resList.body.services.length >= 10);
+
+    const firstService = resList.body.services[0];
+    const resUpdate = await request(app)
+      .put(`/api/admin/services/${firstService.id}`)
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send({
+        title: firstService.title,
+        description: firstService.description,
+        icon: firstService.icon,
+        is_active: 1,
+        image_url: firstService.image_url,
+        service_area: 'Surrey, Vancouver & Lower Mainland',
+        confirmation_note: firstService.confirmation_note
+      });
+    assert.equal(resUpdate.status, 200);
+    assert.equal(resUpdate.body.success, true);
+  });
+
+  await t.test('14. Admin Fleet Management Endpoint', async () => {
+    const resFleet = await request(app)
+      .get('/api/admin/fleet')
+      .set('Authorization', `Bearer ${adminToken}`);
+    assert.equal(resFleet.status, 200);
+    assert.equal(resFleet.body.success, true);
+    assert.ok(resFleet.body.fleet.length >= 4);
+  });
+
+  await t.test('15. Admin Gallery Management Endpoint', async () => {
+    const resGallery = await request(app)
+      .get('/api/admin/gallery')
+      .set('Authorization', `Bearer ${adminToken}`);
+    assert.equal(resGallery.status, 200);
+    assert.equal(resGallery.body.success, true);
+    assert.ok(resGallery.body.images.length >= 10);
+  });
+
+  await t.test('16. Admin Promotions Management Endpoint', async () => {
+    const resPromos = await request(app)
+      .get('/api/admin/promotions')
+      .set('Authorization', `Bearer ${adminToken}`);
+    assert.equal(resPromos.status, 200);
+    assert.equal(resPromos.body.success, true);
+    assert.ok(resPromos.body.promotions.length >= 2);
+  });
+
+  await t.test('17. SEO Dynamic Endpoints', async () => {
     const resSitemap = await request(app).get('/sitemap.xml');
     assert.equal(resSitemap.status, 200);
     assert.match(resSitemap.text, /<urlset/);
     assert.match(resSitemap.text, /services-residential-moving\.html/);
+    assert.match(resSitemap.text, /services-beverage-transportation\.html/);
 
     const resRobots = await request(app).get('/robots.txt');
     assert.equal(resRobots.status, 200);

@@ -128,15 +128,15 @@ app.get('/api/health', (req, res) => {
       status: 'UP',
       database: test.healthy === 1 ? 'CONNECTED' : 'UNKNOWN',
       time: new Date().toISOString(),
-      company: 'SPN Trucking Ltd.',
-      market: 'Calgary, AB'
+      company: 'STN Trucking Ltd.',
+      market: 'Surrey & Vancouver, BC'
     });
   } catch (err) {
     res.status(500).json({ status: 'DOWN', error: err.message });
   }
 });
 
-// Dynamic Public Configuration (Phone, Email, Services, Promos, Fleet)
+// Dynamic Public Configuration (Phone, Email, Services, Promos, Fleet, Gallery)
 app.get('/api/config', (req, res) => {
   try {
     const settingsRows = db.prepare('SELECT key, value FROM site_settings').all();
@@ -146,18 +146,39 @@ app.get('/api/config', (req, res) => {
     const services = db.prepare('SELECT * FROM services WHERE is_active = 1 ORDER BY display_order ASC').all();
     const fleet = db.prepare('SELECT * FROM truck_fleet WHERE is_active = 1 ORDER BY display_order ASC').all();
     const promos = db.prepare('SELECT * FROM promotions WHERE is_active = 1').all();
+    const gallery = db.prepare('SELECT * FROM gallery_images ORDER BY display_order ASC').all();
 
     res.json({
       success: true,
       settings,
       services,
       fleet,
-      promos
+      promos,
+      gallery
     });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
 });
+
+// Dynamic Public Gallery Endpoint
+app.get('/api/gallery', (req, res) => {
+  try {
+    const { category } = req.query;
+    let query = 'SELECT * FROM gallery_images';
+    const params = [];
+    if (category && category !== 'all' && category !== 'ALL') {
+      query += ' WHERE category = ?';
+      params.push(category);
+    }
+    query += ' ORDER BY display_order ASC';
+    const images = db.prepare(query).all(...params);
+    res.json({ success: true, count: images.length, images });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 
 // Submit a Quote Request
 app.post('/api/quotes', upload.single('photo'), quoteRateLimiter, async (req, res) => {
@@ -185,7 +206,7 @@ app.post('/api/quotes', upload.single('photo'), quoteRateLimiter, async (req, re
       // Silently return fake success so bots do not retry
       return res.json({
         success: true,
-        ref_id: 'SPN-' + new Date().getFullYear() + '-0000',
+        ref_id: 'STN-' + new Date().getFullYear() + '-0000',
         message: 'Your request has been received.'
       });
     }
@@ -289,7 +310,7 @@ app.post('/api/quotes', upload.single('photo'), quoteRateLimiter, async (req, re
         status: newQuote.status,
         created_at: newQuote.created_at
       },
-      message: `Quote request successfully registered under reference ${refId}. Abbas and the SPN dispatch team will contact you shortly.`
+      message: `Quote request successfully registered under reference ${refId}. Abbas and the STN dispatch team will contact you shortly.`
     });
   } catch (err) {
     console.error('[QUOTE_SUBMISSION_ERROR]', err);
@@ -638,6 +659,231 @@ app.delete('/api/admin/reviews/:id', authenticateAdmin, (req, res) => {
   }
 });
 
+// Admin Services Management
+app.get('/api/admin/services', authenticateAdmin, (req, res) => {
+  try {
+    const services = db.prepare('SELECT * FROM services ORDER BY display_order ASC').all();
+    res.json({ success: true, services });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/api/admin/services', authenticateAdmin, (req, res) => {
+  try {
+    const { slug, title, category, shortDesc, icon, imageUrl, serviceArea, confirmationNote, displayOrder } = req.body;
+    if (!slug || !title || !category || !shortDesc) {
+      return res.status(400).json({ success: false, error: 'Slug, title, category, and description are required.' });
+    }
+    const stmt = db.prepare(`
+      INSERT INTO services (slug, title, category, short_desc, icon, image_url, service_area, confirmation_note, display_order)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `);
+    const result = stmt.run(
+      slug.trim(),
+      title.trim(),
+      category.trim(),
+      shortDesc.trim(),
+      icon || '🚚',
+      imageUrl || null,
+      serviceArea || 'Surrey, Vancouver & Lower Mainland',
+      confirmationNote || null,
+      parseInt(displayOrder || '0', 10)
+    );
+    logAudit(null, 'SERVICE_CREATED', req.admin.username, { slug, title });
+    res.status(201).json({ success: true, id: result.lastInsertRowid, message: 'Service added successfully.' });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.put('/api/admin/services/:id', authenticateAdmin, (req, res) => {
+  try {
+    const { title, category, shortDesc, icon, imageUrl, serviceArea, confirmationNote, isActive, displayOrder } = req.body;
+    const service = db.prepare('SELECT * FROM services WHERE id = ?').get(req.params.id);
+    if (!service) return res.status(404).json({ success: false, error: 'Service not found.' });
+
+    db.prepare(`
+      UPDATE services
+      SET title = ?, category = ?, short_desc = ?, icon = ?, image_url = ?, service_area = ?, confirmation_note = ?, is_active = ?, display_order = ?
+      WHERE id = ?
+    `).run(
+      title !== undefined ? title : service.title,
+      category !== undefined ? category : service.category,
+      shortDesc !== undefined ? shortDesc : service.short_desc,
+      icon !== undefined ? icon : service.icon,
+      imageUrl !== undefined ? imageUrl : service.image_url,
+      serviceArea !== undefined ? serviceArea : service.service_area,
+      confirmationNote !== undefined ? confirmationNote : service.confirmation_note,
+      isActive !== undefined ? (isActive ? 1 : 0) : service.is_active,
+      displayOrder !== undefined ? parseInt(displayOrder, 10) : service.display_order,
+      req.params.id
+    );
+
+    logAudit(null, 'SERVICE_UPDATED', req.admin.username, { id: req.params.id, title });
+    res.json({ success: true, message: 'Service updated successfully.' });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.delete('/api/admin/services/:id', authenticateAdmin, (req, res) => {
+  try {
+    db.prepare('DELETE FROM services WHERE id = ?').run(req.params.id);
+    logAudit(null, 'SERVICE_DELETED', req.admin.username, { id: req.params.id });
+    res.json({ success: true, message: 'Service removed.' });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// Admin Fleet Specifications Management
+app.get('/api/admin/fleet', authenticateAdmin, (req, res) => {
+  try {
+    const fleet = db.prepare('SELECT * FROM truck_fleet ORDER BY display_order ASC').all();
+    res.json({ success: true, fleet });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.put('/api/admin/fleet/:id', authenticateAdmin, (req, res) => {
+  try {
+    const { name, sizeRange, payloadCapacity, dimensions, description, imageUrl, isActive, displayOrder } = req.body;
+    const vehicle = db.prepare('SELECT * FROM truck_fleet WHERE id = ?').get(req.params.id);
+    if (!vehicle) return res.status(404).json({ success: false, error: 'Vehicle not found.' });
+
+    db.prepare(`
+      UPDATE truck_fleet
+      SET name = ?, size_range = ?, payload_capacity = ?, dimensions = ?, description = ?, image_url = ?, is_active = ?, display_order = ?
+      WHERE id = ?
+    `).run(
+      name !== undefined ? name : vehicle.name,
+      sizeRange !== undefined ? sizeRange : vehicle.size_range,
+      payloadCapacity !== undefined ? payloadCapacity : vehicle.payload_capacity,
+      dimensions !== undefined ? dimensions : vehicle.dimensions,
+      description !== undefined ? description : vehicle.description,
+      imageUrl !== undefined ? imageUrl : vehicle.image_url,
+      isActive !== undefined ? (isActive ? 1 : 0) : vehicle.is_active,
+      displayOrder !== undefined ? parseInt(displayOrder, 10) : vehicle.display_order,
+      req.params.id
+    );
+
+    logAudit(null, 'FLEET_UPDATED', req.admin.username, { id: req.params.id, name });
+    res.json({ success: true, message: 'Fleet specs updated.' });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// Admin Gallery & Hero Management
+app.get('/api/admin/gallery', authenticateAdmin, (req, res) => {
+  try {
+    const gallery = db.prepare('SELECT * FROM gallery_images ORDER BY display_order ASC').all();
+    res.json({ success: true, gallery, images: gallery });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/api/admin/gallery', authenticateAdmin, (req, res) => {
+  try {
+    const { title, category, imageUrl, imageType, caption, isHero, displayOrder } = req.body;
+    if (!title || !category || !imageUrl) {
+      return res.status(400).json({ success: false, error: 'Title, category, and imageUrl are required.' });
+    }
+    const stmt = db.prepare(`
+      INSERT INTO gallery_images (title, category, image_url, image_type, caption, is_hero, display_order)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `);
+    const result = stmt.run(
+      title.trim(),
+      category.trim(),
+      imageUrl.trim(),
+      imageType || 'verified_fleet',
+      caption || null,
+      isHero ? 1 : 0,
+      parseInt(displayOrder || '0', 10)
+    );
+    logAudit(null, 'GALLERY_IMAGE_ADDED', req.admin.username, { title, category });
+    res.status(201).json({ success: true, id: result.lastInsertRowid, message: 'Gallery image registered.' });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.patch('/api/admin/gallery/:id/hero', authenticateAdmin, (req, res) => {
+  try {
+    const { isHero } = req.body;
+    db.prepare('UPDATE gallery_images SET is_hero = ? WHERE id = ?').run(isHero ? 1 : 0, req.params.id);
+    logAudit(null, 'GALLERY_HERO_TOGGLED', req.admin.username, { id: req.params.id, isHero });
+    res.json({ success: true, message: 'Hero setting updated.' });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.delete('/api/admin/gallery/:id', authenticateAdmin, (req, res) => {
+  try {
+    db.prepare('DELETE FROM gallery_images WHERE id = ?').run(req.params.id);
+    logAudit(null, 'GALLERY_IMAGE_DELETED', req.admin.username, { id: req.params.id });
+    res.json({ success: true, message: 'Gallery image removed.' });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// Admin Promotions Management
+app.get('/api/admin/promotions', authenticateAdmin, (req, res) => {
+  try {
+    const promos = db.prepare('SELECT * FROM promotions ORDER BY id ASC').all();
+    res.json({ success: true, promos, promotions: promos });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.put('/api/admin/promotions/:id', authenticateAdmin, (req, res) => {
+  try {
+    const { name, discountPercent, description, terms, isActive } = req.body;
+    const promo = db.prepare('SELECT * FROM promotions WHERE id = ?').get(req.params.id);
+    if (!promo) return res.status(404).json({ success: false, error: 'Promotion not found.' });
+
+    db.prepare(`
+      UPDATE promotions
+      SET name = ?, discount_percent = ?, description = ?, terms = ?, is_active = ?
+      WHERE id = ?
+    `).run(
+      name !== undefined ? name : promo.name,
+      discountPercent !== undefined ? parseInt(discountPercent, 10) : promo.discount_percent,
+      description !== undefined ? description : promo.description,
+      terms !== undefined ? terms : promo.terms,
+      isActive !== undefined ? (isActive ? 1 : 0) : promo.is_active,
+      req.params.id
+    );
+
+    logAudit(null, 'PROMOTION_UPDATED', req.admin.username, { id: req.params.id, code: promo.code });
+    res.json({ success: true, message: 'Promotion updated.' });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// Admin Image Upload
+app.post('/api/admin/upload', authenticateAdmin, upload.single('image'), (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ success: false, error: 'No image file uploaded.' });
+    }
+    const publicUrl = `/uploads/${req.file.filename}`;
+    logAudit(null, 'FILE_UPLOADED_BY_ADMIN', req.admin.username, { filename: req.file.filename });
+    res.json({ success: true, url: publicUrl, filename: req.file.filename });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+
 // Admin Site Settings Management
 app.get('/api/admin/settings', authenticateAdmin, (req, res) => {
   try {
@@ -705,6 +951,7 @@ app.get('/sitemap.xml', (req, res) => {
     '/services-small-load-transportation.html',
     '/services-flatbed-trucking.html',
     '/services-refrigerated-trucking.html',
+    '/services-beverage-transportation.html',
     '/services-junk-removal.html',
     '/services-garbage-removal.html',
     '/services-gardening.html',
@@ -737,15 +984,19 @@ app.get('/robots.txt', (req, res) => {
 });
 
 // Fallback route for SPA or HTML pages
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'admin.html'));
+app.get(['/admin', '/admin.html'], (req, res) => {
+  res.sendFile('admin.html', { root: __dirname });
+});
+
+app.get('/health', (req, res) => {
+  res.redirect('/api/health');
 });
 
 // Start Server if invoked directly
 if (require.main === module) {
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`====================================================`);
-    console.log(`SPN TRUCKING LTD. — FULL-STACK PLATFORM RUNNING`);
+    console.log(`STN TRUCKING LTD. — FULL-STACK PLATFORM RUNNING`);
     console.log(`Address: http://localhost:${PORT}`);
     console.log(`Admin Portal: http://localhost:${PORT}/admin`);
     console.log(`Contact Phone: 778-302-8803`);

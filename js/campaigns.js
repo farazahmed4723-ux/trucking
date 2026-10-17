@@ -1,14 +1,14 @@
 /**
- * SPN TRUCKING LTD. — PROMOTIONAL CAMPAIGN ENGINE
- * Evaluates promotional campaigns based on Mountain Time (America/Edmonton).
- * Supports statutory holiday calculation, campaign windows, and student discount fallback.
+ * STN TRUCKING LTD. — PROMOTIONAL CAMPAIGN ENGINE
+ * Evaluates promotional campaigns based on Pacific Time (America/Vancouver).
+ * Supports British Columbia statutory holiday calculation, campaign windows, and student discount fallback.
  */
 
 const CampaignEngine = {
   simulatedDate: null,
 
   /**
-   * Get current date in America/Edmonton timezone
+   * Get current date in America/Vancouver timezone
    */
   getCurrentDate() {
     if (this.simulatedDate) {
@@ -19,7 +19,7 @@ const CampaignEngine = {
       const now = new Date();
       const tz = (typeof CampaignsConfig !== 'undefined' && CampaignsConfig.timezone) 
         ? CampaignsConfig.timezone 
-        : 'America/Edmonton';
+        : 'America/Vancouver';
 
       const formatter = new Intl.DateTimeFormat('en-CA', {
         timeZone: tz,
@@ -151,7 +151,7 @@ const CampaignEngine = {
           startDate: start,
           endDate: end,
           holidayDate: holidayDate,
-          badge: "Alberta Holiday Special"
+          badge: "BC Holiday Special"
         };
       }
     }
@@ -163,7 +163,7 @@ const CampaignEngine = {
     const student = (typeof CampaignsConfig !== 'undefined' && CampaignsConfig.studentDiscount)
       ? CampaignsConfig.studentDiscount
       : {
-          bannerText: "Calgary Students Save 10% on Moving & Junk Hauling — Claim Rate",
+          bannerText: "BC Students Save 10% on Moving & Junk Hauling — Claim Rate",
           ctaText: "Claim 10% Student Rate",
           ctaLink: "#quote-section"
         };
@@ -175,7 +175,7 @@ const CampaignEngine = {
       bannerText: student.bannerText,
       eligibleServices: ["Residential Moving", "Junk Removal", "Small Load Transportation"],
       badge: "Year-Round Student Savings",
-      termsNotice: "Valid Calgary post-secondary student ID required upon booking."
+      termsNotice: "Valid BC post-secondary student ID required upon booking (UBC, SFU, BCIT, KPU, etc.)."
     };
   },
 

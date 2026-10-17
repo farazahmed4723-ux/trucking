@@ -30,9 +30,9 @@ async function sendEmailNotification(quote) {
   const channel = 'EMAIL';
   const recipient = TARGET_EMAIL;
 
-  const subject = `[SPN Quote Request] ${quote.ref_id} — ${quote.service_category} (${quote.full_name})`;
+  const subject = `[STN Quote Request] ${quote.ref_id} — ${quote.service_category} (${quote.full_name})`;
   const bodyText = `
-SPN TRUCKING LTD. — NEW QUOTE REQUEST
+STN TRUCKING LTD. — NEW QUOTE REQUEST
 ==================================================
 Reference ID: ${quote.ref_id}
 Customer Name: ${quote.full_name}
@@ -93,7 +93,7 @@ Review in Admin Portal: ${process.env.APP_DOMAIN || 'http://localhost:3000'}/adm
     });
 
     const info = await transporter.sendMail({
-      from: `"SPN Trucking Dispatch" <${smtpUser}>`,
+      from: `"STN Trucking Dispatch" <${smtpUser}>`,
       to: recipient,
       subject: subject,
       text: bodyText
@@ -130,7 +130,7 @@ async function sendSmsNotification(quote) {
   const channel = 'SMS';
   const recipient = TARGET_SMS_PHONE;
 
-  const smsBody = `SPN Alert: New quote ${quote.ref_id} from ${quote.full_name} (${quote.phone}) for ${quote.service_category}. Date: ${quote.service_date || 'ASAP'}. Review at /admin`;
+  const smsBody = `STN Alert: New quote ${quote.ref_id} from ${quote.full_name} (${quote.phone}) for ${quote.service_category}. Date: ${quote.service_date || 'ASAP'}. Review at /admin`;
 
   const twilioSid = process.env.TWILIO_ACCOUNT_SID;
   const twilioAuth = process.env.TWILIO_AUTH_TOKEN;

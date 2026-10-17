@@ -1,7 +1,7 @@
 {
   "name": "spn-trucking-ltd",
   "version": "1.0.0",
-  "description": "SPN Trucking Ltd. - Premium transportation, hauling and moving platform for Calgary, Alberta",
+  "description": "STN Trucking Ltd. - Premium transportation, hauling and moving platform for Surrey, Vancouver & Lower Mainland, BC",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

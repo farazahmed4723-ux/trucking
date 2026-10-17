@@ -1,33 +1,33 @@
 /**
- * SPN TRUCKING LTD. — PROMOTIONAL CAMPAIGN CALENDAR CONFIGURATION
- * Jurisdiction: Calgary, Alberta & Canada
- * Timezone: America/Edmonton (Mountain Time - MT)
+ * STN TRUCKING LTD. — PROMOTIONAL CAMPAIGN CALENDAR CONFIGURATION
+ * Jurisdiction: Surrey, Vancouver, Lower Mainland, British Columbia & Canada
+ * Timezone: America/Vancouver (Pacific Time - PT)
  * 
  * Rules:
- * - Recurring statutory holiday calculations evaluate using Mountain Time.
+ * - Recurring statutory holiday calculations evaluate using Pacific Time.
  * - Holiday campaigns trigger automatically during the active holiday window.
- * - When no holiday campaign is active, the year-round 10% Calgary Student Discount banner is active.
+ * - When no holiday campaign is active, the year-round 10% BC Student Discount banner is active.
  * - All promotions apply a transparent 10% discount with single-discount rules.
  */
 
 const CampaignsConfig = {
-  timezone: "America/Edmonton",
+  timezone: "America/Vancouver",
 
-  // Year-round Student Discount configuration for Calgary
+  // Year-round Student Discount configuration for British Columbia
   studentDiscount: {
     enabled: true,
     percentage: 10,
-    bannerText: "Calgary Students Save 10% on Moving & Junk Hauling — Claim Rate",
-    tagline: "Moving dorms, apartments, or clearing end-of-semester clutter? Present valid student ID from U of C, MRU, SAIT, or Bow Valley College to save 10%.",
+    bannerText: "🎓 BC Students Save 10% on Moving & Junk Hauling — Claim Rate",
+    tagline: "Moving dorms, apartments, or clearing end-of-semester clutter? Present valid student ID from UBC, SFU, BCIT, KPU, Langara, or Douglas College to save 10%.",
     ctaText: "Claim 10% Student Rate",
     ctaLink: "#quote-section",
     terms: {
       verified: true,
       flag: "Student Discount Policy",
       items: [
-        "Valid current student ID card (University of Calgary, Mount Royal, SAIT, Bow Valley, etc.) required upon confirmation.",
+        "Valid current student ID card (UBC, SFU, BCIT, Kwantlen, Langara, Douglas College, etc.) required upon confirmation.",
         "One promotional discount per booking; cannot be combined with statutory holiday discounts.",
-        "Eligible services: Residential Moving, Junk Removal, and Small Load Delivery."
+        "Eligible services: Residential Moving, Junk Removal, and Small Load Transportation across Surrey & Vancouver."
       ]
     }
   },
@@ -39,11 +39,11 @@ const CampaignsConfig = {
     items: [
       "10% promotional rate applies to bookings requested or scheduled during the statutory campaign window.",
       "Cannot be combined with student discount or ongoing commercial fleet contracts.",
-      "Subject to vehicle dispatch and crew availability across the Greater Calgary Region."
+      "Subject to vehicle dispatch and crew availability across Surrey, Vancouver, and the Lower Mainland."
     ]
   },
 
-  // Alberta & Canadian Statutory Holidays
+  // British Columbia & Canadian Statutory Holidays
   holidays: [
     {
       id: "new-years",
@@ -54,12 +54,12 @@ const CampaignsConfig = {
       enabled: true,
       leadDays: 1,
       lagDays: 1,
-      bannerText: "🎉 New Year Kickoff — 10% OFF Moving & Decluttering Across Calgary",
+      bannerText: "🎉 New Year Kickoff — 10% OFF Moving & Decluttering Across Surrey & Vancouver",
       eligibleServices: ["Residential Moving", "Commercial Moving", "Trucking", "Junk Removal"]
     },
     {
       id: "family-day",
-      name: "Alberta Family Day",
+      name: "British Columbia Family Day",
       type: "nth_weekday",
       month: 2, // February
       weekday: 1, // Monday
@@ -67,7 +67,7 @@ const CampaignsConfig = {
       enabled: true,
       leadDays: 2,
       lagDays: 1,
-      bannerText: "🏠 Family Day Special — 10% OFF Calgary Family & Residential Relocations",
+      bannerText: "🏠 BC Family Day Special — 10% OFF Surrey & Vancouver Family Relocations",
       eligibleServices: ["Residential Moving", "Small Load Transportation", "Junk Removal"]
     },
     {
@@ -78,7 +78,7 @@ const CampaignsConfig = {
       enabled: true,
       leadDays: 1,
       lagDays: 2,
-      bannerText: "🌷 Spring Long Weekend — Save 10% on Calgary Moves & Yard Cleanups",
+      bannerText: "🌷 Spring Long Weekend — Save 10% on Lower Mainland Moves & Yard Cleanups",
       eligibleServices: ["Residential Moving", "Gardening", "Junk Removal"]
     },
     {
@@ -90,7 +90,7 @@ const CampaignsConfig = {
       enabled: true,
       leadDays: 2,
       lagDays: 1,
-      bannerText: "🚚 Victoria Day Weekend — 10% OFF Trucking, Hauling & Relocations",
+      bannerText: "🚚 Victoria Day Weekend — 10% OFF Trucking, Hauling & Relocations in BC",
       eligibleServices: ["Residential Moving", "Commercial Moving", "Trucking", "Gardening"]
     },
     {
@@ -102,12 +102,12 @@ const CampaignsConfig = {
       enabled: true,
       leadDays: 2,
       lagDays: 1,
-      bannerText: "🇨🇦 Happy Canada Day! Save 10% on Moving & Transportation Across Calgary",
-      eligibleServices: ["Residential Moving", "Commercial Moving", "Trucking", "Junk Removal"]
+      bannerText: "🇨🇦 Canada Day Long Weekend — 10% OFF Moving & Hauling Across BC",
+      eligibleServices: ["Residential Moving", "Commercial Moving", "Junk Removal", "Trucking"]
     },
     {
-      id: "heritage-day",
-      name: "Heritage Day / Alberta Day",
+      id: "bc-day",
+      name: "British Columbia Day",
       type: "nth_weekday",
       month: 8, // August
       weekday: 1, // Monday
@@ -115,8 +115,8 @@ const CampaignsConfig = {
       enabled: true,
       leadDays: 2,
       lagDays: 1,
-      bannerText: "🏔️ Alberta Heritage Weekend — 10% OFF Summer Moves & Freight Runs",
-      eligibleServices: ["Residential Moving", "Trucking", "Flatbed Trucking", "Junk Removal"]
+      bannerText: "☀️ BC Day Weekend — 10% OFF Lower Mainland Moving, Hauling & Delivery",
+      eligibleServices: ["Residential Moving", "Commercial Moving", "Junk Removal", "Gardening"]
     },
     {
       id: "labour-day",
@@ -126,10 +126,22 @@ const CampaignsConfig = {
       weekday: 1, // Monday
       nth: 1, // 1st Monday of September
       enabled: true,
-      leadDays: 3,
+      leadDays: 2,
       lagDays: 1,
-      bannerText: "📦 Labour Day Move Rush — 10% OFF Calgary Residential & Student Moves",
-      eligibleServices: ["Residential Moving", "Small Load Transportation", "Junk Removal"]
+      bannerText: "📦 Labour Day Move Rush — 10% OFF Surrey & Vancouver Residential Relocations",
+      eligibleServices: ["Residential Moving", "Commercial Moving", "Junk Removal", "Small Load Transportation"]
+    },
+    {
+      id: "truth-and-reconciliation",
+      name: "National Day for Truth and Reconciliation",
+      type: "fixed",
+      month: 9, // September
+      day: 30,
+      enabled: true,
+      leadDays: 1,
+      lagDays: 1,
+      bannerText: "🍁 Autumn Long Weekend — 10% OFF Scheduled Moves Across BC",
+      eligibleServices: ["Residential Moving", "Junk Removal", "Gardening"]
     },
     {
       id: "thanksgiving",
@@ -141,7 +153,7 @@ const CampaignsConfig = {
       enabled: true,
       leadDays: 2,
       lagDays: 1,
-      bannerText: "🍂 Thanksgiving Special — 10% OFF Fall Property Cleanups & Moves",
+      bannerText: "🦃 Thanksgiving Long Weekend — 10% OFF Residential & Yard Cleanups in BC",
       eligibleServices: ["Residential Moving", "Gardening", "Junk Removal"]
     },
     {
@@ -153,20 +165,22 @@ const CampaignsConfig = {
       enabled: true,
       leadDays: 1,
       lagDays: 1,
-      bannerText: "🍁 Remembrance Week — 10% Special Rate on Calgary Hauling & Freight",
-      eligibleServices: ["Residential Moving", "Commercial Moving", "Trucking"]
+      bannerText: "🎖️ November Long Weekend — 10% OFF Lower Mainland Relocations & Hauls",
+      eligibleServices: ["Residential Moving", "Commercial Moving", "Junk Removal"]
     },
     {
-      id: "christmas",
+      id: "christmas-boxing-week",
       name: "Christmas & Boxing Week",
-      type: "fixed",
-      month: 12, // December
-      day: 25,
+      type: "fixed_range",
+      startMonth: 12,
+      startDay: 24,
+      endMonth: 12,
+      endDay: 31,
       enabled: true,
-      leadDays: 3,
-      lagDays: 6, // Extends through Boxing Day into New Year
-      bannerText: "🎄 Holiday Season Special — 10% OFF Winter Moves & Commercial Transport",
-      eligibleServices: ["Residential Moving", "Commercial Moving", "Trucking", "Junk Removal"]
+      leadDays: 0,
+      lagDays: 0,
+      bannerText: "🎄 Holiday Season Special — 10% OFF Year-End Commercial & Home Moves in BC",
+      eligibleServices: ["Residential Moving", "Commercial Moving", "Junk Removal", "Trucking"]
     }
   ]
 };

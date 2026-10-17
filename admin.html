@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Portal — SPN Trucking Ltd. | Calgary Dispatch & Management</title>
+  <title>Admin Portal — STN TRUCKING LTD. | Surrey & Vancouver Dispatch</title>
   <meta name="robots" content="noindex, nofollow">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔐</text></svg>">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/style.css">
   <style>
     .admin-body { background: #070A10; min-height: 100vh; color: #FFF; font-family: var(--font-body); }
     .admin-header { background: #0B111E; border-bottom: 1px solid rgba(212,175,55,0.2); padding: 1rem 1.5rem; position: sticky; top: 0; z-index: 100; }
-    .admin-header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1400px; margin: 0 auto; }
+    .admin-header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1440px; margin: 0 auto; }
     .admin-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: #FFF; }
     .admin-brand span { font-family: var(--font-heading); font-weight: 800; font-size: 1.25rem; letter-spacing: 0.05em; }
     .admin-brand span span { color: #D4AF37; }
-    .admin-container { max-width: 1400px; margin: 2rem auto; padding: 0 1.5rem; }
+    .admin-container { max-width: 1440px; margin: 2rem auto; padding: 0 1.5rem; }
     
     .admin-metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
     .metric-card { background: #0B111E; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.25rem; }
@@ -29,7 +29,7 @@
     .admin-card { background: #0B111E; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; }
     .table-responsive { overflow-x: auto; }
     .admin-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; }
-    .admin-table th { background: rgba(255,255,255,0.04); padding: 0.85rem 1rem; color: rgba(255,255,255,0.8); font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .admin-table th { background: rgba(255,255,255,0.04); padding: 0.85rem 1rem; color: rgba(255,255,255,0.8); font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.1); white-space: nowrap; }
     .admin-table td { padding: 0.85rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(255,255,255,0.9); vertical-align: middle; }
     .admin-table tr:hover td { background: rgba(255,255,255,0.02); }
     
@@ -55,12 +55,12 @@
   <div id="login-view" class="login-container">
     <div class="login-card">
       <div style="text-align:center; margin-bottom:1.5rem;">
-        <span style="font-size:2.5rem;">🔐</span>
-        <h2 style="font-family:var(--font-heading); font-size:1.5rem; margin-top:0.5rem; font-weight:800; color:#FFF;">
-          SPN Trucking Ltd.
-        </h2>
-        <p style="color:#D4AF37; font-size:0.85rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">
+        <img src="assets/stn-logo.svg" alt="STN TRUCKING LTD." style="height:44px; max-width:240px; margin-bottom:1rem;">
+        <h2 style="font-family:var(--font-heading); font-size:1.35rem; font-weight:800; color:#FFF;">
           Dispatch & Backoffice Portal
+        </h2>
+        <p style="color:#D4AF37; font-size:0.85rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; margin-top:4px;">
+          Surrey & Vancouver, British Columbia
         </p>
       </div>
       <form id="admin-login-form">
@@ -85,8 +85,8 @@
     <header class="admin-header">
       <div class="admin-header-inner">
         <a href="index.html" class="admin-brand" target="_blank" title="Open Public Website">
-          <span>SPN <span>TRUCKING</span> LTD.</span>
-          <span style="font-size:0.75rem; background:rgba(212,175,55,0.15); color:#D4AF37; padding:2px 8px; border-radius:4px; font-weight:700;">ADMIN</span>
+          <img src="assets/stn-logo.svg" alt="STN TRUCKING LTD." style="height:36px; max-width:200px;">
+          <span style="font-size:0.75rem; background:rgba(212,175,55,0.15); color:#D4AF37; padding:2px 8px; border-radius:4px; font-weight:700;">PORTAL</span>
         </a>
         <div style="display:flex; align-items:center; gap:1.25rem;">
           <span id="admin-user-display" style="font-size:0.9rem; color:rgba(255,255,255,0.8);">Abbas (Managing Director)</span>
@@ -121,11 +121,15 @@
         </div>
       </div>
 
-      <!-- Navigation Tabs -->
+      <!-- Navigation Tabs (Complete 8 Operational Sections) -->
       <nav class="admin-tabs">
         <button class="admin-tab active" data-tab="quotes">Quotes & Bookings</button>
+        <button class="admin-tab" data-tab="services">Services Management</button>
+        <button class="admin-tab" data-tab="fleet">Fleet Specifications</button>
+        <button class="admin-tab" data-tab="gallery">Gallery & Hero Imagery</button>
+        <button class="admin-tab" data-tab="promotions">Promotions</button>
+        <button class="admin-tab" data-tab="settings">Contact, Areas & SEO</button>
         <button class="admin-tab" data-tab="reviews">Reviews Moderation</button>
-        <button class="admin-tab" data-tab="settings">Site & SEO Settings</button>
         <button class="admin-tab" data-tab="notifications">Notification Logs</button>
         <button class="admin-tab" data-tab="audit">Audit Trail</button>
       </nav>
@@ -170,11 +174,193 @@
         </div>
       </section>
 
-      <!-- TAB 2: REVIEWS MODERATION -->
+      <!-- TAB 2: SERVICES MANAGEMENT -->
+      <section id="tab-content-services" class="tab-pane" style="display:none;">
+        <div class="admin-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
+            <h3 style="font-size:1.2rem; font-weight:700;">Services & Descriptions Directory</h3>
+            <button id="add-service-btn" class="btn btn-primary btn-sm">+ Add New Service</button>
+          </div>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Order</th>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Service Area</th>
+                  <th>Confirmation Note</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="services-table-body">
+                <tr><td colspan="7" style="text-align:center; padding:2rem;">Loading services...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: FLEET SPECIFICATIONS -->
+      <section id="tab-content-fleet" class="tab-pane" style="display:none;">
+        <div class="admin-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
+            <h3 style="font-size:1.2rem; font-weight:700;">Fleet Categories & Specifications</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Size Range</th>
+                  <th>Payload Capacity</th>
+                  <th>Dimensions</th>
+                  <th>Image</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="fleet-table-body">
+                <tr><td colspan="7" style="text-align:center; padding:2rem;">Loading fleet specs...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: GALLERY & HERO IMAGERY -->
+      <section id="tab-content-gallery" class="tab-pane" style="display:none;">
+        <div class="admin-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem; flex-wrap:wrap; gap:1rem;">
+            <div>
+              <h3 style="font-size:1.2rem; font-weight:700;">Gallery & Hero Imagery Management</h3>
+              <p style="color:rgba(255,255,255,0.7); font-size:0.85rem; margin:4px 0 0;">
+                Select hero images and manage gallery assets. Verified fleet photos must be distinguished from illustrative representations.
+              </p>
+            </div>
+            <button id="upload-gallery-image-btn" class="btn btn-primary btn-sm">+ Upload / Register Image</button>
+          </div>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Preview</th>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Type</th>
+                  <th>Hero Active</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="gallery-table-body">
+                <tr><td colspan="6" style="text-align:center; padding:2rem;">Loading gallery...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: PROMOTIONS -->
+      <section id="tab-content-promotions" class="tab-pane" style="display:none;">
+        <div class="admin-card">
+          <h3 style="font-size:1.2rem; font-weight:700; margin-bottom:1.25rem;">Promotional Discounts (Student & Holiday)</h3>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Promotion Name</th>
+                  <th>Discount %</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="promos-table-body">
+                <tr><td colspan="6" style="text-align:center; padding:2rem;">Loading promotions...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 6: CONTACT, AREAS & SEO SETTINGS -->
+      <section id="tab-content-settings" class="tab-pane" style="display:none;">
+        <div class="admin-card">
+          <h3 style="font-size:1.2rem; font-weight:700; margin-bottom:1.5rem;">Verified Business Contact, Service Areas & SEO Metadata</h3>
+          <form id="admin-settings-form">
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label">Company Legal Name</label>
+                <input type="text" id="setting-company-name" name="company_name" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Managing Director</label>
+                <input type="text" id="setting-contact-person" name="contact_person" class="form-control">
+              </div>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label">Dispatch Phone</label>
+                <input type="text" id="setting-contact-phone" name="contact_phone" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Business Inquiries Email</label>
+                <input type="email" id="setting-contact-email" name="contact_email" class="form-control">
+              </div>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label">Primary Target Market</label>
+                <input type="text" id="setting-target-market" name="target_market" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Active Lower Mainland Municipalities</label>
+                <input type="text" id="setting-primary-cities" name="primary_cities" class="form-control">
+              </div>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label">Secondary Regional Corridors</label>
+                <input type="text" id="setting-secondary-market" name="secondary_market" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Production Domain</label>
+                <input type="text" id="setting-domain-name" name="domain_name" class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Hero Headline</label>
+              <input type="text" id="setting-hero-headline" name="hero_headline" class="form-control">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Hero Supporting Description</label>
+              <textarea id="setting-hero-supporting" name="hero_supporting" class="form-textarea" style="min-height:70px;"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">5+ Years Experience Claim Status</label>
+              <select id="setting-experience-verified" name="experience_verified" class="form-select">
+                <option value="verified">Verified (Confirmed by Managing Director Abbas)</option>
+                <option value="pending_owner_review">Pending Owner Review Flag</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top:1rem;">Save Settings</button>
+            <span id="settings-save-feedback" style="margin-left:1rem; color:#10B981; display:none; font-weight:600;">Saved successfully!</span>
+          </form>
+        </div>
+      </section>
+
+      <!-- TAB 7: REVIEWS MODERATION -->
       <section id="tab-content-reviews" class="tab-pane" style="display:none;">
         <div class="admin-card">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
-            <h3 style="font-size:1.2rem; font-weight:700;">Customer Reviews Moderation</h3>
+            <div>
+              <h3 style="font-size:1.2rem; font-weight:700;">Customer Reviews Moderation</h3>
+              <p style="color:rgba(255,255,255,0.7); font-size:0.85rem; margin:4px 0 0;">
+                All customer reviews undergo review. If none are approved, the public site displays "Customer Reviews Coming Soon."
+              </p>
+            </div>
             <button id="add-verified-review-btn" class="btn btn-primary btn-sm">+ Add Verified Review</button>
           </div>
           <div class="table-responsive">
@@ -198,60 +384,12 @@
         </div>
       </section>
 
-      <!-- TAB 3: SETTINGS & SEO -->
-      <section id="tab-content-settings" class="tab-pane" style="display:none;">
-        <div class="admin-card">
-          <h3 style="font-size:1.2rem; font-weight:700; margin-bottom:1.5rem;">Website Configuration & SEO Metadata</h3>
-          <form id="admin-settings-form">
-            <div class="form-grid-2">
-              <div class="form-group">
-                <label class="form-label">Company Legal Name</label>
-                <input type="text" id="setting-company-name" name="company_name" class="form-control">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Managing Director</label>
-                <input type="text" id="setting-contact-person" name="contact_person" class="form-control">
-              </div>
-            </div>
-            <div class="form-grid-2">
-              <div class="form-group">
-                <label class="form-label">Dispatch Phone</label>
-                <input type="text" id="setting-contact-phone" name="contact_phone" class="form-control">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Business Email</label>
-                <input type="email" id="setting-contact-email" name="contact_email" class="form-control">
-              </div>
-            </div>
-            <div class="form-grid-2">
-              <div class="form-group">
-                <label class="form-label">Target Market</label>
-                <input type="text" id="setting-target-market" name="target_market" class="form-control">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Production Domain</label>
-                <input type="text" id="setting-domain-name" name="domain_name" class="form-control">
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">5+ Years Experience Claim Status</label>
-              <select id="setting-experience-verified" name="experience_verified" class="form-select">
-                <option value="verified">Verified (Confirmed by Managing Director Abbas)</option>
-                <option value="pending_owner_review">Pending Owner Review Flag</option>
-              </select>
-            </div>
-            <button type="submit" class="btn btn-primary" style="margin-top:1rem;">Save Settings</button>
-            <span id="settings-save-feedback" style="margin-left:1rem; color:#10B981; display:none;">Saved successfully!</span>
-          </form>
-        </div>
-      </section>
-
-      <!-- TAB 4: NOTIFICATION LOGS -->
+      <!-- TAB 8: NOTIFICATION LOGS -->
       <section id="tab-content-notifications" class="tab-pane" style="display:none;">
         <div class="admin-card">
           <h3 style="font-size:1.2rem; font-weight:700; margin-bottom:1.25rem;">Email & SMS Notification Records</h3>
           <p style="color:rgba(255,255,255,0.7); font-size:0.85rem; margin-bottom:1rem;">
-            Notifications dispatched to: <strong>stntruckingltd@gmail.com</strong> and <strong>778-302-8803</strong>.
+            Notifications dispatched to: <strong>stntruckingltd@gmail.com</strong> and SMS alerts to <strong>778-302-8803</strong>.
           </p>
           <div class="table-responsive">
             <table class="admin-table">
@@ -273,7 +411,7 @@
         </div>
       </section>
 
-      <!-- TAB 5: AUDIT LOGS -->
+      <!-- TAB 9: AUDIT LOGS -->
       <section id="tab-content-audit" class="tab-pane" style="display:none;">
         <div class="admin-card">
           <h3 style="font-size:1.2rem; font-weight:700; margin-bottom:1.25rem;">System Audit Trail</h3>
@@ -306,6 +444,113 @@
     </div>
   </div>
 
+  <!-- ADD / EDIT SERVICE MODAL -->
+  <div id="service-modal" class="admin-modal">
+    <div class="admin-modal-card" style="max-width:600px;">
+      <button id="service-modal-close" class="admin-modal-close">&times;</button>
+      <h3 style="margin-bottom:1.25rem; font-size:1.25rem;" id="service-modal-title">Service Details</h3>
+      <form id="admin-service-form">
+        <input type="hidden" id="service-edit-id">
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Service Slug <span class="req">*</span></label>
+            <input type="text" id="service-slug" class="form-control" placeholder="e.g. flatbed-trucking" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Service Title <span class="req">*</span></label>
+            <input type="text" id="service-title" class="form-control" placeholder="e.g. Flatbed Trucking" required>
+          </div>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Category</label>
+            <select id="service-category" class="form-select">
+              <option value="Transportation">Transportation</option>
+              <option value="Moving">Moving</option>
+              <option value="Hauling">Hauling</option>
+              <option value="Property">Property</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Icon / Emoji</label>
+            <input type="text" id="service-icon" class="form-control" placeholder="🚚">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Service Area Info</label>
+          <input type="text" id="service-area" class="form-control" placeholder="Surrey, Vancouver & Lower Mainland">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirmation Note (If conditional)</label>
+          <input type="text" id="service-confirmation" class="form-control" placeholder="e.g. Subject to route confirmation">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description <span class="req">*</span></label>
+          <textarea id="service-desc" class="form-textarea" required></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Image Path</label>
+          <input type="text" id="service-image" class="form-control" placeholder="assets/fleet/fleet_flatbed_truck.jpg">
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:1rem;">Save Service</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- UPLOAD / REGISTER GALLERY IMAGE MODAL -->
+  <div id="gallery-modal" class="admin-modal">
+    <div class="admin-modal-card" style="max-width:580px;">
+      <button id="gallery-modal-close" class="admin-modal-close">&times;</button>
+      <h3 style="margin-bottom:1.25rem; font-size:1.25rem;">Register / Upload Gallery Image</h3>
+      <form id="admin-gallery-form" enctype="multipart/form-data">
+        <div class="form-group">
+          <label class="form-label">Image Title <span class="req">*</span></label>
+          <input type="text" id="gallery-title" class="form-control" placeholder="e.g. 53 FT Highway Long-Haul" required>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Category Filter <span class="req">*</span></label>
+            <select id="gallery-category" class="form-select" required>
+              <option value="flatbed">Flatbed Trucks</option>
+              <option value="small-trucks">Small Trucks</option>
+              <option value="long-haul">Long-Haul Trucks</option>
+              <option value="moving">Moving</option>
+              <option value="junk-removal">Junk Removal</option>
+              <option value="garbage-removal">Garbage Removal</option>
+              <option value="yard-cleanup">Yard Cleanup</option>
+              <option value="tools">Tools & Equipment</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Image Type <span class="req">*</span></label>
+            <select id="gallery-type" class="form-select" required>
+              <option value="verified_fleet">Verified Fleet Asset</option>
+              <option value="illustrative">Illustrative Representation</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Upload File (Optional if existing path entered below)</label>
+          <input type="file" id="gallery-file" class="form-control" accept="image/*">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Or Image URL / Path</label>
+          <input type="text" id="gallery-url" class="form-control" placeholder="assets/fleet/fleet_53ft_long_haul.jpg">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Caption / Description</label>
+          <textarea id="gallery-caption" class="form-textarea" placeholder="Detailed vehicle & service context..."></textarea>
+        </div>
+        <div class="form-group">
+          <label style="display:inline-flex; align-items:center; gap:8px; cursor:pointer;">
+            <input type="checkbox" id="gallery-hero"> Use as Hero Candidate
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:1rem;">Add to Gallery</button>
+      </form>
+    </div>
+  </div>
+
   <!-- ADD VERIFIED REVIEW MODAL -->
   <div id="add-review-modal" class="admin-modal">
     <div class="admin-modal-card" style="max-width:540px;">
@@ -318,7 +563,7 @@
         </div>
         <div class="form-group">
           <label class="form-label">Service Type</label>
-          <input type="text" id="new-rev-service" class="form-control" required placeholder="e.g. Residential Moving (Calgary)">
+          <input type="text" id="new-rev-service" class="form-control" required placeholder="e.g. Residential Moving (Surrey to Vancouver)">
         </div>
         <div class="form-group">
           <label class="form-label">Star Rating (1-5)</label>
