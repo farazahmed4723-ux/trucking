@@ -19,7 +19,7 @@ const BusinessConfig = {
   province: "British Columbia",
   country: "Canada",
   timezone: "America/Vancouver", // Pacific Time (PT)
-  domain: window.location.origin || "https://spntrucking.ca",
+  domain: window.location.origin || "https://stntrucking.ca",
 
   // Verified Contact Details
   contact: {

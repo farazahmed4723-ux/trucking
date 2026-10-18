@@ -195,176 +195,202 @@
   <main id="main-content">
 
     <!-- ===================================================================
-         2. MAIN HERO SECTION (EXACT HEADLINE, SUPPORTING TEXT, BUTTONS)
+         2. HERO SECTION: CINEMATIC AUTOMATIC VEHICLE SLIDER
+         Full-width background vehicle crossfades ~2s, Ken Burns motion, stable text
          =================================================================== -->
-    <section class="hero-section" id="hero">
-      <div class="hero-bg-overlay"></div>
-      <img src="assets/surrey-vancouver-skyline-hero.jpg" alt="STN Trucking commercial transport vehicle on British Columbia highway with Port Mann bridge and Vancouver skyline at dusk" class="hero-bg-image">
+    <section class="hero-section" id="hero" aria-label="Cinematic Fleet & Services Showcase">
+      <!-- Full-Width Background Vehicle Slides with Ken Burns Crossfade -->
+      <div class="hero-backdrop-slider" id="hero-backdrop-slider" aria-hidden="true">
+        <div class="hero-bg-slide active" data-slide-index="0">
+          <img src="assets/fleet/fleet_53ft_long_haul.jpg" alt="STN Trucking 53ft Highway Semi-Trailer crossing British Columbia corridor at dusk" class="hero-bg-slide-img" fetchpriority="high">
+        </div>
+        <div class="hero-bg-slide" data-slide-index="1">
+          <img src="assets/fleet/fleet_commercial_moving.jpg" alt="STN Trucking commercial relocation freight truck at Lower Mainland distribution bay" class="hero-bg-slide-img">
+        </div>
+        <div class="hero-bg-slide" data-slide-index="2">
+          <img src="assets/fleet/fleet_residential_moving.jpg" alt="STN Trucking residential moving box truck with professional moving crew in Surrey" class="hero-bg-slide-img">
+        </div>
+        <div class="hero-bg-slide" data-slide-index="3">
+          <img src="assets/fleet/fleet_junk_removal_truck.jpg" alt="STN Trucking heavy cleanout and junk removal dump truck in Vancouver" class="hero-bg-slide-img">
+        </div>
+        <div class="hero-bg-slide" data-slide-index="4">
+          <img src="assets/fleet/fleet_flatbed_truck.jpg" alt="STN Trucking heavy open-deck flatbed equipment hauler" class="hero-bg-slide-img">
+        </div>
+      </div>
+
+      <!-- Cinematic Multi-Layer Dark Gradient Vignette Overlay -->
+      <div class="hero-cinematic-overlay"></div>
+
+      <!-- Hero Progress Timer Bar (Indicating 2-second slide cycle) -->
+      <div class="hero-cinematic-progress-track">
+        <div class="hero-cinematic-progress-fill" id="hero-cinematic-progress"></div>
+      </div>
 
       <div class="container hero-content">
-        <div class="hero-text">
+        <!-- Left Column: Stable, High-Contrast Typography & Working CTAs -->
+        <div class="hero-text-col">
           <div class="hero-pill-tag">
-            <span class="flag">📍</span> Surrey, Vancouver & Lower Mainland, BC
+            <svg class="hero-flag-icon" viewBox="0 0 60 36" width="22" height="13" aria-hidden="true">
+              <rect width="60" height="36" rx="2" fill="#FFFFFF"/>
+              <rect width="15" height="36" fill="#D52B1E"/>
+              <rect x="45" width="15" height="36" fill="#D52B1E"/>
+              <path fill="#D52B1E" d="M30 6.5l1.6 4.7 4.5-1.5-1.5 4.5 4.7 1.6-4.7 1.6 1.5 4.5-4.5-1.5-1.6 4.7-1.6-4.7-4.5 1.5 1.5-4.5-4.7-1.6 4.7-1.6-1.5-4.5 4.5 1.5z"/>
+            </svg>
+            <span>Surrey, Vancouver &amp; Lower Mainland, BC • 5 Years Experience</span>
           </div>
-          <!-- Exact Headline -->
+
+          <!-- Main Confirmed Headline -->
           <h1 class="hero-title">
-            Your Load. Your Destination. <span class="accent">We Deliver.</span>
+            Your Load. Your Destination. <span class="accent-gold">We Deliver.</span>
           </h1>
-          <!-- Exact Supporting Text -->
+
+          <!-- Supporting Confirmed Message -->
           <p class="hero-subtitle">
-            From Small Loads to Long Hauls, We Handle Your Moving, Hauling and Transportation Needs Across Surrey, Vancouver, the Lower Mainland and Beyond.
+            Professional Trucking, Moving and Property Services Across Surrey, Vancouver and the Lower Mainland.
           </p>
-          <!-- Exact Buttons -->
+
+          <!-- Primary & Secondary Working CTAs -->
           <div class="hero-actions">
-            <a href="#quote-section" class="btn btn-primary btn-lg">Get a Free Quote</a>
-            <a href="tel:7783028803" class="btn btn-outline-white btn-lg js-call-btn">Call Us Now</a>
-            <a href="#services" class="btn btn-outline-white btn-lg">Explore Our Services</a>
+            <a href="#quote-section" class="btn btn-primary btn-lg">
+              <span>Get a Free Quote</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </a>
+            <a href="tel:7783028803" class="btn btn-outline-white btn-lg js-call-btn" title="Call Abbas at STN Trucking (778-302-8803)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>Call Us Now</span>
+            </a>
+            <a href="#services" class="btn btn-ghost-white btn-lg">Explore Services</a>
           </div>
 
-          <!-- Verified Contact Display -->
-          <div style="margin-top:1.25rem; font-size:0.9rem; color:rgba(255,255,255,0.85); display:flex; gap:1.5rem; flex-wrap:wrap;">
-            <span>📞 Direct Dispatch: <a href="tel:7783028803" class="js-call-btn" style="color:#D4AF37; font-weight:700;">778-302-8803</a></span>
-            <span>✉️ Email: <a href="mailto:stntruckingltd@gmail.com" style="color:#D4AF37; font-weight:700;">stntruckingltd@gmail.com</a></span>
+          <!-- Direct Verified Dispatch Contacts -->
+          <div class="hero-direct-contact">
+            <div class="hero-contact-badge">
+              <span class="pulse-dot"></span>
+              <span>Direct Dispatch: <a href="tel:7783028803" class="js-call-btn" title="Call Abbas directly">778-302-8803</a></span>
+            </div>
+            <div class="hero-contact-badge">
+              <span>Email: <a href="mailto:stntruckingltd@gmail.com">stntruckingltd@gmail.com</a></span>
+            </div>
           </div>
 
+          <!-- Trust highlights bar -->
           <div class="hero-trust-bar">
             <div class="hero-trust-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="hero-trust-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
               <span>Careful Cargo Handling</span>
             </div>
             <div class="hero-trust-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="hero-trust-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
               <span>10' to 53' Equipment Fleet</span>
             </div>
             <div class="hero-trust-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="hero-trust-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Upfront Honest Pricing</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Transparent Upfront Pricing</span>
             </div>
           </div>
         </div>
 
-        <!-- Hero Media Preview Card with Auto-Moving Fleet Showcase -->
-        <div class="hero-media-wrapper">
-          <div class="hero-card-featured" id="hero-slider-card">
-            
-            <!-- Progress bar line indicating slide timer -->
-            <div class="hero-slider-progress-track">
-              <div class="hero-slider-progress-bar" id="hero-slider-progress"></div>
+        <!-- Right Column: Live Fleet Spotlight Glass Card with Motion Controls -->
+        <div class="hero-spotlight-col">
+          <div class="hero-spotlight-card" id="hero-spotlight-card" aria-live="polite">
+            <div class="spotlight-header">
+              <span class="spotlight-badge" id="spotlight-vehicle-badge">53 FT Highway Long-Haul</span>
+              <span class="spotlight-status">
+                <span class="status-live-dot"></span>
+                <span>Live Fleet</span>
+              </span>
             </div>
 
-            <!-- Slide Image Frame with Smooth Motion -->
-            <div class="hero-slider-media">
-              <img id="hero-slide-img" src="assets/fleet/fleet_53ft_long_haul.jpg" alt="STN Trucking 53ft Highway Semi-Trailer" class="hero-card-img anim-zoom">
-              <span class="hero-slider-category" id="hero-slide-category">53 FT Highway Long-Haul</span>
+            <div class="spotlight-media-frame">
+              <img id="spotlight-media-img" src="assets/fleet/fleet_53ft_long_haul.jpg" alt="53 FT Highway Tractor-Trailer" class="spotlight-img anim-kenburns">
+              <span class="spotlight-decal-tag">✓ Official STN Fleet Asset</span>
             </div>
 
-            <!-- Slide Content with Dynamic Details -->
-            <div class="hero-slider-body">
-              <div class="hero-card-caption">
-                <span class="hero-card-badge" id="hero-slide-badge">Surrey, Vancouver &amp; BC Highways</span>
-                <span class="owner-verify-pill" id="hero-slide-pill">Dedicated Dispatch</span>
-              </div>
-              <h3 class="hero-slide-title" id="hero-slide-title">53 FT Highway Tractor-Trailers</h3>
-              <p class="hero-card-desc" id="hero-slide-desc">
-                From residential moving within Surrey and Vancouver to regional highway freight across British Columbia and Western Canada.
-              </p>
-            </div>
-
-            <!-- Slider Controls & Dots Indicator -->
-            <div class="hero-slider-footer">
-              <div class="hero-slider-dots" id="hero-slider-dots"></div>
-              <div class="hero-slider-arrows">
-                <button class="hero-slider-arrow" id="hero-slider-prev" aria-label="Previous vehicle">&#10094;</button>
-                <button class="hero-slider-arrow" id="hero-slider-next" aria-label="Next vehicle">&#10095;</button>
+            <div class="spotlight-body">
+              <div class="spotlight-route" id="spotlight-route-tag">📍 Surrey, Vancouver &amp; BC Highway Corridors</div>
+              <h3 class="spotlight-title" id="spotlight-title">53 FT Highway Tractor-Trailers</h3>
+              <p class="spotlight-desc" id="spotlight-desc">Heavy-duty linehaul highway tractors and 53 ft dry van trailers for commercial freight across British Columbia and Western Canada.</p>
+              <div class="spotlight-footer">
+                <button type="button" class="btn btn-primary btn-sm spotlight-quote-btn" id="spotlight-quote-cta" onclick="selectServiceAndScroll('trucking')">Request This Vehicle &rarr;</button>
+                <span class="spotlight-hover-hint">Hover to pause</span>
               </div>
             </div>
 
+            <!-- Slider Controls: Previous / Next & Pagination Dots -->
+            <div class="spotlight-controls">
+              <div class="spotlight-dots" id="hero-slider-dots"></div>
+              <div class="spotlight-arrows">
+                <button class="spotlight-arrow-btn" id="hero-slider-prev" type="button" aria-label="Previous vehicle scene">&#10094;</button>
+                <button class="spotlight-arrow-btn" id="hero-slider-next" type="button" aria-label="Next vehicle scene">&#10095;</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ===================================================================
-         2. CORE SERVICES & DEDICATED CATEGORIES (THE 11 REQUIRED SERVICES)
+         3. TRUST & STATS COUNTER BAR (SECTION 18 STEP 3)
+         =================================================================== -->
+    <section class="stats-counter-bar" id="experience-highlights">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item reveal-on-scroll stagger-1">
+            <div class="stat-number"><span>5</span><span class="stat-accent">+</span></div>
+            <div class="stat-label">Years of Industry Experience</div>
+            <div class="stat-sub">Proven reliability across BC</div>
+          </div>
+          <div class="stat-item reveal-on-scroll stagger-2">
+            <div class="stat-number"><span>10'–53'</span></div>
+            <div class="stat-label">Fleet Equipment Range</div>
+            <div class="stat-sub">From agile urban to semi linehaul</div>
+          </div>
+          <div class="stat-item reveal-on-scroll stagger-3">
+            <div class="stat-number"><span>100</span><span class="stat-accent">%</span></div>
+            <div class="stat-label">Direct Local Dispatch</div>
+            <div class="stat-sub">Direct access to Abbas &amp; team</div>
+          </div>
+          <div class="stat-item reveal-on-scroll stagger-4">
+            <div class="stat-number"><span>Lower Mainland</span></div>
+            <div class="stat-label">Regional Coverage</div>
+            <div class="stat-sub">Surrey, Vancouver, Delta &amp; beyond</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         4. CORE SERVICES DIRECTORY (ALL 13 CONFIRMED CATEGORIES)
+         Including Swimming Pool Washing & Driveway Pressure Cleaning
          =================================================================== -->
     <section class="section" id="services">
       <div class="container">
-        <div class="section-header">
-          <span class="section-tag">Comprehensive Transport Directory</span>
-          <h2 class="section-title">Transportation, Moving, Hauling & Property Solutions</h2>
+        <div class="section-header reveal-on-scroll">
+          <span class="section-tag">Comprehensive Transport &amp; Property Directory</span>
+          <h2 class="section-title">Transportation, Moving, Hauling &amp; Property Solutions</h2>
           <p class="section-subtitle">
-            Tailored logistics for Surrey and Vancouver homeowners, commercial offices, jobsite contractors, and regional shippers across BC.
+            Tailored logistics and property care for Surrey and Vancouver homeowners, commercial offices, jobsite contractors, and regional shippers across BC.
           </p>
         </div>
 
         <div class="services-grid">
-          <!-- A. Flatbed Trucking -->
-          <article class="service-card">
+          <!-- 1. Long-Haul Trucking (53') -->
+          <article class="service-card reveal-on-scroll stagger-1">
             <div class="service-card-media">
-              <img src="assets/fleet/fleet_flatbed_truck.jpg" alt="Flatbed truck transporting heavy equipment and construction material" class="service-card-img">
-              <span class="service-badge-pill">Open Deck Freight</span>
-              <span class="service-verify-pill">Verified Reference Asset</span>
-            </div>
-            <div class="service-card-body">
-              <div class="service-card-area-tag">📍 Surrey, Vancouver & Lower Mainland</div>
-              <h3 class="service-card-title">Flatbed Trucking</h3>
-              <p class="service-card-desc">
-                Medium-duty and heavy-duty flatbed trucks for construction materials, structural steel, lumber, crated equipment, and jobsite transport across BC.
-              </p>
-              <ul class="service-card-features">
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Medium & heavy-duty flatbed decks</li>
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Construction materials & machinery transport</li>
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Crane & forklift loading ready</li>
-              </ul>
-              <div class="service-card-actions">
-                <button class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('flatbed-trucking')">Get a Quote</button>
-                <a href="services-flatbed-trucking.html" class="btn btn-outline btn-sm">Details</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- B. Small Load Transportation -->
-          <article class="service-card">
-            <div class="service-card-media">
-              <img src="assets/fleet/fleet_10ft_truck.jpg" alt="10 ft compact truck for small load delivery in Surrey" class="service-card-img">
-              <span class="service-badge-pill">10' – 15' Delivery</span>
-              <span class="service-verify-pill">Verified Reference Asset</span>
-            </div>
-            <div class="service-card-body">
-              <div class="service-card-area-tag">📍 Surrey, Vancouver & Metro Area</div>
-              <h3 class="service-card-title">Small Load Transportation</h3>
-              <p class="service-card-desc">
-                Compact 10 ft to 15 ft trucks for expedited single items, furniture, appliance transport, marketplace pickups, and small residential or commercial deliveries.
-              </p>
-              <ul class="service-card-features">
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Compact 10 ft to 15 ft trucks</li>
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Furniture & appliance transportation</li>
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Point-to-point Lower Mainland delivery</li>
-              </ul>
-              <div class="service-card-actions">
-                <button class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('small-load-transportation')">Get a Quote</button>
-                <a href="services-small-load-transportation.html" class="btn btn-outline btn-sm">Details</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- C. Long-Haul Transportation -->
-          <article class="service-card">
-            <div class="service-card-media">
-              <img src="assets/fleet/fleet_53ft_long_haul.jpg" alt="53 ft highway long haul semi trailer in British Columbia" class="service-card-img">
+              <img src="assets/fleet/fleet_53ft_long_haul.jpg" alt="53 ft highway long haul semi trailer in British Columbia" class="service-card-img" loading="lazy">
               <span class="service-badge-pill">Up to 53' Semi</span>
-              <span class="service-verify-pill">Verified Reference Asset</span>
+              <span class="service-verify-pill">Verified Fleet Asset</span>
             </div>
             <div class="service-card-body">
-              <div class="service-card-area-tag">📍 British Columbia & Western Corridors</div>
+              <div class="service-card-area-tag">📍 British Columbia &amp; Western Corridors</div>
               <h3 class="service-card-title">Long-Haul Transportation</h3>
               <p class="service-card-desc">
                 Highway tractor-trailers, dry van box trailers, and freight trucks up to 53 ft for long-distance commercial freight and dedicated transport across BC and beyond.
               </p>
               <ul class="service-card-features">
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Highway tractor-trailers</li>
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Box trailers and trucks up to 53 ft</li>
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Long-distance freight transportation</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Highway tractor-trailers &amp; 53 ft dry vans</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Long-distance commercial freight transportation</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Professional cargo strapping &amp; weight balancing</li>
               </ul>
               <div class="service-card-actions">
                 <button class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('trucking')">Get a Quote</button>
@@ -373,25 +399,73 @@
             </div>
           </article>
 
-          <!-- D. Insulated and Refrigerated Transportation -->
-          <article class="service-card">
+          <!-- 2. Small Load Transportation (10'–15') -->
+          <article class="service-card reveal-on-scroll stagger-2">
             <div class="service-card-media">
-              <img src="assets/fleet/fleet_refrigerated_truck.jpg" alt="Refrigerated and insulated commercial transport truck" class="service-card-img">
-              <span class="service-badge-pill">Cold Chain / Reefer</span>
-              <span class="service-verify-pill">Verified Reference Asset</span>
+              <img src="assets/fleet/fleet_10ft_truck.jpg" alt="10 ft compact truck for small load delivery in Surrey" class="service-card-img" loading="lazy">
+              <span class="service-badge-pill">10' – 15' Delivery</span>
+              <span class="service-verify-pill">Verified Fleet Asset</span>
             </div>
             <div class="service-card-body">
-              <div class="service-card-area-tag">📍 Lower Mainland & Scheduled BC Lanes</div>
-              <h3 class="service-card-title">Insulated & Refrigerated Transport</h3>
+              <div class="service-card-area-tag">📍 Surrey, Vancouver &amp; Metro Area</div>
+              <h3 class="service-card-title">Small Load Transportation</h3>
+              <p class="service-card-desc">
+                Compact 10 ft to 15 ft trucks for expedited single items, furniture, appliance transport, marketplace pickups, and small residential or commercial deliveries.
+              </p>
+              <ul class="service-card-features">
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Compact 10 ft to 15 ft agile urban trucks</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Furniture, mattress &amp; appliance transportation</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Same-day Lower Mainland point-to-point delivery</li>
+              </ul>
+              <div class="service-card-actions">
+                <button class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('small-load-transportation')">Get a Quote</button>
+                <a href="services-small-load-transportation.html" class="btn btn-outline btn-sm">Details</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3. Flatbed Trucking -->
+          <article class="service-card reveal-on-scroll stagger-3">
+            <div class="service-card-media">
+              <img src="assets/fleet/fleet_flatbed_truck.jpg" alt="Flatbed truck transporting heavy equipment and construction material" class="service-card-img" loading="lazy">
+              <span class="service-badge-pill">Open Deck Freight</span>
+              <span class="service-verify-pill">Verified Fleet Asset</span>
+            </div>
+            <div class="service-card-body">
+              <div class="service-card-area-tag">📍 Surrey, Vancouver &amp; Lower Mainland</div>
+              <h3 class="service-card-title">Flatbed Trucking</h3>
+              <p class="service-card-desc">
+                Medium-duty and heavy-duty flatbed trucks for construction materials, structural steel, lumber, crated equipment, and jobsite transport across BC.
+              </p>
+              <ul class="service-card-features">
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Medium &amp; heavy-duty open deck flatbeds</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Construction materials &amp; jobsite machinery</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Crane &amp; forklift loading ready</li>
+              </ul>
+              <div class="service-card-actions">
+                <button class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('flatbed-trucking')">Get a Quote</button>
+                <a href="services-flatbed-trucking.html" class="btn btn-outline btn-sm">Details</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 4. Insulated & Refrigerated Transport -->
+          <article class="service-card reveal-on-scroll stagger-4">
+            <div class="service-card-media">
+              <img src="assets/fleet/fleet_refrigerated_truck.jpg" alt="Refrigerated and insulated commercial transport truck" class="service-card-img" loading="lazy">
+              <span class="service-badge-pill">Cold Chain / Reefer</span>
+              <span class="service-verify-pill">Verified Fleet Asset</span>
+            </div>
+            <div class="service-card-body">
+              <div class="service-card-area-tag">📍 Lower Mainland &amp; Scheduled BC Lanes</div>
+              <h3 class="service-card-title">Insulated &amp; Refrigerated Transport</h3>
               <p class="service-card-desc">
                 Insulated box trucks and refrigerated units for temperature-controlled freight, perishable food products, and climate-sensitive shipments across BC.
               </p>
-              <div class="service-card-notice">
-                ℹ️ <strong>Availability Note:</strong> Refrigerated services scheduled strictly subject to direct equipment confirmation by dispatch.
-              </div>
               <ul class="service-card-features">
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Insulated box trucks & refrigerated trailers</li>
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Temperature-controlled cargo handling</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Insulated box trucks &amp; refrigerated trailers</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Food-grade climate monitoring</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Scheduled routes upon dispatch confirmation</li>
               </ul>
               <div class="service-card-actions">
                 <button class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('refrigerated-trucking')">Inquire Rate</button>
@@ -400,49 +474,97 @@
             </div>
           </article>
 
-          <!-- E. Beverage Transportation -->
-          <article class="service-card">
+          <!-- 5. Beverage Transportation -->
+          <article class="service-card reveal-on-scroll stagger-5">
             <div class="service-card-media">
-              <img src="assets/fleet/fleet_beverage_transport.jpg" alt="Truck loaded with beverage pallets and cases" class="service-card-img">
+              <img src="assets/fleet/fleet_beverage_transport.jpg" alt="Truck loaded with beverage pallets and cases" class="service-card-img" loading="lazy">
               <span class="service-badge-pill">Beverage Distribution</span>
-              <span class="service-verify-pill">Verified Reference Asset</span>
+              <span class="service-verify-pill">Verified Fleet Asset</span>
             </div>
             <div class="service-card-body">
-              <div class="service-card-area-tag">📍 Surrey, Vancouver & Fraser Valley</div>
+              <div class="service-card-area-tag">📍 Surrey, Vancouver &amp; Fraser Valley</div>
               <h3 class="service-card-title">Beverage Transportation</h3>
               <p class="service-card-desc">
                 Specialized transportation for palletized beverage deliveries, wholesale distribution, brewery shipments, and hospitality supply across the Lower Mainland.
               </p>
-              <div class="service-card-notice">
-                ℹ️ <strong>Route Confirmation:</strong> Commercial beverage freight scheduled upon business route and volume confirmation.
-              </div>
               <ul class="service-card-features">
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Palletized beverage deliveries</li>
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Commercial beverage freight</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Palletized commercial beverage freight</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Brewery, winery &amp; store deliveries</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Heavy-duty liftgate service available</li>
               </ul>
               <div class="service-card-actions">
                 <button class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('beverage-transportation')">Get a Quote</button>
-                <a href="services-refrigerated-trucking.html#beverage" class="btn btn-outline btn-sm">Details</a>
+                <a href="services-beverage-transportation.html" class="btn btn-outline btn-sm">Details</a>
               </div>
             </div>
           </article>
 
-          <!-- F. Junk Removal -->
-          <article class="service-card">
+          <!-- 6. Residential Moving -->
+          <article class="service-card reveal-on-scroll stagger-1">
             <div class="service-card-media">
-              <img src="assets/fleet/fleet_junk_removal_truck.jpg" alt="Junk removal truck for Surrey and Vancouver cleanouts" class="service-card-img">
-              <span class="service-badge-pill">Eco-Sorting Haul</span>
-              <span class="service-verify-pill">Verified Reference Asset</span>
+              <img src="assets/fleet/fleet_residential_moving.jpg" alt="Professional movers loading furniture into truck" class="service-card-img" loading="lazy">
+              <span class="service-badge-pill">Careful Moving</span>
+              <span class="service-verify-pill">Verified Fleet Asset</span>
             </div>
             <div class="service-card-body">
-              <div class="service-card-area-tag">📍 Surrey, Vancouver, Delta, Langley & Metro</div>
+              <div class="service-card-area-tag">📍 Surrey, Vancouver, Burnaby, Richmond, Langley</div>
+              <h3 class="service-card-title">Residential Moving</h3>
+              <p class="service-card-desc">
+                Moving trucks and box trucks equipped with heavy-duty blankets, dollies, and floor runners for apartment, condo, townhouse, and detached house relocations.
+              </p>
+              <ul class="service-card-features">
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Furniture loading, padding &amp; strapping</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Apartment, condo, townhouse and house moves</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Moving blankets, dollies &amp; secured cargo</li>
+              </ul>
+              <div class="service-card-actions">
+                <button class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('residential-moving')">Get a Quote</button>
+                <a href="services-residential-moving.html" class="btn btn-outline btn-sm">Details</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 7. Commercial & Industrial Moving -->
+          <article class="service-card reveal-on-scroll stagger-2">
+            <div class="service-card-media">
+              <img src="assets/fleet/fleet_commercial_moving.jpg" alt="Commercial office relocation in British Columbia" class="service-card-img" loading="lazy">
+              <span class="service-badge-pill">Office &amp; Industrial</span>
+              <span class="service-verify-pill">Verified Fleet Asset</span>
+            </div>
+            <div class="service-card-body">
+              <div class="service-card-area-tag">📍 Surrey &amp; Lower Mainland Business Parks</div>
+              <h3 class="service-card-title">Commercial &amp; Industrial Moving</h3>
+              <p class="service-card-desc">
+                Commercial box trucks and flatbeds for office relocations, retail store transfers, workstation moving, and light industrial machinery transport across BC.
+              </p>
+              <ul class="service-card-features">
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Office workstations, electronics &amp; retail inventory</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Commercial box trucks &amp; heavy flatbeds</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Evening &amp; weekend dispatch to reduce business downtime</li>
+              </ul>
+              <div class="service-card-actions">
+                <button class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('commercial-moving')">Get a Quote</button>
+                <a href="services-commercial-moving.html" class="btn btn-outline btn-sm">Details</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 8. Junk Removal -->
+          <article class="service-card reveal-on-scroll stagger-3">
+            <div class="service-card-media">
+              <img src="assets/fleet/fleet_junk_removal_truck.jpg" alt="Junk removal truck for Surrey and Vancouver cleanouts" class="service-card-img" loading="lazy">
+              <span class="service-badge-pill">Eco-Sorting Haul</span>
+              <span class="service-verify-pill">Verified Fleet Asset</span>
+            </div>
+            <div class="service-card-body">
+              <div class="service-card-area-tag">📍 Surrey, Vancouver, Delta, Langley &amp; Metro</div>
               <h3 class="service-card-title">Junk Removal</h3>
               <p class="service-card-desc">
                 Pickup trucks and dump-body trucks for full-service household junk collection, furniture, mattresses, renovation debris, and garage/basement cleanouts.
               </p>
               <ul class="service-card-features">
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Household junk, furniture & mattresses</li>
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Renovation debris & property cleanouts</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Household clutter, old furniture &amp; mattress disposal</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Renovation debris, drywalls &amp; scrap hauling</li>
                 <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 10% BC Student Discount eligible</li>
               </ul>
               <div class="service-card-actions">
@@ -452,12 +574,12 @@
             </div>
           </article>
 
-          <!-- G. Garbage Removal -->
-          <article class="service-card">
+          <!-- 9. Garbage Removal -->
+          <article class="service-card reveal-on-scroll stagger-4">
             <div class="service-card-media">
-              <img src="assets/fleet/fleet_garbage_removal.jpg" alt="Commercial garbage and waste collection dump truck" class="service-card-img">
+              <img src="assets/fleet/fleet_garbage_removal.jpg" alt="Commercial garbage and waste collection dump truck" class="service-card-img" loading="lazy">
               <span class="service-badge-pill">Waste Carting</span>
-              <span class="service-verify-pill">Verified Reference Asset</span>
+              <span class="service-verify-pill">Verified Fleet Asset</span>
             </div>
             <div class="service-card-body">
               <div class="service-card-area-tag">📍 Certified Lower Mainland Disposal Facilities</div>
@@ -465,12 +587,10 @@
               <p class="service-card-desc">
                 Authorized waste collection vehicles for prompt residential and commercial waste removal, renovation scrap, and non-hazardous construction disposal.
               </p>
-              <div class="service-card-notice">
-                ℹ️ <strong>Disposal Policy:</strong> We haul strictly authorized municipal waste and renovation materials to certified regional transfer stations.
-              </div>
               <ul class="service-card-features">
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Residential & commercial waste removal</li>
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Construction debris & disposal hauling</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Residential &amp; commercial waste carting</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Certified transfer station regional dumping</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Prompt site clearance and cleanup</li>
               </ul>
               <div class="service-card-actions">
                 <button class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('garbage-removal')">Get a Quote</button>
@@ -479,103 +599,98 @@
             </div>
           </article>
 
-          <!-- H. Residential Moving -->
-          <article class="service-card">
+          <!-- 10. Yard Cleanup and Outdoor Cleanup -->
+          <article class="service-card reveal-on-scroll stagger-5">
             <div class="service-card-media">
-              <img src="assets/fleet/fleet_residential_moving.jpg" alt="Professional movers loading furniture into truck" class="service-card-img">
-              <span class="service-badge-pill">Careful Moving</span>
-              <span class="service-verify-pill">Verified Reference Asset</span>
-            </div>
-            <div class="service-card-body">
-              <div class="service-card-area-tag">📍 Surrey, Vancouver, Burnaby, Richmond, Langley</div>
-              <h3 class="service-card-title">Residential Moving</h3>
-              <p class="service-card-desc">
-                Moving trucks and box trucks equipped with heavy-duty blankets, dollies, and floor runners for apartment, condo, townhouse, and detached house relocations.
-              </p>
-              <ul class="service-card-features">
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Furniture loading, padding & strapping</li>
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Apartment, condo, townhouse and house moves</li>
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Moving blankets, dollies & secured cargo</li>
-              </ul>
-              <div class="service-card-actions">
-                <button class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('residential-moving')">Get a Quote</button>
-                <a href="services-residential-moving.html" class="btn btn-outline btn-sm">Details</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- I. Commercial and Industrial Moving -->
-          <article class="service-card">
-            <div class="service-card-media">
-              <img src="assets/fleet/fleet_commercial_moving.jpg" alt="Commercial office relocation in British Columbia" class="service-card-img">
-              <span class="service-badge-pill">Office & Industrial</span>
-              <span class="service-verify-pill">Verified Reference Asset</span>
-            </div>
-            <div class="service-card-body">
-              <div class="service-card-area-tag">📍 Surrey & Lower Mainland Business Parks</div>
-              <h3 class="service-card-title">Commercial & Industrial Moving</h3>
-              <p class="service-card-desc">
-                Commercial box trucks and flatbeds for office relocations, retail store transfers, workstation moving, and light industrial machinery transport across BC.
-              </p>
-              <div class="service-card-notice">
-                ℹ️ <strong>Industrial Machinery:</strong> Heavy machinery moving confirmed based on forklift/crane rigging availability.
-              </div>
-              <ul class="service-card-features">
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Commercial box trucks & flatbeds</li>
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Office & retail relocation</li>
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Evening & weekend scheduling to cut downtime</li>
-              </ul>
-              <div class="service-card-actions">
-                <button class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('commercial-moving')">Get a Quote</button>
-                <a href="services-commercial-moving.html" class="btn btn-outline btn-sm">Details</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- J. Landscaping & Pressure Washing -->
-          <article class="service-card">
-            <div class="service-card-media">
-              <img src="assets/fleet/fleet_gardening_yard_cleanup.jpg" alt="Landscaping and Yard Maintenance Truck" class="service-card-img">
-              <span class="service-badge-pill">Yard Care &amp; Cleanup</span>
+              <img src="assets/fleet/fleet_gardening_yard_cleanup.jpg" alt="Landscaping and Yard Maintenance Truck" class="service-card-img" loading="lazy">
+              <span class="service-badge-pill">Outdoor Property Care</span>
               <span class="service-verify-pill">Verified Equipment Asset</span>
             </div>
             <div class="service-card-body">
-              <div class="service-card-area-tag">📍 Surrey, Vancouver, Delta, Langley &amp; Lower Mainland</div>
-              <h3 class="service-card-title">Landscaping &amp; Pressure Washing</h3>
+              <div class="service-card-area-tag">📍 Surrey, Vancouver, Delta, Langley &amp; Metro</div>
+              <h3 class="service-card-title">Yard Cleanup &amp; Outdoor Cleanup</h3>
               <p class="service-card-desc">
-                High-pressure driveway and walkway cleaning with before-and-after results, seasonal hedge trimming, garden cleanouts, and prompt green waste carting in our dedicated fleet trucks.
+                Seasonal lawn maintenance, fallen tree branch collection, hedge trimmings, leaves, garden cleanouts, and prompt 100% organic green waste carting.
               </p>
               <ul class="service-card-features">
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Driveway &amp; patio rotary pressure washing (Before &amp; After)</li>
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Seasonal hedge shaping &amp; shrub trimming</li>
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 100% organic green waste carting to city composting</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Seasonal garden cleanout &amp; hedge trimming</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Fallen branches, leaves &amp; lawn debris collection</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 100% organic waste carting to city composting</li>
               </ul>
               <div class="service-card-actions">
                 <button class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('gardening')">Get a Quote</button>
-                <a href="services-gardening.html" class="btn btn-outline btn-sm">Details &amp; Before/After &rarr;</a>
+                <a href="services-gardening.html" class="btn btn-outline btn-sm">Details</a>
               </div>
             </div>
           </article>
 
-          <!-- K. Tools and Equipment Supply -->
-          <article class="service-card">
+          <!-- 11. Swimming Pool Washing and Cleaning (CONFIRMED SECTION 9 REQUIREMENT) -->
+          <article class="service-card reveal-on-scroll stagger-1">
             <div class="service-card-media">
-              <img src="assets/fleet/fleet_tools_equipment.jpg" alt="Tools, lawn maintenance equipment and moving gear" class="service-card-img">
-              <span class="service-badge-pill">Project Support</span>
-              <span class="service-verify-pill">Verified Reference Asset</span>
+              <img src="assets/swimming_pool_cleaning.jpg" alt="Professional swimming pool washing and deep cleaning service in Lower Mainland" class="service-card-img" loading="lazy">
+              <span class="service-badge-pill">Pool &amp; Patio Care</span>
+              <span class="service-verify-pill">Dedicated Service Asset</span>
             </div>
             <div class="service-card-body">
-              <div class="service-card-area-tag">📍 Surrey, Vancouver & Lower Mainland Dispatch</div>
-              <h3 class="service-card-title">Tools & Equipment Supply</h3>
+              <div class="service-card-area-tag">📍 Surrey, Vancouver &amp; Lower Mainland</div>
+              <h3 class="service-card-title">Swimming Pool Washing &amp; Cleaning</h3>
+              <p class="service-card-desc">
+                Specialized seasonal swimming pool washing, algae scrubbing, waterline tile scaling, basin pressure rinsing, and pool deck sanitation for residential and commercial pools.
+              </p>
+              <ul class="service-card-features">
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Basin power washing, algae scrub &amp; deep sanitation</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Pool deck, surround pavers &amp; coping stone cleaning</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Seasonal opening &amp; closing maintenance wash</li>
+              </ul>
+              <div class="service-card-actions">
+                <button class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('gardening')">Get a Quote</button>
+                <a href="#quote-section" class="btn btn-outline btn-sm" onclick="selectServiceAndScroll('gardening')">Book Pool Wash</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 12. Driveway Washing and Pressure Cleaning (CONFIRMED SECTION 9 REQUIREMENT) -->
+          <article class="service-card reveal-on-scroll stagger-2">
+            <div class="service-card-media">
+              <img src="assets/driveway_power_washing_action.jpg" alt="Commercial rotary surface cleaner washing concrete driveway" class="service-card-img" loading="lazy">
+              <span class="service-badge-pill">Pressure Washing</span>
+              <span class="service-verify-pill">Dedicated Service Asset</span>
+            </div>
+            <div class="service-card-body">
+              <div class="service-card-area-tag">📍 Surrey, Vancouver, Delta, Langley &amp; Metro</div>
+              <h3 class="service-card-title">Driveway Washing &amp; Pressure Cleaning</h3>
+              <p class="service-card-desc">
+                High-pressure rotary surface washing removing moss, oil stains, algae, and grime from concrete driveways, aggregate walkways, interlock pavers, and building exteriors.
+              </p>
+              <ul class="service-card-features">
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Professional rotary surface cleaner (No streak marks)</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Moss, mold, weed &amp; stubborn oil stain removal</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Driveways, sidewalks, patios &amp; commercial lots</li>
+              </ul>
+              <div class="service-card-actions">
+                <button class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('gardening')">Get a Quote</button>
+                <a href="services-gardening.html" class="btn btn-outline btn-sm">Before / After</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 13. Tools and Equipment Supply -->
+          <article class="service-card reveal-on-scroll stagger-3">
+            <div class="service-card-media">
+              <img src="assets/fleet/fleet_tools_equipment.jpg" alt="Tools, lawn maintenance equipment and moving gear" class="service-card-img" loading="lazy">
+              <span class="service-badge-pill">Project Support</span>
+              <span class="service-verify-pill">Verified Equipment Asset</span>
+            </div>
+            <div class="service-card-body">
+              <div class="service-card-area-tag">📍 Surrey, Vancouver &amp; Lower Mainland Dispatch</div>
+              <h3 class="service-card-title">Tools &amp; Equipment Supply</h3>
               <p class="service-card-desc">
                 Specialty moving tools, ramps, appliance dollies, pallet jacks, and property maintenance equipment supply supporting your moving or cleanup project.
               </p>
-              <div class="service-card-notice">
-                ℹ️ <strong>Equipment Terms:</strong> Supplied alongside our moving and cleanup operations; standalone equipment rental subject to dispatch confirmation.
-              </div>
               <ul class="service-card-features">
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Moving ramps, appliance dollies & straps</li>
-                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Project and yard equipment support</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Moving ramps, appliance dollies &amp; ratchet straps</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Commercial furniture blankets &amp; heavy tie-downs</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Supplied directly alongside your booking</li>
               </ul>
               <div class="service-card-actions">
                 <button class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('tool-services')">Get a Quote</button>
@@ -588,7 +703,175 @@
     </section>
 
     <!-- ===================================================================
-         WHY CHOOSE STN TRUCKING (THE 5 KEY ADVANTAGES)
+         5. FLEET SHOWCASE SECTION (SECTION 18 STEP 5)
+         Cinematic vehicle showcase inspired by automotive luxury websites
+         =================================================================== -->
+    <section class="fleet-showcase-section" id="fleet-showcase">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="section-tag">Dedicated Commercial Equipment</span>
+          <h2 class="section-title">Our Modern Fleet &amp; Vehicle Specifications</h2>
+          <p class="section-subtitle">
+            From agile 10' city cutaways navigating tight downtown Vancouver alleys to 53' semi tractor-trailers hauling linehaul freight across British Columbia.
+          </p>
+        </div>
+
+        <!-- Filter Pill Navigation -->
+        <div class="fleet-filter-bar reveal-on-scroll">
+          <button class="fleet-filter-pill active" type="button" data-fleet-filter="all">All Vehicles (6)</button>
+          <button class="fleet-filter-pill" type="button" data-fleet-filter="semi">Semi-Trailers (53')</button>
+          <button class="fleet-filter-pill" type="button" data-fleet-filter="box">Moving Box Trucks</button>
+          <button class="fleet-filter-pill" type="button" data-fleet-filter="urban">Urban Cutaways</button>
+          <button class="fleet-filter-pill" type="button" data-fleet-filter="flatbed">Flatbeds</button>
+          <button class="fleet-filter-pill" type="button" data-fleet-filter="cleanout">Cleanout Haulers</button>
+          <button class="fleet-filter-pill" type="button" data-fleet-filter="reefer">Cold Chain Units</button>
+        </div>
+
+        <!-- Cinematic Fleet Grid -->
+        <div class="fleet-grid-cinematic" id="fleet-cards-container">
+          <!-- 1. 53ft Highway Semi -->
+          <div class="fleet-card-cinematic reveal-on-scroll stagger-1" data-fleet-category="semi">
+            <div class="fleet-card-media">
+              <img src="assets/fleet/fleet_53ft_long_haul.jpg" alt="STN Trucking 53ft Highway Semi Tractor-Trailer" class="fleet-card-img" loading="lazy">
+              <span class="fleet-card-badge">Linehaul Semi</span>
+              <span class="fleet-decal-pill">STN Decal Verified</span>
+            </div>
+            <div class="fleet-card-content">
+              <h3 class="fleet-card-title">53 FT Highway Tractor-Trailer</h3>
+              <p class="fleet-card-desc">Heavy-duty highway commercial tractors paired with 53 ft dry van trailers for linehaul freight, large commercial shipments, and cross-BC transit.</p>
+              <div class="fleet-specs-tags">
+                <span class="fleet-spec-tag">53' Trailer Length</span>
+                <span class="fleet-spec-tag">Air-Ride Suspension</span>
+                <span class="fleet-spec-tag">E-Track Secured</span>
+                <span class="fleet-spec-tag">Full-Load Freight</span>
+              </div>
+              <div class="fleet-card-actions">
+                <button type="button" class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('trucking')">Request 53' Semi</button>
+                <a href="fleet.html" class="btn btn-outline btn-sm">Full Specs</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. 20-26ft Moving Box Truck -->
+          <div class="fleet-card-cinematic reveal-on-scroll stagger-2" data-fleet-category="box">
+            <div class="fleet-card-media">
+              <img src="assets/fleet/fleet_20_26ft_truck.jpg" alt="STN Trucking 20-26ft Moving Box Truck with liftgate" class="fleet-card-img" loading="lazy">
+              <span class="fleet-card-badge">Residential &amp; Office</span>
+              <span class="fleet-decal-pill">STN Decal Verified</span>
+            </div>
+            <div class="fleet-card-content">
+              <h3 class="fleet-card-title">20 FT – 26 FT Moving Box Truck</h3>
+              <p class="fleet-card-desc">Full-size moving box trucks equipped with hydraulic tuckaway liftgates, quilted moving blankets, floor runners, and high-capacity cargo boxes for residential homes and corporate moves.</p>
+              <div class="fleet-specs-tags">
+                <span class="fleet-spec-tag">20'–26' Cargo Length</span>
+                <span class="fleet-spec-tag">Tuckunder Liftgate</span>
+                <span class="fleet-spec-tag">3–4 Bedroom Capacity</span>
+                <span class="fleet-spec-tag">Quilted Blankets</span>
+              </div>
+              <div class="fleet-card-actions">
+                <button type="button" class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('residential-moving')">Book Box Truck</button>
+                <a href="fleet.html" class="btn btn-outline btn-sm">Full Specs</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. 10-15ft Urban Cutaway Truck -->
+          <div class="fleet-card-cinematic reveal-on-scroll stagger-3" data-fleet-category="urban">
+            <div class="fleet-card-media">
+              <img src="assets/fleet/fleet_10ft_truck.jpg" alt="STN Trucking 10-15ft Urban Cutaway Truck" class="fleet-card-img" loading="lazy">
+              <span class="fleet-card-badge">Urban Small Load</span>
+              <span class="fleet-decal-pill">STN Decal Verified</span>
+            </div>
+            <div class="fleet-card-content">
+              <h3 class="fleet-card-title">10 FT – 15 FT Urban Cutaway Truck</h3>
+              <p class="fleet-card-desc">Low-clearance, highly agile delivery trucks engineered to fit tight Vancouver condo parkades, narrow residential driveways, and expedited point-to-point courier runs.</p>
+              <div class="fleet-specs-tags">
+                <span class="fleet-spec-tag">10'–15' Agile Length</span>
+                <span class="fleet-spec-tag">Parkade Friendly</span>
+                <span class="fleet-spec-tag">Appliance Dolly Ready</span>
+                <span class="fleet-spec-tag">Same-Day Moves</span>
+              </div>
+              <div class="fleet-card-actions">
+                <button type="button" class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('small-load-transportation')">Book Cutaway</button>
+                <a href="fleet.html" class="btn btn-outline btn-sm">Full Specs</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Open-Deck Flatbed Truck -->
+          <div class="fleet-card-cinematic reveal-on-scroll stagger-4" data-fleet-category="flatbed">
+            <div class="fleet-card-media">
+              <img src="assets/fleet/fleet_flatbed_truck.jpg" alt="STN Trucking Heavy-Duty Flatbed Truck" class="fleet-card-img" loading="lazy">
+              <span class="fleet-card-badge">Open Deck Hauling</span>
+              <span class="fleet-decal-pill">STN Decal Verified</span>
+            </div>
+            <div class="fleet-card-content">
+              <h3 class="fleet-card-title">Medium &amp; Heavy Flatbed Trucks</h3>
+              <p class="fleet-card-desc">Heavy-duty open deck flatbed trucks configured for steel beams, building lumber, crated equipment, pipe bundles, and oversized jobsite deliveries across British Columbia.</p>
+              <div class="fleet-specs-tags">
+                <span class="fleet-spec-tag">Open Deck Bed</span>
+                <span class="fleet-spec-tag">Heavy Cargo Capacity</span>
+                <span class="fleet-spec-tag">Crane / Forklift Load</span>
+                <span class="fleet-spec-tag">Jobsite Certified</span>
+              </div>
+              <div class="fleet-card-actions">
+                <button type="button" class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('flatbed-trucking')">Book Flatbed</button>
+                <a href="fleet.html" class="btn btn-outline btn-sm">Full Specs</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Heavy Cleanout Dump Truck -->
+          <div class="fleet-card-cinematic reveal-on-scroll stagger-5" data-fleet-category="cleanout">
+            <div class="fleet-card-media">
+              <img src="assets/fleet/fleet_junk_removal_truck.jpg" alt="STN Trucking Heavy Cleanout Dump Truck" class="fleet-card-img" loading="lazy">
+              <span class="fleet-card-badge">Cleanout &amp; Waste</span>
+              <span class="fleet-decal-pill">STN Decal Verified</span>
+            </div>
+            <div class="fleet-card-content">
+              <h3 class="fleet-card-title">Heavy Cleanout &amp; Dump Hauler</h3>
+              <p class="fleet-card-desc">High-sided dump body trucks designed for household junk removal, renovation drywall scrap, mattress disposal, and certified regional transfer station dumping.</p>
+              <div class="fleet-specs-tags">
+                <span class="fleet-spec-tag">High-Side Dump Box</span>
+                <span class="fleet-spec-tag">Hydraulic Tipping</span>
+                <span class="fleet-spec-tag">Transfer Station Ready</span>
+                <span class="fleet-spec-tag">Renovation Cleanout</span>
+              </div>
+              <div class="fleet-card-actions">
+                <button type="button" class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('junk-removal')">Book Cleanout</button>
+                <a href="fleet.html" class="btn btn-outline btn-sm">Full Specs</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Temperature-Controlled Reefer Truck -->
+          <div class="fleet-card-cinematic reveal-on-scroll stagger-6" data-fleet-category="reefer">
+            <div class="fleet-card-media">
+              <img src="assets/fleet/fleet_refrigerated_truck.jpg" alt="STN Trucking Refrigerated Cold-Chain Truck" class="fleet-card-img" loading="lazy">
+              <span class="fleet-card-badge">Refrigerated Reefer</span>
+              <span class="fleet-decal-pill">STN Decal Verified</span>
+            </div>
+            <div class="fleet-card-content">
+              <h3 class="fleet-card-title">Refrigerated &amp; Insulated Truck</h3>
+              <p class="fleet-card-desc">Food-grade insulated box trucks equipped with Thermo King refrigeration units maintaining precise temperatures for perishable grocery, dairy, and beverage shipments.</p>
+              <div class="fleet-specs-tags">
+                <span class="fleet-spec-tag">Thermo King Unit</span>
+                <span class="fleet-spec-tag">Temp-Controlled</span>
+                <span class="fleet-spec-tag">Food-Grade Inspected</span>
+                <span class="fleet-spec-tag">Scheduled BC Corridors</span>
+              </div>
+              <div class="fleet-card-actions">
+                <button type="button" class="btn btn-primary btn-sm" onclick="selectServiceAndScroll('refrigerated-trucking')">Inquire Reefer</button>
+                <a href="fleet.html" class="btn btn-outline btn-sm">Full Specs</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         6. WHY CHOOSE STN TRUCKING (THE 5 KEY ADVANTAGES)
          =================================================================== -->
     <section class="why-choose-section" id="why-choose-us">
       <div class="container">
@@ -919,7 +1202,130 @@
     </section>
 
     <!-- ===================================================================
-         9. FULL-STACK QUOTE & BOOKING FORM (REAL SQL STORAGE & NOTIFICATIONS)
+         9. VISUAL STORYTELLING & IMAGE GALLERY (SECTION 16)
+         Fleet, residential moves, cleanouts, pool washing & pressure washing
+         =================================================================== -->
+    <section class="gallery-section" id="gallery-section">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="section-tag">Cinematic Portfolio</span>
+          <h2 class="section-title">Visual Showcase &amp; Equipment in Action</h2>
+          <p class="section-subtitle">
+            Explore our real fleet operations, commercial logistics, residential moves, and property care across Surrey, Vancouver, and the Lower Mainland.
+          </p>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="gallery-filter-bar reveal-on-scroll">
+          <button class="gallery-filter-pill active" type="button" data-gallery-filter="all">All Operations (8)</button>
+          <button class="gallery-filter-pill" type="button" data-gallery-filter="moving">Moving &amp; Freight</button>
+          <button class="gallery-filter-pill" type="button" data-gallery-filter="cleanout">Cleanout &amp; Waste</button>
+          <button class="gallery-filter-pill" type="button" data-gallery-filter="property">Pool &amp; Pressure Wash</button>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="gallery-grid" id="gallery-grid-container">
+          <!-- Item 1: 53ft Long Haul -->
+          <div class="gallery-item reveal-on-scroll stagger-1" data-gallery-category="moving" data-full="assets/fleet/fleet_53ft_long_haul.jpg" data-title="53 FT Linehaul Semi Tractor-Trailer" data-cat="Highway Commercial Freight">
+            <img src="assets/fleet/fleet_53ft_long_haul.jpg" alt="53 FT Highway Semi Tractor-Trailer" class="gallery-item-img" loading="lazy">
+            <div class="gallery-item-zoom-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            </div>
+            <div class="gallery-item-overlay">
+              <span class="gallery-item-category">Highway Commercial Freight</span>
+              <h4 class="gallery-item-title">53 FT Linehaul Semi Tractor-Trailer</h4>
+            </div>
+          </div>
+
+          <!-- Item 2: Box Truck -->
+          <div class="gallery-item reveal-on-scroll stagger-2" data-gallery-category="moving" data-full="assets/fleet/fleet_20_26ft_truck.jpg" data-title="20–26 FT Residential & Office Box Truck" data-cat="Moving & Relocation">
+            <img src="assets/fleet/fleet_20_26ft_truck.jpg" alt="20-26ft Moving Box Truck" class="gallery-item-img" loading="lazy">
+            <div class="gallery-item-zoom-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            </div>
+            <div class="gallery-item-overlay">
+              <span class="gallery-item-category">Moving &amp; Relocation</span>
+              <h4 class="gallery-item-title">20–26 FT Moving Box Truck</h4>
+            </div>
+          </div>
+
+          <!-- Item 3: Urban Cutaway -->
+          <div class="gallery-item reveal-on-scroll stagger-3" data-gallery-category="moving" data-full="assets/fleet/fleet_10ft_truck.jpg" data-title="10–15 FT Urban Cutaway Van" data-cat="City Courier & Small Moves">
+            <img src="assets/fleet/fleet_10ft_truck.jpg" alt="10-15ft Urban Cutaway Truck" class="gallery-item-img" loading="lazy">
+            <div class="gallery-item-zoom-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            </div>
+            <div class="gallery-item-overlay">
+              <span class="gallery-item-category">City Courier &amp; Small Moves</span>
+              <h4 class="gallery-item-title">10–15 FT Urban Cutaway Delivery</h4>
+            </div>
+          </div>
+
+          <!-- Item 4: Cleanout Dump Truck -->
+          <div class="gallery-item reveal-on-scroll stagger-4" data-gallery-category="cleanout" data-full="assets/fleet/fleet_junk_removal_truck.jpg" data-title="High-Sided Cleanout & Waste Dump Truck" data-cat="Junk Removal & Demolition">
+            <img src="assets/fleet/fleet_junk_removal_truck.jpg" alt="Junk Removal & Dump Truck" class="gallery-item-img" loading="lazy">
+            <div class="gallery-item-zoom-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            </div>
+            <div class="gallery-item-overlay">
+              <span class="gallery-item-category">Junk Removal &amp; Cleanout</span>
+              <h4 class="gallery-item-title">Heavy Dump Hauler on Jobsite</h4>
+            </div>
+          </div>
+
+          <!-- Item 5: Swimming Pool Cleaning -->
+          <div class="gallery-item reveal-on-scroll stagger-1" data-gallery-category="property" data-full="assets/swimming_pool_cleaning.jpg" data-title="Swimming Pool Washing & Power Scrubbing" data-cat="Property & Pool Services">
+            <img src="assets/swimming_pool_cleaning.jpg" alt="Swimming Pool Washing and Cleaning" class="gallery-item-img" loading="lazy">
+            <div class="gallery-item-zoom-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            </div>
+            <div class="gallery-item-overlay">
+              <span class="gallery-item-category">Property &amp; Pool Services</span>
+              <h4 class="gallery-item-title">Swimming Pool Tile &amp; Basin Power Wash</h4>
+            </div>
+          </div>
+
+          <!-- Item 6: Driveway Pressure Washing -->
+          <div class="gallery-item reveal-on-scroll stagger-2" data-gallery-category="property" data-full="assets/driveway_power_washing_action.jpg" data-title="Commercial Rotary Driveway Surface Cleaning" data-cat="Pressure Washing">
+            <img src="assets/driveway_power_washing_action.jpg" alt="Driveway Washing and Pressure Cleaning" class="gallery-item-img" loading="lazy">
+            <div class="gallery-item-zoom-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            </div>
+            <div class="gallery-item-overlay">
+              <span class="gallery-item-category">Pressure Washing</span>
+              <h4 class="gallery-item-title">Concrete Rotary Surface Cleaning</h4>
+            </div>
+          </div>
+
+          <!-- Item 7: Flatbed Trucking -->
+          <div class="gallery-item reveal-on-scroll stagger-3" data-gallery-category="moving" data-full="assets/fleet/fleet_flatbed_truck.jpg" data-title="Open-Deck Flatbed Heavy Materials Hauler" data-cat="Industrial & Building Hauling">
+            <img src="assets/fleet/fleet_flatbed_truck.jpg" alt="Heavy Flatbed Truck" class="gallery-item-img" loading="lazy">
+            <div class="gallery-item-zoom-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            </div>
+            <div class="gallery-item-overlay">
+              <span class="gallery-item-category">Industrial &amp; Building Hauling</span>
+              <h4 class="gallery-item-title">Flatbed Building Materials Hauler</h4>
+            </div>
+          </div>
+
+          <!-- Item 8: Cold Chain Reefer -->
+          <div class="gallery-item reveal-on-scroll stagger-4" data-gallery-category="moving" data-full="assets/fleet/fleet_refrigerated_truck.jpg" data-title="Thermo King Refrigerated & Insulated Box Truck" data-cat="Cold-Chain Grocery & Beverage">
+            <img src="assets/fleet/fleet_refrigerated_truck.jpg" alt="Refrigerated Reefer Truck" class="gallery-item-img" loading="lazy">
+            <div class="gallery-item-zoom-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            </div>
+            <div class="gallery-item-overlay">
+              <span class="gallery-item-category">Cold-Chain Food &amp; Beverage</span>
+              <h4 class="gallery-item-title">Insulated Refrigerated Cargo Unit</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         10. FULL-STACK QUOTE & BOOKING FORM (REAL SQL STORAGE & NOTIFICATIONS)
          =================================================================== -->
     <section class="section section-bg-slate" id="quote-section">
       <div class="container">
@@ -932,11 +1338,11 @@
             </p>
           </div>
 
-          <form id="spn-quote-form" novalidate enctype="multipart/form-data">
+          <form id="stn-quote-form" novalidate enctype="multipart/form-data">
             <!-- Spam Honeypot Field (Hidden from real users) -->
             <input type="text" name="website_hp" style="display:none;" tabindex="-1" autocomplete="off">
 
-            <!-- Step A: Core Service Selection (All 11 Services) -->
+            <!-- Step A: Core Service Selection (All Confirmed Services) -->
             <div class="form-group">
               <label for="quote-service-select" class="form-label">
                 Select Service Needed <span class="req">*</span>
@@ -952,8 +1358,10 @@
                 <option value="garbage-removal">Garbage Removal (Residential & Commercial Waste Disposal)</option>
                 <option value="refrigerated-trucking">Insulated & Refrigerated Transport (Temperature-Controlled Reefer)</option>
                 <option value="beverage-transportation">Beverage Transportation (Palletized Commercial Freight)</option>
-                <option value="gardening">Landscaping &amp; Yard Care (Driveway Pressure Washing, Green Waste Carting)</option>
-                <option value="tool-services">Tools & Equipment Supply (Moving Ramps, Dollies, Project Gear)</option>
+                <option value="swimming-pool-cleaning">Swimming Pool Washing &amp; Cleaning</option>
+                <option value="driveway-pressure-washing">Driveway Washing &amp; Pressure Cleaning</option>
+                <option value="gardening">Yard Cleanup &amp; Green Waste Carting</option>
+                <option value="tool-services">Tools &amp; Equipment Supply (Moving Ramps, Dollies, Project Gear)</option>
               </select>
             </div>
 
@@ -1084,6 +1492,31 @@
       </div>
     </section>
 
+    <!-- ===================================================================
+         11. FINAL HIGH-CONVERSION CTA BANNER (SECTION 18 STEP 11)
+         =================================================================== -->
+    <section class="final-cta-section" id="final-cta">
+      <div class="container">
+        <div class="reveal-on-scroll">
+          <span class="section-tag">Direct Lower Mainland Dispatch</span>
+          <h2 class="final-cta-title">Your Load. Your Destination. We Deliver.</h2>
+          <p class="final-cta-desc">
+            Direct coordination with Managing Director Abbas. Reliable commercial trucking, residential moving, junk disposal, and property care across Surrey, Vancouver, and British Columbia.
+          </p>
+          <div class="final-cta-actions">
+            <a href="#quote-section" class="btn btn-primary btn-lg">
+              <span>Get a Free Quote</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </a>
+            <a href="tel:7783028803" class="btn btn-outline btn-lg js-call-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>Call Us Now: 778-302-8803</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- ===================================================================
@@ -1204,6 +1637,35 @@
       </form>
     </div>
   </div>
+
+  <!-- LIGHTBOX MODAL FOR GALLERY (SECTION 16) -->
+  <div id="gallery-lightbox" class="gallery-lightbox-modal" aria-hidden="true" role="dialog">
+    <div class="lightbox-dialog">
+      <button class="lightbox-close-btn" id="lightbox-close" aria-label="Close image preview">&times;</button>
+      <div class="lightbox-img-wrapper">
+        <img id="lightbox-img" src="" alt="STN Trucking Asset Preview" class="lightbox-img">
+      </div>
+      <div class="lightbox-meta-bar">
+        <div>
+          <h4 id="lightbox-title" class="lightbox-title">Asset Title</h4>
+          <span id="lightbox-category" class="lightbox-category">Category</span>
+        </div>
+        <a href="#quote-section" class="btn btn-primary btn-sm" onclick="document.getElementById('gallery-lightbox').classList.remove('is-open')">Request Quote</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING MOBILE ACTION BAR (SECTION 15) -->
+  <aside class="mobile-sticky-contact-bar" aria-label="Mobile Quick Action Bar">
+    <a href="tel:7783028803" class="mobile-bar-btn mobile-bar-btn-call js-call-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span>Call Us Now</span>
+    </a>
+    <a href="#quote-section" class="mobile-bar-btn mobile-bar-btn-quote">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      <span>Get a Free Quote</span>
+    </a>
+  </aside>
 
   <!-- Scripts -->
   <script src="js/business-config.js"></script>

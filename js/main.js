@@ -14,7 +14,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   initHeader();
   initMobileDrawer();
-  initHeroFleetSlider();
+  initHeroCinematicSlider();
+  initFleetFilter();
   initQuoteForm();
   initGallery();
   initReviewsSection();
@@ -105,7 +106,7 @@ function initPhoneLinks() {
    4. FULL-STACK QUOTE REQUEST FORM (REAL API & SQL)
    =================================================================== */
 function initQuoteForm() {
-  const form = document.getElementById('spn-quote-form') || document.getElementById('inzmam-quote-form');
+  const form = document.getElementById('stn-quote-form') || document.getElementById('spn-quote-form') || document.getElementById('inzmam-quote-form');
   const serviceSelect = document.getElementById('quote-service-select');
   const panelMoving = document.getElementById('panel-moving-trucking');
   const panelJunkGardening = document.getElementById('panel-junk-gardening');
@@ -124,7 +125,10 @@ function initQuoteForm() {
       'refrigerated-trucking', 'beverage-transportation',
       'residential-moving', 'commercial-moving', 'industrial-moving'
     ];
-    const haulingCategories = ['junk-removal', 'garbage-removal', 'gardening', 'tool-services'];
+    const haulingCategories = [
+      'junk-removal', 'garbage-removal', 'gardening', 'tool-services',
+      'swimming-pool-cleaning', 'driveway-pressure-washing'
+    ];
 
     if (movingCategories.includes(selected)) {
       panelMoving?.classList.add('active');
@@ -258,77 +262,118 @@ window.selectServiceAndScroll = function(serviceSlug) {
    5. FILTERABLE VEHICLE & SERVICE IMAGE GALLERY
    =================================================================== */
 function initGallery() {
-  const container = document.getElementById('gallery-items-container');
-  const filterButtons = document.querySelectorAll('.gallery-filter-btn');
+  const homepageGrid = document.getElementById('gallery-grid-container');
+  const subpageContainer = document.getElementById('gallery-items-container');
   const lightbox = document.getElementById('gallery-lightbox');
-  const lightboxImg = document.getElementById('gallery-lightbox-img');
-  const lightboxTitle = document.getElementById('gallery-lightbox-title');
-  const lightboxCaption = document.getElementById('gallery-lightbox-caption');
+  const lightboxImg = document.getElementById('lightbox-img') || document.getElementById('gallery-lightbox-img');
+  const lightboxTitle = document.getElementById('lightbox-title') || document.getElementById('gallery-lightbox-title');
+  const lightboxCategory = document.getElementById('lightbox-category') || document.getElementById('gallery-lightbox-caption');
   const lightboxBadge = document.getElementById('gallery-lightbox-badge');
-  const lightboxClose = document.getElementById('gallery-lightbox-close');
+  const lightboxClose = document.getElementById('lightbox-close') || document.getElementById('gallery-lightbox-close');
 
-  if (!container) return;
+  // A. Homepage Grid Interaction
+  if (homepageGrid) {
+    const filterPills = document.querySelectorAll('.gallery-filter-pill');
+    filterPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        filterPills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        const filter = pill.getAttribute('data-gallery-filter') || 'all';
 
-  const filterCards = (category) => {
-    const cards = container.querySelectorAll('.gallery-card');
-    cards.forEach(card => {
-      const cardCat = card.getAttribute('data-category');
-      if (category === 'all' || cardCat === category) {
-        card.style.display = 'flex';
-      } else {
-        card.style.display = 'none';
+        homepageGrid.querySelectorAll('.gallery-item').forEach(item => {
+          const cat = item.getAttribute('data-gallery-category');
+          if (filter === 'all' || cat === filter) {
+            item.style.display = 'block';
+            item.style.opacity = '0';
+            setTimeout(() => { item.style.opacity = '1'; }, 30);
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    homepageGrid.addEventListener('click', (e) => {
+      const item = e.target.closest('.gallery-item');
+      if (!item || !lightbox) return;
+
+      const fullSrc = item.getAttribute('data-full') || item.querySelector('img')?.src;
+      const title = item.getAttribute('data-title') || item.querySelector('.gallery-item-title')?.textContent || '';
+      const cat = item.getAttribute('data-cat') || item.querySelector('.gallery-item-category')?.textContent || '';
+
+      if (lightboxImg && fullSrc) lightboxImg.src = fullSrc;
+      if (lightboxTitle) lightboxTitle.textContent = title;
+      if (lightboxCategory) lightboxCategory.textContent = cat;
+
+      lightbox.classList.add('is-open');
+      lightbox.classList.add('open');
+      document.body.classList.add('modal-open');
+    });
+  }
+
+  // B. Subpage Gallery Cards Interaction
+  if (subpageContainer) {
+    const filterButtons = document.querySelectorAll('.gallery-filter-btn');
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter') || 'all';
+        subpageContainer.querySelectorAll('.gallery-card').forEach(card => {
+          const cardCat = card.getAttribute('data-category');
+          if (filter === 'all' || cardCat === filter) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    subpageContainer.addEventListener('click', (e) => {
+      const card = e.target.closest('.gallery-card');
+      if (!card || !lightbox) return;
+
+      const img = card.querySelector('.gallery-img');
+      const title = card.querySelector('.gallery-card-title')?.textContent || '';
+      const caption = card.querySelector('.gallery-card-caption')?.textContent || '';
+      const isVerified = card.getAttribute('data-type') === 'verified_fleet';
+
+      if (lightboxImg && img) lightboxImg.src = img.src;
+      if (lightboxTitle) lightboxTitle.textContent = title;
+      if (lightboxCategory) lightboxCategory.textContent = caption;
+      if (lightboxBadge) {
+        lightboxBadge.textContent = isVerified ? '✓ Verified Fleet Asset' : 'Illustrative Category Representation';
+        lightboxBadge.className = isVerified ? 'gallery-type-badge verified' : 'gallery-type-badge illustrative';
       }
+
+      lightbox.classList.add('is-open');
+      lightbox.classList.add('open');
+      document.body.classList.add('modal-open');
     });
-  };
+  }
 
-  filterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.getAttribute('data-filter') || 'all';
-      filterCards(filter);
-    });
-  });
-
-  // Lightbox click handler
-  container.addEventListener('click', (e) => {
-    const card = e.target.closest('.gallery-card');
-    if (!card || !lightbox) return;
-
-    const img = card.querySelector('.gallery-img');
-    const title = card.querySelector('.gallery-card-title')?.textContent || '';
-    const caption = card.querySelector('.gallery-card-caption')?.textContent || '';
-    const isVerified = card.getAttribute('data-type') === 'verified_fleet';
-
-    if (lightboxImg && img) lightboxImg.src = img.src;
-    if (lightboxTitle) lightboxTitle.textContent = title;
-    if (lightboxCaption) lightboxCaption.textContent = caption;
-    if (lightboxBadge) {
-      lightboxBadge.textContent = isVerified ? '✓ Verified Fleet Asset' : 'Illustrative Category Representation';
-      lightboxBadge.className = isVerified ? 'gallery-type-badge verified' : 'gallery-type-badge illustrative';
-    }
-
-    lightbox.classList.add('open');
-    document.body.classList.add('modal-open');
-  });
-
-  if (lightboxClose && lightbox) {
-    lightboxClose.addEventListener('click', () => {
+  // C. Unified Lightbox Closing
+  if (lightbox) {
+    const closeLightbox = () => {
+      lightbox.classList.remove('is-open');
       lightbox.classList.remove('open');
       document.body.classList.remove('modal-open');
-    });
+    };
+
+    if (lightboxClose) {
+      lightboxClose.addEventListener('click', closeLightbox);
+    }
 
     lightbox.addEventListener('click', (e) => {
       if (e.target === lightbox) {
-        lightbox.classList.remove('open');
-        document.body.classList.remove('modal-open');
+        closeLightbox();
       }
     });
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && lightbox.classList.contains('open')) {
-        lightbox.classList.remove('open');
-        document.body.classList.remove('modal-open');
+      if (e.key === 'Escape' && (lightbox.classList.contains('is-open') || lightbox.classList.contains('open'))) {
+        closeLightbox();
       }
     });
   }
@@ -653,7 +698,10 @@ function initScrollReveal() {
   if (!elements.length) return;
 
   if (!('IntersectionObserver' in window)) {
-    elements.forEach(el => el.classList.add('is-visible'));
+    elements.forEach(el => {
+      el.classList.add('is-visible');
+      el.classList.add('is-revealed');
+    });
     return;
   }
 
@@ -661,25 +709,214 @@ function initScrollReveal() {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('is-visible');
+        entry.target.classList.add('is-revealed');
         obs.unobserve(entry.target);
       }
     });
   }, {
-    threshold: 0.12,
-    rootMargin: '0px 0px -40px 0px'
+    threshold: 0.1,
+    rootMargin: '0px 0px -30px 0px'
   });
 
   elements.forEach(el => observer.observe(el));
 }
 
 /* ===================================================================
-   12. HERO AUTO-MOVING FLEET SHOWCASE SLIDER
-   Smoothly auto-transitions trucks and services every 3.8 seconds
+   12. CINEMATIC FULL-WIDTH HERO VEHICLE SLIDER
+   Automatic crossfade every ~2.4 seconds, Ken Burns zoom, synchronized spotlight
    =================================================================== */
-function initHeroFleetSlider() {
+function initHeroCinematicSlider() {
+  const bgSlides = document.querySelectorAll('.hero-bg-slide');
+  const spotlightImg = document.getElementById('hero-spotlight-img');
+  const spotlightTag = document.getElementById('hero-spotlight-tag');
+  const spotlightTitle = document.getElementById('hero-spotlight-title');
+  const spotlightDesc = document.getElementById('hero-spotlight-desc');
+  const progressBar = document.getElementById('hero-cinematic-progress');
+  const dots = document.querySelectorAll('.hero-cinematic-dot');
+  const prevBtn = document.getElementById('hero-cinematic-prev');
+  const nextBtn = document.getElementById('hero-cinematic-next');
+  const heroSection = document.getElementById('hero');
+
+  if (!bgSlides.length && !spotlightImg) {
+    if (document.getElementById('hero-slider-card')) {
+      initLegacyHeroSlider();
+    }
+    return;
+  }
+
+  const slideMeta = [
+    {
+      img: 'assets/fleet/fleet_53ft_long_haul.jpg',
+      tag: '53 FT Highway Long-Haul Semi',
+      title: '53 FT Highway Tractor-Trailers',
+      desc: 'Heavy-duty highway tractors and 53 ft dry van trailers for linehaul commercial freight across British Columbia and Western Canada.'
+    },
+    {
+      img: 'assets/fleet/fleet_20_26ft_truck.jpg',
+      tag: 'Full-Service Moving Truck',
+      title: '20 FT – 26 FT Moving Box Trucks',
+      desc: 'Hydraulic liftgate-equipped moving trucks with quilted furniture pads, floor protection runners, and appliance tie-downs.'
+    },
+    {
+      img: 'assets/fleet/fleet_10ft_truck.jpg',
+      tag: 'Urban Low-Clearance Delivery',
+      title: '10 FT – 15 FT Urban Cutaways',
+      desc: 'Agile city delivery vehicles built to fit underground condo parkades, tight alleyways, and urgent same-day courier runs.'
+    },
+    {
+      img: 'assets/fleet/fleet_junk_removal_truck.jpg',
+      tag: 'Heavy Cleanout Dump Hauler',
+      title: 'High-Side Cleanout & Dump Trucks',
+      desc: 'Heavy dump haulers specialized in residential junk removal, estate cleanouts, renovation scrap, and transfer station disposal.'
+    },
+    {
+      img: 'assets/fleet/fleet_refrigerated_truck.jpg',
+      tag: 'Temperature-Controlled Reefer',
+      title: 'Refrigerated Cold-Chain Units',
+      desc: 'Thermo King multi-temp refrigerated units maintaining calibrated temperatures for perishable groceries and food distribution.'
+    }
+  ];
+
+  let currentIndex = 0;
+  let timer = null;
+  let isPaused = false;
+  const slideDuration = 2400; // ~2.4 seconds per slide as requested
+
+  // Respect user reduced-motion preference
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function setSlide(index) {
+    currentIndex = (index + bgSlides.length) % bgSlides.length;
+
+    // 1. Crossfade full-width background slides
+    bgSlides.forEach((slide, idx) => {
+      if (idx === currentIndex) {
+        slide.classList.add('active');
+      } else {
+        slide.classList.remove('active');
+      }
+    });
+
+    // 2. Synchronize right-column spotlight card
+    const meta = slideMeta[currentIndex] || slideMeta[0];
+    if (spotlightImg) {
+      spotlightImg.style.opacity = '0.35';
+      setTimeout(() => {
+        spotlightImg.src = meta.img;
+        spotlightImg.alt = meta.title;
+        spotlightImg.style.opacity = '1';
+      }, 140);
+    }
+    if (spotlightTag) spotlightTag.textContent = meta.tag;
+    if (spotlightTitle) spotlightTitle.textContent = meta.title;
+    if (spotlightDesc) spotlightDesc.textContent = meta.desc;
+
+    // 3. Update indicator dots
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === currentIndex);
+    });
+  }
+
+  function startCycle() {
+    clearInterval(timer);
+    if (prefersReducedMotion) return;
+
+    if (progressBar) progressBar.style.width = '0%';
+    let elapsed = 0;
+    const tick = 40;
+
+    timer = setInterval(() => {
+      if (!isPaused) {
+        elapsed += tick;
+        const pct = Math.min(100, (elapsed / slideDuration) * 100);
+        if (progressBar) progressBar.style.width = pct + '%';
+        if (elapsed >= slideDuration) {
+          elapsed = 0;
+          if (progressBar) progressBar.style.width = '0%';
+          setSlide(currentIndex + 1);
+        }
+      }
+    }, tick);
+  }
+
+  // Interactive controls
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const targetIdx = parseInt(dot.getAttribute('data-slide-to'), 10) || 0;
+      setSlide(targetIdx);
+      startCycle();
+    });
+  });
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      setSlide(currentIndex - 1);
+      startCycle();
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      setSlide(currentIndex + 1);
+      startCycle();
+    });
+  }
+
+  // Hover pauses the timer so visitor can inspect comfortable
+  if (heroSection) {
+    heroSection.addEventListener('mouseenter', () => { isPaused = true; });
+    heroSection.addEventListener('mouseleave', () => { isPaused = false; });
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    isPaused = document.hidden;
+  });
+
+  setSlide(0);
+  startCycle();
+}
+
+/* ===================================================================
+   13. CINEMATIC FLEET SHOWCASE FILTER
+   Interactive vehicle category filter tabs
+   =================================================================== */
+function initFleetFilter() {
+  const filterPills = document.querySelectorAll('.fleet-filter-pill');
+  const cards = document.querySelectorAll('.fleet-card-cinematic');
+
+  if (!filterPills.length || !cards.length) return;
+
+  filterPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      filterPills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+
+      const filter = pill.getAttribute('data-fleet-filter') || 'all';
+
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-fleet-category');
+        if (filter === 'all' || cat === filter) {
+          card.style.display = 'flex';
+          card.style.opacity = '0';
+          setTimeout(() => {
+            card.style.opacity = '1';
+          }, 30);
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+}
+
+/* ===================================================================
+   14. LEGACY HERO SLIDER FALLBACK
+   =================================================================== */
+function initLegacyHeroSlider() {
   const card = document.getElementById('hero-slider-card');
   if (!card) return;
-
   const imgEl = document.getElementById('hero-slide-img');
   const catEl = document.getElementById('hero-slide-category');
   const badgeEl = document.getElementById('hero-slide-badge');
@@ -715,162 +952,29 @@ function initHeroFleetSlider() {
       pill: 'Careful Relocation',
       title: 'Residential Moving Box Trucks',
       desc: 'Dedicated moving trucks equipped with quilted furniture blankets, heavy dollies, and professional loading crews.'
-    },
-    {
-      img: 'assets/fleet/fleet_flatbed_truck.jpg',
-      category: 'Flatbed Trucking',
-      badge: 'Open-Deck Equipment Transport',
-      pill: 'Industrial & Jobsite',
-      title: 'Medium & Heavy Flatbed Trucks',
-      desc: 'Open-deck flatbed transport for structural steel, construction lumber, pipes, crated machinery, and jobsite gear across BC.'
-    },
-    {
-      img: 'assets/fleet/fleet_commercial_moving.jpg',
-      category: 'Commercial Moving',
-      badge: 'Business Parks & Office Relocations',
-      pill: 'Minimal Downtime',
-      title: 'Corporate Office Freight Trucks',
-      desc: 'Commercial box trucks and logistics teams for office workstation transfers and retail business relocations.'
-    },
-    {
-      img: 'assets/fleet/fleet_garbage_removal.jpg',
-      category: 'Garbage & Debris Disposal',
-      badge: 'Certified Lower Mainland Facilities',
-      pill: 'Heavy Debris Hauling',
-      title: 'Construction & Garbage Dump Haulers',
-      desc: 'Authorized waste disposal vehicles hauling residential, commercial, and renovation debris to certified regional transfer stations.'
-    },
-    {
-      img: 'assets/fleet/fleet_refrigerated_truck.jpg',
-      category: 'Cold Chain Logistics',
-      badge: 'Temperature-Controlled Reefer',
-      pill: 'Perishables & Food Supply',
-      title: 'Refrigerated & Insulated Units',
-      desc: 'Food-grade inspected insulated trucks with Thermo King units for temperature-sensitive perishables across BC.'
-    },
-    {
-      img: 'assets/fleet/fleet_gardening_yard_cleanup.jpg',
-      category: 'Gardening & Yard Cleanup',
-      badge: 'Surrey & Vancouver Properties',
-      pill: 'Green Waste Composting',
-      title: 'Yard Debris & Landscaping Trucks',
-      desc: 'Fallen branches, lawn trimmings, hedge clippings, and seasonal property clearing transported to organic composting facilities.'
     }
   ];
 
   let currentIdx = 0;
   let progressTimer = null;
-  const slideDuration = 3800; // 3.8 seconds per slide
+  const slideDuration = 2800;
   let isPaused = false;
-
-  // Build interactive indicator dots
-  if (dotsContainer) {
-    dotsContainer.innerHTML = '';
-    fleetSlides.forEach((slide, i) => {
-      const dot = document.createElement('button');
-      dot.className = 'hero-slider-dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('type', 'button');
-      dot.setAttribute('aria-label', `View ${slide.category}`);
-      dot.addEventListener('click', () => {
-        showSlide(i);
-        startTimer();
-      });
-      dotsContainer.appendChild(dot);
-    });
-  }
-
-  function updateDots() {
-    if (!dotsContainer) return;
-    const dots = dotsContainer.querySelectorAll('.hero-slider-dot');
-    dots.forEach((dot, idx) => {
-      dot.classList.toggle('active', idx === currentIdx);
-    });
-  }
 
   function showSlide(index) {
     currentIdx = (index + fleetSlides.length) % fleetSlides.length;
     const slide = fleetSlides[currentIdx];
 
-    // Smooth image transition with subtle zoom
     if (imgEl) {
-      imgEl.style.opacity = '0.35';
-      imgEl.classList.remove('anim-zoom');
-      setTimeout(() => {
-        imgEl.src = slide.img;
-        imgEl.alt = slide.title;
-        imgEl.style.opacity = '1';
-        imgEl.classList.add('anim-zoom');
-      }, 180);
+      imgEl.src = slide.img;
+      imgEl.alt = slide.title;
     }
-
     if (catEl) catEl.textContent = slide.category;
     if (badgeEl) badgeEl.textContent = slide.badge;
     if (pillEl) pillEl.textContent = slide.pill;
-
-    if (titleEl) {
-      titleEl.style.opacity = '0';
-      titleEl.style.transform = 'translateY(5px)';
-      setTimeout(() => {
-        titleEl.textContent = slide.title;
-        titleEl.style.opacity = '1';
-        titleEl.style.transform = 'translateY(0)';
-      }, 160);
-    }
-
-    if (descEl) {
-      descEl.style.opacity = '0';
-      setTimeout(() => {
-        descEl.textContent = slide.desc;
-        descEl.style.opacity = '1';
-      }, 190);
-    }
-
-    updateDots();
+    if (titleEl) titleEl.textContent = slide.title;
+    if (descEl) descEl.textContent = slide.desc;
   }
 
-  function startTimer() {
-    clearInterval(progressTimer);
-    if (progressBar) progressBar.style.width = '0%';
-
-    let elapsed = 0;
-    const step = 50;
-
-    progressTimer = setInterval(() => {
-      if (!isPaused) {
-        elapsed += step;
-        const pct = Math.min(100, (elapsed / slideDuration) * 100);
-        if (progressBar) progressBar.style.width = pct + '%';
-        if (elapsed >= slideDuration) {
-          showSlide(currentIdx + 1);
-          elapsed = 0;
-          if (progressBar) progressBar.style.width = '0%';
-        }
-      }
-    }, step);
-  }
-
-  // Hover pauses the timer so client can inspect details comfortably
-  card.addEventListener('mouseenter', () => { isPaused = true; });
-  card.addEventListener('mouseleave', () => { isPaused = false; });
-
-  if (prevBtn) {
-    prevBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      showSlide(currentIdx - 1);
-      startTimer();
-    });
-  }
-
-  if (nextBtn) {
-    nextBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      showSlide(currentIdx + 1);
-      startTimer();
-    });
-  }
-
-  // Initialize first slide and kick off timer
   showSlide(0);
-  startTimer();
 }
 

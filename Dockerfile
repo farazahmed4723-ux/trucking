@@ -1,4 +1,4 @@
-# Production Dockerfile for SPN Trucking Ltd.
+# Production Dockerfile for STN Trucking Ltd.
 FROM node:22-alpine AS production
 
 WORKDIR /app
