@@ -1028,6 +1028,11 @@ app.get('/health', (req, res) => {
   res.redirect('/api/health');
 });
 
+// Friendly redirect for Courses navigation to Services
+app.get(['/courses', '/courses.html', '/course'], (req, res) => {
+  res.redirect('/services.html');
+});
+
 // Periodic Campaign Automation Monitor (Checks active BC campaigns in America/Vancouver timezone)
 function runCampaignAutomationCheck() {
   try {

@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPhoneLinks();
   initFleetCarousel();
   initScrollReveal();
+  initCoursesAndNavigationFixes();
 });
 
 /* ===================================================================
@@ -254,7 +255,9 @@ window.selectServiceAndScroll = function(serviceSlug) {
   }
   const quoteSection = document.getElementById('quote-section');
   if (quoteSection) {
-    quoteSection.scrollIntoView({ behavior: 'smooth' });
+    const yOffset = -85;
+    const y = quoteSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({ top: y, behavior: 'smooth' });
   }
 };
 
@@ -966,5 +969,65 @@ function initLegacyHeroSlider() {
   }
 
   showSlide(0);
+}
+
+/* ===================================================================
+   COURSES & UNIVERSAL QUOTES NAVIGATION HANDLER
+   Ensures "Get Courses" / Courses buttons route seamlessly on mobile & desktop
+   =================================================================== */
+function initCoursesAndNavigationFixes() {
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('a, button');
+    if (!btn) return;
+
+    const href = btn.getAttribute('href') || '';
+    const text = (btn.textContent || '').trim().toLowerCase();
+    const id = (btn.id || '').toLowerCase();
+
+    // Check if clicked element is "Courses" / "Get Courses" button or links to courses
+    if (text.includes('course') || href.includes('course') || id.includes('course')) {
+      e.preventDefault();
+      const targetSection = document.getElementById('courses') || document.getElementById('services') || document.getElementById('quote-section');
+      if (targetSection) {
+        const yOffset = -85;
+        const y = targetSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      } else {
+        window.location.href = 'services.html#courses';
+      }
+      return;
+    }
+
+    // Smooth scroll for internal hash links with header offset
+    if (href.startsWith('#') && href.length > 1) {
+      const targetId = href.substring(1);
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        e.preventDefault();
+        const yOffset = -85;
+        const y = targetEl.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+
+        // Update URL hash without jumping
+        if (history.pushState) {
+          history.pushState(null, null, href);
+        }
+      }
+    }
+  });
+
+  // Handle direct page load with #courses or #quote-section hash
+  if (window.location.hash) {
+    const hash = window.location.hash.toLowerCase();
+    if (hash === '#courses') {
+      setTimeout(() => {
+        const el = document.getElementById('courses') || document.getElementById('services');
+        if (el) {
+          const y = el.getBoundingClientRect().top + window.pageYOffset - 85;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }, 250);
+    }
+  }
 }
 
