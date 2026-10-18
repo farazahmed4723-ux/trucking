@@ -262,4 +262,64 @@ test('STN Trucking API Suite', async (t) => {
     assert.equal(resRobots.status, 200);
     assert.match(resRobots.text, /Disallow: \/admin/);
   });
+
+  await t.test('18. British Columbia Statutory & Seasonal Campaigns Endpoint', async () => {
+    const resActive = await request(app).get('/api/campaigns/active');
+    assert.equal(resActive.status, 200);
+    assert.equal(resActive.body.success, true);
+    assert.equal(resActive.body.timezone, 'America/Vancouver');
+
+    const resCalendar = await request(app).get('/api/campaigns/calendar?year=2026');
+    assert.equal(resCalendar.status, 200);
+    assert.equal(resCalendar.body.success, true);
+    assert.equal(resCalendar.body.year, 2026);
+    assert.equal(resCalendar.body.count, 16);
+    assert.ok(Array.isArray(resCalendar.body.campaigns));
+
+    // Verify key holidays exist in calculated calendar
+    const ids = resCalendar.body.campaigns.map(c => c.id);
+    assert.ok(ids.includes('new-years'));
+    assert.ok(ids.includes('valentines'));
+    assert.ok(ids.includes('family-day'));
+    assert.ok(ids.includes('easter'));
+    assert.ok(ids.includes('victoria-day'));
+    assert.ok(ids.includes('canada-day'));
+    assert.ok(ids.includes('bc-day'));
+    assert.ok(ids.includes('labour-day'));
+    assert.ok(ids.includes('truth-and-reconciliation'));
+    assert.ok(ids.includes('thanksgiving'));
+    assert.ok(ids.includes('halloween'));
+    assert.ok(ids.includes('remembrance-day'));
+    assert.ok(ids.includes('black-friday'));
+    assert.ok(ids.includes('cyber-monday'));
+    assert.ok(ids.includes('christmas'));
+    assert.ok(ids.includes('boxing-day-week'));
+  });
+
+  await t.test('19. Campaign Date Simulation & Expiry Automation', async () => {
+    // Halloween active window (Oct 28 - Oct 31)
+    const resHalloween = await request(app).get('/api/campaigns/active?simulate_date=2026-10-30T12:00:00');
+    assert.equal(resHalloween.status, 200);
+    assert.equal(resHalloween.body.active, true);
+    assert.equal(resHalloween.body.campaign.id, 'halloween');
+    assert.equal(resHalloween.body.campaign.discountPercentage, 10);
+
+    // Black Friday active window
+    const resBF = await request(app).get('/api/campaigns/active?simulate_date=2026-11-27T12:00:00');
+    assert.equal(resBF.status, 200);
+    assert.equal(resBF.body.active, true);
+    assert.equal(resBF.body.campaign.id, 'black-friday');
+
+    // Canada Day active window
+    const resCanadaDay = await request(app).get('/api/campaigns/active?simulate_date=2026-07-01T12:00:00');
+    assert.equal(resCanadaDay.status, 200);
+    assert.equal(resCanadaDay.body.active, true);
+    assert.equal(resCanadaDay.body.campaign.id, 'canada-day');
+
+    // Non-holiday date in May (May 5, 2026) -> No campaign active
+    const resInactive = await request(app).get('/api/campaigns/active?simulate_date=2026-05-05T12:00:00');
+    assert.equal(resInactive.status, 200);
+    assert.equal(resInactive.body.active, false);
+    assert.equal(resInactive.body.campaign, null);
+  });
 });

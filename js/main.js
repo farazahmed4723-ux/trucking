@@ -549,7 +549,7 @@ function initFleetCarousel() {
 
   let currentIndex = 0;
   let autoSlideTimer = null;
-  const slideInterval = 5000;
+  const slideInterval = 3000; // Automatically advance every 3 seconds
 
   function getVisibleSlidesCount() {
     if (window.innerWidth >= 1100) return 3;
@@ -636,13 +636,7 @@ function initFleetCarousel() {
     });
   }
 
-  // Hover & Focus pausing
-  if (carouselContainer) {
-    carouselContainer.addEventListener('mouseenter', stopTimer);
-    carouselContainer.addEventListener('mouseleave', startTimer);
-    carouselContainer.addEventListener('focusin', stopTimer);
-    carouselContainer.addEventListener('focusout', startTimer);
-  }
+  // Pause only when user switches browser tabs for efficiency
 
   // Visibility change pause (when switching tabs)
   document.addEventListener('visibilitychange', () => {
@@ -780,7 +774,7 @@ function initHeroCinematicSlider() {
   let currentIndex = 0;
   let timer = null;
   let isPaused = false;
-  const slideDuration = 2400; // ~2.4 seconds per slide as requested
+  const slideDuration = 3000; // Automatically advance every 3 seconds
 
   // Respect user reduced-motion preference
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -864,11 +858,7 @@ function initHeroCinematicSlider() {
     });
   }
 
-  // Hover pauses the timer so visitor can inspect comfortable
-  if (heroSection) {
-    heroSection.addEventListener('mouseenter', () => { isPaused = true; });
-    heroSection.addEventListener('mouseleave', () => { isPaused = false; });
-  }
+  // Keep auto-motion active across mouse interactions; pause only if tab is hidden
 
   document.addEventListener('visibilitychange', () => {
     isPaused = document.hidden;

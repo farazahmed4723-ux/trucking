@@ -10,10 +10,12 @@ const jwt = require('jsonwebtoken');
 
 const { db, generateQuoteRef, logAudit } = require('./db/database');
 const { dispatchQuoteNotifications, TARGET_EMAIL, TARGET_SMS_PHONE } = require('./services/notifications');
+global.CampaignsConfig = require('./js/campaigns-config');
+const CampaignEngine = require('./js/campaigns');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const JWT_SECRET = process.env.JWT_SECRET || 'spn-trucking-secret-key-2026-production';
+const JWT_SECRET = process.env.JWT_SECRET || 'stn-trucking-secret-key-2026-production';
 
 // Ensure uploads directory exists (use /tmp in Vercel serverless environment)
 const isVercel = !!process.env.VERCEL;
@@ -179,6 +181,40 @@ app.get('/api/gallery', (req, res) => {
   }
 });
 
+// Active Seasonal Campaign (America/Vancouver Timezone)
+app.get('/api/campaigns/active', (req, res) => {
+  try {
+    const simDate = req.query.simulate_date || null;
+    const active = simDate ? CampaignEngine.getActiveCampaign(simDate) : CampaignEngine.getActiveCampaign();
+    const now = CampaignEngine.getCurrentDate();
+    res.json({
+      success: true,
+      timezone: 'America/Vancouver',
+      serverTime: now.toISOString(),
+      active: !!active,
+      campaign: active || null
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// Full Campaign Calendar for Given Year (Dynamic Holiday Calculations)
+app.get('/api/campaigns/calendar', (req, res) => {
+  try {
+    const year = parseInt(req.query.year, 10) || new Date().getFullYear();
+    const campaigns = CampaignEngine.getAllCampaignsForYear(year);
+    res.json({
+      success: true,
+      year,
+      timezone: 'America/Vancouver',
+      count: campaigns.length,
+      campaigns
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
 
 // Submit a Quote Request
 app.post('/api/quotes', upload.single('photo'), quoteRateLimiter, async (req, res) => {
@@ -991,6 +1027,23 @@ app.get(['/admin', '/admin.html'], (req, res) => {
 app.get('/health', (req, res) => {
   res.redirect('/api/health');
 });
+
+// Periodic Campaign Automation Monitor (Checks active BC campaigns in America/Vancouver timezone)
+function runCampaignAutomationCheck() {
+  try {
+    const nowVancouver = CampaignEngine.getCurrentDate();
+    const active = CampaignEngine.getActiveCampaign();
+    if (active) {
+      console.log(`[CAMPAIGN_SCHEDULER] ${nowVancouver.toISOString()} (PT) — Active Campaign: "${active.name}" (${active.code}) - 10% OFF`);
+    } else {
+      console.log(`[CAMPAIGN_SCHEDULER] ${nowVancouver.toISOString()} (PT) — No statutory/seasonal campaign active. Banner hidden.`);
+    }
+  } catch (err) {
+    console.warn('[CAMPAIGN_SCHEDULER_WARN]', err.message);
+  }
+}
+runCampaignAutomationCheck();
+setInterval(runCampaignAutomationCheck, 60 * 60 * 1000).unref(); // Hourly scheduled check (unref to avoid hanging test suite)
 
 // Start Server if invoked directly
 if (require.main === module) {
